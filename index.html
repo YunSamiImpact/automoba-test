@@ -220,6 +220,12 @@ body.desk .hint { top: 64px; }
 .hud-left { position: absolute; left: max(10px, env(safe-area-inset-left, 0px)); bottom: max(8px, env(safe-area-inset-bottom, 0px));
   display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .hud-left .hpanel { position: static; }
+.hud-left .hud-skill { position: relative; }
+.sk-tip { position: absolute; left: -2px; bottom: calc(100% + 8px); z-index: 9; width: min(290px, calc(100vw - 20px)); padding: 8px 10px 9px; background: rgba(14, 17, 25, .96); border: 2px solid #3a4262; box-shadow: 0 0 0 2px #0b0d14; font-size: 13px; line-height: 1.45; color: var(--ink); pointer-events: none; }
+.sk-tip[hidden] { display: none; }
+.sk-tip .t { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; } .sk-tip .t b { font-family: var(--f-display); font-size: 15px; color: var(--gold); font-weight: 400; } .sk-tip .t small { color: var(--ink-dim); font-size: 11px; white-space: nowrap; }
+.sk-tip .n { margin-top: 5px; color: var(--ink-dim); font-size: 11px; } .sk-tip .a { margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255, 255, 255, .12); font-size: 11px; color: #9fd6ff; }
+.hb-skills .slot.passive { cursor: help; }
 .skill-pop { width: min(420px, calc(100vw - 24px)); }
 .sk-intro { margin: 0 0 8px; font-size: 12px; color: var(--ink-dim); line-height: 1.5; }
 .sk-intro .pend-t { color: #7dff9a; font-weight: 700; }
@@ -260,11 +266,13 @@ body.desk .hint { top: 64px; }
 .chat.open .chat-log li.old { opacity: .85; }
 .chat-in { display: flex; align-items: center; gap: 4px; background: rgba(14, 17, 25, .92); border: 2px solid #3a4262; padding: 3px 4px 3px 8px; }
 .chat-in[hidden] { display: none !important; }
+.chat-tip { display: none; margin: 0; padding: 4px 8px; background: rgba(14, 17, 25, .92); border: 1px solid #3a4262; border-top: 0; font-size: 11.5px; line-height: 1.4; color: var(--ink-dim); pointer-events: none; } .chat-tip b { color: #8cc4ff; font-weight: 400; } .chat.open .chat-tip { display: block; }
+@media (hover: none) { .chat-tip .k { display: none; } }
 .chat-in span { font-size: 11.5px; color: #c9c2b0; }
 .chat-in input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); font-size: 14px; outline: none; }
 .chat-in button { background: #1d2233; border: 1px solid #3a4262; color: var(--ink); font-size: 12px; padding: 3px 8px; }
-.chat-open { justify-self: start; background: rgba(14, 17, 25, .7); border: 1px solid rgba(255, 255, 255, .14); color: var(--ink-dim); font-size: 11.5px; padding: 2px 8px; }
-.chat-open kbd { font-family: var(--f-pixel); font-size: 9px; color: #6b7390; margin-left: 2px; }
+.chat-open { justify-self: start; background: rgba(14, 17, 25, .8); border: 1px solid rgba(255, 255, 255, .22); color: var(--ink); font-size: 13px; padding: 4px 10px; }
+.chat-open kbd { font-family: var(--f-pixel); font-size: 10px; color: #8a93b4; margin-left: 3px; }
 .chat.open .chat-open { display: none; }
 .bubble.chatb { transition: none; animation: none; font-family: var(--f-body); font-size: 13px; font-weight: 700; padding: 3px 8px; width: max-content; max-width: 210px; white-space: normal; word-break: keep-all; overflow-wrap: anywhere; text-align: center; z-index: 3; }
 .bubble.chatb.b { background: #e3f0ff; } .bubble.chatb.r { background: #ffe3dc; }
@@ -279,6 +287,8 @@ body.desk .hint { top: 64px; }
 .slot.ult .lock[hidden] { display: none !important; }
 .zoom-ctl { position: absolute; right: calc(max(10px, env(safe-area-inset-right, 0px)) + 170px); bottom: max(10px, env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column-reverse; align-items: center; gap: 2px; z-index: 6; }
 .zoom-ctl button { width: 26px; height: 24px; padding: 0; background: rgba(14, 17, 25, .85); border: 1px solid rgba(255, 255, 255, .16); color: var(--ink); font-size: 16px; line-height: 1; }
+.zoom-ctl button.cam-mode { width: auto; min-width: 44px; height: auto; padding: 3px 5px 4px; margin-bottom: 4px; font-family: var(--f-display); font-size: 10px; line-height: 1.15; color: var(--ink-dim); }
+.zoom-ctl button.cam-mode b { display: block; font-size: 13px; color: var(--ink); font-weight: 400; }
 .zoom-ctl span { min-width: 40px; text-align: center; font-family: var(--f-pixel); font-size: 10px; color: var(--ink-dim); cursor: pointer; }
 .toad-ban { position: absolute; left: 50%; top: 26%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 22px 9px; background: linear-gradient(#2c3a1c, #18210f); border: 2px solid #9bd15a; box-shadow: 0 0 0 2px #0b0f07, 0 0 24px rgba(155, 209, 90, .45); color: #e9ffd0; pointer-events: none; z-index: 9; animation: toadBan 2.6s ease-out both; white-space: nowrap; }
 .toad-ban b { font-family: var(--f-display); font-weight: 400; font-size: 26px; letter-spacing: .5px; text-shadow: 0 2px 0 #0b0f07; }
@@ -296,7 +306,7 @@ body.desk .hint { top: 64px; }
 .card-hud.bump .cb { animation: cardGlow .5s ease-out; }
 @keyframes cardBump { 0% { transform: scale(1); } 35% { transform: scale(1.28); } 100% { transform: scale(1); } }
 @keyframes cardGlow { 0% { box-shadow: inset 0 0 0 1px #0c1236, 0 0 0 0 #fff3b0; } 30% { box-shadow: inset 0 0 0 1px #0c1236, 0 0 10px 3px #fff3b0; } 100% { box-shadow: inset 0 0 0 1px #0c1236, 0 0 0 0 transparent; } }
-@media (max-width: 760px) and (orientation: portrait) { .card-hud { top: calc(max(8px, env(safe-area-inset-top, 0px)) + 98px); left: 48px; } }
+@media (max-width: 760px) and (orientation: portrait) { .card-hud { top: calc(max(8px, env(safe-area-inset-top, 0px)) + 98px); left: 60px; } }
 #cardLayer { position: absolute; inset: 0; pointer-events: none; z-index: 8; overflow: hidden; }
 .fly-card { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform; }
 .fly-card .cb { position: absolute; left: -11px; top: -30px; width: 22px; height: 30px; border-width: 2px; transform-origin: 50% 100%; }
@@ -468,10 +478,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
   .ask-body { flex: 1; } .ask-body span { white-space: normal; font-size: 15px; }
   .ask-btns { width: 100%; } .ask-btns button { flex: 1; }
 }
-@media (max-height: 520px) and (min-width: 761px) {
-  .minimap { width: 112px; height: 112px; }
-  .hud-menu2 { bottom: 134px; }
-}
+/* (v0.99.103) 낮은 가로 화면에서 미니맵을 112px로 따로 줄이던 규칙은 뺌 — HUD 전체가 이미 --ui 비율로 줄어서 두 번 작아졌음 */
 .hb-menu button { white-space: nowrap; }
 .hb-inv { display: grid; grid-template-columns: repeat(4, 26px); grid-auto-rows: 26px; gap: 2px; position: relative; }
 .islot { position: relative; width: 26px; height: 26px; padding: 0; background: #0b0d14; border: 2px solid #3a4262; display: grid; place-items: center; overflow: hidden; }
@@ -712,6 +719,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 .start-cd b { color: #ffe58a; font-size: 20px; margin-left: 4px; }
 .camtag { position: absolute; left: 50%; top: 9%; transform: translateX(-50%); z-index: 8; pointer-events: none; padding: 4px 12px; border-radius: 10px; background: rgba(30, 60, 120, .72); border: 1px solid #8cc4ff; color: #e8f2ff; font-size: 13px; white-space: nowrap; }
 .camtag small { color: #b8cbe6; font-size: 11px; }
+@media (max-width: 760px) and (orientation: portrait) { .camtag { top: calc(max(8px, env(safe-area-inset-top, 0px)) + 290px); white-space: normal; width: max-content; max-width: 88vw; text-align: center; } }
 .fxpop { position: absolute; left: 50%; top: 40%; z-index: 11; transform: translate(-50%, -50%); font: 900 34px/1 var(--f-display, sans-serif); color: #ffe58a; text-shadow: 3px 3px 0 #0b0d14; pointer-events: none; animation: fxPop 1.4s ease-out forwards; }
 @keyframes fxPop { 0% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; } 15% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 75% { opacity: 1; } 100% { transform: translate(-50%, -80%) scale(1); opacity: 0; } }
 .flashW { position: absolute; inset: 0; z-index: 11; background: #fff; pointer-events: none; animation: flashW .9s ease-out forwards; }
@@ -774,6 +782,18 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 .tgoal { font-size: 11px; padding: 0 6px; border: 1px solid #4a5270; color: var(--ink-dim); margin-left: 4px; white-space: nowrap; }
 .tgoal.go { border-color: #6aa8ff; color: #cfe6ff; } .tgoal.warn { border-color: #ff8a7a; color: #ffc2b8; } .tgoal.foe { opacity: .8; }
 .pg-note { margin: 6px 0 0; font-size: 11px; color: var(--ink-dim); }
+/* 튜토리얼 (v0.99.99): 볼지 묻는 창 + HUD를 하나씩 짚어 주는 안내 */
+.tut-ask .box { width: min(400px, 100%); text-align: center; padding: 18px 18px 14px; } .tut-ask h2 { font-size: 24px; margin: 0 0 8px; } .tut-ask p { margin: 0 0 4px; color: var(--ink-dim); font-size: 14px; line-height: 1.5; }
+.tut-ask .foot { justify-content: center; margin-top: 14px; } .tut-ask .foot .btn { min-width: 108px; } .tut-ask .btn.go { border-color: var(--gold); color: var(--gold); } .tut-ask .ta-note { margin-top: 10px; font-size: 11.5px; }
+.tut { position: fixed; inset: 0; z-index: 40; touch-action: none; }
+.tut[hidden] { display: none; }
+.tut-hole { position: fixed; left: 50%; top: 50%; width: 0; height: 0; border: 2px solid var(--gold); border-radius: 6px; box-shadow: 0 0 0 200vmax rgba(8, 10, 18, .74); pointer-events: none; transition: left .18s, top .18s, width .18s, height .18s; }
+.tut-hole.none { border-color: transparent; }
+.tut-card { position: fixed; width: min(340px, calc(100vw - 20px)); background: var(--panel); border: 2px solid var(--line); box-shadow: 0 0 0 2px var(--shadow), 0 6px 0 var(--shadow); padding: 12px 14px 10px; line-height: 1.5; }
+.tut-card b.t { display: block; font-family: var(--f-display); font-weight: 400; font-size: 20px; color: var(--gold); margin-bottom: 4px; } .tut-card p { margin: 0; font-size: 14px; color: var(--ink); } .tut-card p small { display: block; margin-top: 4px; color: var(--ink-dim); font-size: 12px; }
+.tut-foot { display: flex; align-items: center; gap: 6px; margin-top: 10px; } .tut-foot .n { font-family: var(--f-pixel); font-size: 10px; color: var(--ink-dim); margin-right: auto; }
+.tut-foot button { background: var(--panel-2); border: 1px solid var(--line); color: var(--ink); font-size: 13px; padding: 5px 10px; } .tut-foot button.x { background: transparent; border-color: transparent; color: var(--ink-dim); } .tut-foot button.go { border-color: var(--gold); color: var(--gold); font-family: var(--f-display); font-size: 15px; padding: 4px 14px; } .tut-foot button:disabled { opacity: .35; }
+@media (prefers-reduced-motion: reduce) { .tut-hole { transition: none; } }
 .pregame .foot { align-items: center; justify-content: space-between; margin-top: 8px; }
 .pg-auto { font-size: 12px; color: var(--ink-dim); display: flex; align-items: center; gap: 4px; cursor: pointer; }
 .bp-mu.bp-ai { display: block; font-size: 11.5px; color: var(--ink-dim); line-height: 1.5; } .bp-ai b { color: var(--gold); font-weight: 400; }
@@ -934,7 +954,8 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 .cs-cell[aria-pressed="true"] { border-color: var(--gold); box-shadow: 0 0 12px #f2c14e66, inset 0 0 0 1px var(--gold); }
 .cs-cell:disabled { opacity: .55; }
 .cs-sk .pas { display: grid; place-items: center; width: 28px; height: 28px; font: 700 12px/1 var(--f-pixel, monospace); color: var(--gold); border: 1px solid var(--line); background: #151925; }
-.cs-cell.taken { opacity: .3; filter: grayscale(1); } /* AI 팀원이 고름 */
+.cs-cell.taken { opacity: .45; filter: grayscale(1); } /* AI 팀원이 고름 — 눌러서 가져올 수 있음 (v0.99.100) */
+.cs-cell.taken[aria-pressed="true"] { opacity: 1; filter: none; }
 .cs-cell.empty { border-style: dashed; border-color: #2a3046; background: #0d1018; cursor: default; }
 .cs-fav { position: absolute; top: 0; right: 0; width: 18px; height: 18px; display: grid; place-items: center; font-size: 12px; line-height: 1; color: rgba(255, 255, 255, .35); text-shadow: 0 1px 0 #000; cursor: pointer; }
 .cs-fav.on { color: #ffd34d; }
@@ -981,12 +1002,16 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 .win-bonus { color: var(--gold); font-family: var(--f-display); font-size: 14px; margin-left: 6px; }
 .b-extra b { color: var(--gold); font-weight: 400; font-family: var(--f-display); font-size: 15px; }
 /* 가로 화면: 상황판 탭은 위 가운데(가로 알약), 열면 그 아래 가운데 (v0.82). 아군 | 적 나란히 (v0.83) */
+/* 결과 창 팀 표: 줄 모양은 세로·가로 공통 (v0.99.98 — 예전엔 가로 화면 규칙 안에 들어가 있어서 세로 폰에서 줄이 깨졌음) */
+.b-res { display: grid; gap: 8px; margin: 6px 0 10px; text-align: left; }
 @media (orientation: landscape) {
-  .b-res { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin: 6px 0 10px; text-align: left; }
+  .b-res { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
 .b-res .bt > b { display: block; font-size: 12px; margin-bottom: 3px; } .b-res .bt.b > b { color: #8cc4ff; } .b-res .bt.r > b { color: #ff9c88; }
 .b-res .br { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto auto; gap: 6px; align-items: center; font-size: 12px; padding: 2px 4px; border-bottom: 1px solid #ffffff12; }
 .b-res .br.me { background: #f2c25a1f; } .b-res .br img { width: 22px; height: 26px; image-rendering: pixelated; }
 .b-res .br .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .b-res .br small { color: var(--ink-dim); margin-left: 4px; font-size: 10px; }
+@media (orientation: landscape) {
 .b-teams { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
   .b-teams .b-team { margin-bottom: 0; }
   .b-teams .b-row { grid-template-columns: 34px minmax(0, 1fr) 30px 58px 34px 54px; gap: 6px; padding: 5px 6px; font-size: 12px; }
@@ -1058,13 +1083,14 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 @media (orientation: landscape) {
   .banner .box { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 18px; width: 820px; max-width: none; align-items: start; text-align: center; }
   .banner .box > h2, .banner .box > p, .banner .box > .row { grid-column: 1 / -1; }
-  .banner .box > .b-cards { grid-column: 1; } .banner .box > .b-skill { grid-column: 2; text-align: left; }
+  /* 왼쪽 = 팀 표 + 카드, 오른쪽 = 숙련도 정산 — 정산이 팀 표와 같은 줄에서 시작 (v0.99.98 제보) */
+  .banner .box > .b-res { grid-column: 1; grid-row: 3; } .banner .box > .b-cards { grid-column: 1; grid-row: 4; } .banner .box > .b-skill { grid-column: 2; grid-row: 3 / span 2; text-align: left; margin-top: 6px; } .banner .box > .row { grid-row: 5; }
 }
 @media (prefers-reduced-motion: reduce) { .q-ring, .q-ring span, .og-scr.enter, .ld-card, .q-found .box, .og.fade { animation: none; opacity: 1; transform: none; } }
 </style>
 
 <header class="top">
-  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.89</small></div>
+  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.106</small></div>
   <div class="clock num" id="clock" aria-label="게임 시간">00:00</div>
   <div class="seg" role="group" aria-label="게임 속도" id="speed">
     <button data-s="0" aria-pressed="false" title="일시정지 (Space)">II</button>
@@ -1209,6 +1235,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
       <button id="tbSpeed" title="속도 (Space: 일시정지)">1x</button>
       <button id="tbCheat" aria-expanded="false" title="테스트용 치트">치트</button>
       <button id="tbBug" aria-expanded="false" title="이상한 행동 제보 (시드·시간이 같이 저장돼요)">이상해요</button>
+      <button id="tbHelp" title="조작 안내(튜토리얼) 다시 보기">도움말</button>
       <button id="tbNew">새 게임</button>
       <button id="tbClassic" title="패널이 있는 화면 (개발용)" hidden>기본 화면</button>
     </div>
@@ -1252,6 +1279,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
     <button data-c="mentalUp">내 멘탈 최상으로</button>
     <button data-c="foeTilt">상대 멘탈 멘붕으로</button>
     <button data-ui="condCycle">내 컨디션 바꾸기 <small>다음 판부터</small></button>
+    <button data-ui="jgTypeCycle">정글러 종류: 무작위 <small>다음 판부터</small></button>
     <p class="ch-h">건물 · 웨이브</p>
     <button data-c="breakEnemy">상대 건물 하나 부수기</button>
     <button data-c="breakMine">내 건물 하나 부수기</button>
@@ -1273,7 +1301,6 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
     <button data-c="foeLow">상대 체력 15%</button>
     <p class="ch-h">보기</p>
     <button data-ui="talkToggle">팀 대화창(초상화) 보이기</button>
-    <button data-ui="tfCamToggle">교전 관전 카메라: 켜짐</button>
     <p class="ch-h">아웃게임</p>
     <button data-ui="quickKnight">브론으로 바로 새 게임 <small>로비·매칭 건너뛰기</small></button>
     <button data-ui="quickTop">탑에서 1:1 시험 <small>3:3 B단계 — 미드 둘이 탑 라인에서</small></button>
@@ -1285,7 +1312,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
     <button id="tbSight" aria-pressed="false" title="숨은 유닛까지 모두 보기">전체 시야</button>
   </div>
   <canvas class="minimap" id="mini" aria-label="미니맵"></canvas>
-  <div class="zoom-ctl" id="zoomCtl" aria-label="화면 확대·축소"><button id="zoomOut" title="축소 (−)">−</button><span id="zoomLv" title="100%로 (0)">100%</span><button id="zoomIn" title="확대 (+)">+</button></div>
+  <div class="zoom-ctl" id="zoomCtl" aria-label="화면 확대·축소·카메라"><button id="zoomOut" title="축소 (−)">−</button><span id="zoomLv" title="100%로 (0)">100%</span><button id="zoomIn" title="확대 (+)">+</button><button class="cam-mode" id="camMode" title="카메라 방식 바꾸기: 자동(교전 따라감) → 나만 → 자유">카메라<b id="camModeNow">자동</b></button></div>
   <div class="askbox" id="askBox" hidden role="alertdialog" aria-labelledby="askText">
     <img id="askPic" alt="">
     <div class="ask-body"><b>아군 정글러</b><span id="askText">미드 갱킹 갈게!</span><i class="askbar"><i id="askBar"></i></i></div>
@@ -1307,23 +1334,25 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
   <div class="hud-left" id="hudLeft">
   <div class="chat" id="chat">
     <ol class="chat-log" id="chatLog" aria-live="polite" aria-label="채팅"></ol>
-    <div class="chat-in" id="chatIn" hidden><span>[전체]</span><input id="chatInput" maxlength="60" autocomplete="off" enterkeyhint="send" placeholder="상대에게 한마디"><button id="chatSend">보내기</button></div>
+    <div class="chat-in" id="chatIn" hidden><span>[전체]</span><input id="chatInput" maxlength="60" autocomplete="off" enterkeyhint="send" placeholder="상대에게 한마디 (팀은 핑으로)"><button id="chatSend">보내기</button></div>
+    <p class="chat-tip" id="chatTip">여기는 <b>상대에게 보이는 전체 채팅</b>이에요. 팀에게는 <b>핑</b>으로 말해요 — 맵을 길게 눌러 고르기<span class="k"> (키: G 가자 · V 빼 · H 도와줘)</span></p>
     <button class="chat-open" id="chatOpen" title="채팅 (Enter)">채팅 <kbd>Enter</kbd></button>
   </div>
   <!-- skills: 1, 2, ultimate (2 and ult are placeholders for now) -->
   <div class="hud-skill hpanel" id="hudSkill" aria-label="스킬">
+    <div class="sk-tip" id="skTip" role="tooltip" hidden></div>
     <div class="hb-skills" id="hbSkills">
-      <div class="slot passive" id="slotSkill" title="스킬 1 · AI가 알아서 씁니다">
+      <div class="slot passive" id="slotSkill" aria-label="스킬 1 · AI 자동 스킬 · 눌러서 설명 보기">
         <div class="ic"><img id="skIcon" alt=""><i class="cd" id="skCdOv"></i><b class="cdn" id="skCdNum"></b><em class="mc" id="skCost"></em></div>
         <span class="sk-tag">1</span><span class="lb" id="skLabel">-</span>
         <span class="sk-pips" id="pipsQ"></span><button class="sk-learn" data-learn="q" hidden title="스킬 배우기">+</button>
       </div>
-      <div class="slot passive" id="slotSkill2" title="스킬 2 · AI가 알아서 씁니다">
+      <div class="slot passive" id="slotSkill2" aria-label="스킬 2 · AI 자동 스킬 · 눌러서 설명 보기">
         <div class="ic"><img id="sk2Icon" alt=""><i class="cd" id="sk2CdOv"></i><b class="cdn" id="sk2CdNum"></b><em class="mc" id="sk2Cost"></em></div>
         <span class="sk-tag">2</span><span class="lb" id="sk2Label">스킬 2</span>
         <span class="sk-pips" id="pipsW"></span><button class="sk-learn" data-learn="w" hidden title="스킬 배우기">+</button>
       </div>
-      <div class="slot passive ult" id="slotUlt" title="궁극기 · 6레벨에 배움 · AI가 알아서 씁니다">
+      <div class="slot passive ult" id="slotUlt" aria-label="궁극기 · 6레벨에 배움 · AI 자동 스킬 · 눌러서 설명 보기">
         <div class="ic"><img id="skRIcon" alt=""><i class="cd" id="skRCdOv"></i><b class="cdn" id="skRCdNum"></b><em class="mc" id="skRCost"></em><b class="lock" id="ultLock">6렙</b></div>
         <span class="sk-tag">궁</span><span class="lb" id="skRLabel">궁극기</span>
         <span class="sk-pips" id="pipsR"></span><button class="sk-learn" data-learn="r" hidden title="스킬 배우기">+</button>
@@ -1392,6 +1421,19 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
   </div>
 </div>
 
+<div class="modal tut-ask" id="tutAsk" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="taTitle">
+    <h2 id="taTitle">튜토리얼을 보시겠습니까?</h2>
+    <p>챔피언은 스스로 싸워요. 내가 누를 수 있는 것만 1분 안에 짚어 드릴게요.</p>
+    <div class="foot"><button class="btn" id="taNo">괜찮아요</button><button class="btn go" id="taYes">볼게요</button></div>
+    <p class="ta-note">나중에 위쪽 「도움말」 버튼으로 언제든 다시 볼 수 있어요</p>
+  </div>
+</div>
+<div class="tut" id="tut" hidden>
+  <i class="tut-hole none" id="tutHole"></i>
+  <div class="tut-card" id="tutCard" role="dialog" aria-live="polite"><b class="t" id="tutT"></b><p id="tutP"></p>
+    <div class="tut-foot"><span class="n" id="tutN"></span><button class="x" id="tutSkip">그만 보기</button><button id="tutPrev">이전</button><button class="go" id="tutNext">다음</button></div></div>
+</div>
 <div class="modal pregame" id="pregame" hidden>
   <div class="box" role="dialog" aria-modal="true" aria-labelledby="pgTitle">
     <div class="pg-head"><h2 id="pgTitle">빌드 방향</h2><span class="pg-foes" id="pgFoes"></span><span class="pg-cd" id="pgCd" title="안 고르면 ★ 방향으로 자동 시작">15</span></div>
@@ -1519,6 +1561,14 @@ const GAME_TEXT = {
       q: { name: '돌팔매', desc: '돌을 던져 피해 + 둔화' },
       w: { name: '바위 굴리기', desc: '주변을 빙글 베기' },
       r: { name: '대지 강타', desc: '돌진해서 주변 적을 띄움 (기절)' },
+    },
+    beetle: {
+      name: '존슨', title: '쇠똥구리', role: '근거리 · 탱커 · 방해',
+      desc: '공을 굴리는 쇠똥구리. 땅속으로 파고들어 띄우고, 악취로 스킬을 막고, 상대를 공에 가둬 우리 포탑까지 굴려 와요.',
+      persona: { name: '능청스러움', line: '느릿느릿 굴러와서 판을 뒤집는 쇠똥구리', quirkText: '굴릴 각만 보이면 들이받음' },
+      q: { name: '악취의 고리', desc: '내 둘레에 3.5초 동안 악취의 고리. 안에 있는 적은 계속 피해를 입고, 적 영웅은 스킬을 못 씀(침묵)' },
+      w: { name: '땅속 잠복', desc: '땅속으로 파고들어 상대에게 간 뒤 튀어나오며 주변 적을 0.9초 띄움. 땅속에서는 공격받지 않음' },
+      r: { name: '똥 굴러가유', desc: '붙은 적 챔피언을 공에 가둬 우리 포탑 쪽으로 굴림(최대 4초). 굴릴수록 빨라지고, 벽·건물·다른 적에 부딪히면 깨지며 피해. 부딪힌 적은 밀려나며 뜸' },
     },
     vampire: {
       name: '카일', title: '핏빛 검사', role: '근거리 · 흡혈',
@@ -1660,6 +1710,34 @@ const SimMake = (MAP_IN) => {
   const JG_CC = { join: 12, hp: 0.4, cd: 4 };
   // 포탑 사거리 탈출 (v0.99.86, 제보): 포탑이 나를 칠 때 라인 따라 뒤로만 가지 않고, 사거리 밖(pad) 둘레 n방향 중 걸어서 가장 빨리 나갈 수 있는 곳으로(정글 포함). deep = 포탑보다 상대 쪽 자리는 칸당 이만큼 불리하게
   const TOWER_EXIT = { pad: 1.5, n: 16, deep: 1.2 };
+  // 밀기 단계 (v0.99.91, 제보: 게임 내내 막타만 치려 함 — 넥서스가 아니라 막타가 목표처럼 보임): 라인전 단계가 끝나면 상대가 앞에 있어도 미니언을 계속 치고(스킬로도 지움), 우리 웨이브가 닿으면 건물을 침.
+  //   시작 = at초가 지났거나 그 라인의 건물이 (어느 쪽이든) 하나라도 깨졌을 때. hp = 이 체력 아래면 안 밀음 / near = 건물을 칠 때 머릿수를 세는 거리(그 안의 보이는 적 영웅이 아군 영웅보다 많으면 안 침)
+  const PUSH_PHASE = { at: 480, hp: 0.45, near: 9 };
+  const pushPhase = (S, lane) => S.t >= PUSH_PHASE.at || S.towers.some((t) => t.lane === lane && !t.alive);
+  // 수적 우위 (v0.99.95, 제보: 3:2로 이기고도 남은 적을 안 잡고 귀환, 적도 한 명 잡고 멍때림): 싸움 판단이 "내 맞상대" 한 명에 묶여 있어 맞상대가 죽으면 곁의 다른 적을 아무도 안 노렸음.
+  //   see = 이 안의 보이는 적 영웅을 후보로 / near = 그 적 둘레에서 아군·적 영웅을 세는 거리 / margin = 아군 힘(체력×공격력×공속 합)이 적의 이 배수 이상이고 머릿수도 더 많을 때만 / hp = 내 체력이 이 아래면 안 감
+  //   hold = 한 번 정하면 이만큼(초) 몰아침 / recallHp = 수적 우위인 동안은 체력이 이 위면 귀환을 미룸 / diveHp = 상대가 이 체력 아래면 혼자서도 다이브 / diveNear = 다이브할 때 아군을 세는 거리
+  //   after·afterR = 곁(afterR칸)에서 적 영웅이 죽은 지 after초 안일 때만 발동(싸움에 이긴 직후) — 평소 라인전에서 머릿수만 보고 쫓아다니지 않게(처음엔 조건이 없어 판당 70번 쫓고 4번 잡음) / cd = 한 번 시도하고 다시 볼 때까지
+  const ADV = { see: 8, near: 8, margin: 1.5, hp: 0.3, hold: 3.5, recallHp: 0.3, diveHp: 0.2, diveNear: 8, after: 12, afterR: 14, cd: 6, tHp: 0.5 };
+  function noteDeath(S, t) { const D = S.deaths || (S.deaths = []); D.push({ t: S.t, team: t.team, x: t.x, y: t.y }); if (D.length > 16) D.shift(); }
+  const justWon = (S, c) => !!S.deaths && S.deaths.some((d) => d.team !== c.team && S.t - d.t < ADV.after && Math.hypot(d.x - c.x, d.y - c.y) < ADV.afterR);
+  const heroPow = (u) => u.hp * u.ad * u.as * (u.kind === 'champ' && u.def.magic ? 1.6 : 1);
+  // 잡을 만한 남은 적: 보이는 적 영웅 중, 그 둘레에서 우리가 머릿수도 힘도 앞서고 상대 건물 사거리 밖인 가장 체력 낮은 쪽 (난수 안 씀)
+  function advTarget(S, c, skip) {
+    if (!justWon(S, c)) return null;
+    const team = c.team, heroes = S.units.filter((u) => u.alive && isHero(u)); let best = null, bh = 1e9;
+    for (const e of heroes) {
+      if (e.team === team || e === skip || !validTarget(S, team, e) || dist(e, c) > ADV.see || e.balled) continue;
+      if (S.towers.some((tw) => tw.alive && tw.team === e.team && tw.range > 0 && dist(e, tw) < tw.range + 0.5)) continue;
+      let on = 0, op = 0, en = 0, ep = 0;
+      for (const u of heroes) { if (dist(u, e) > ADV.near) continue; if (u.team === team) { if (u.hp / u.maxHp > 0.25 && !u.recall) { on++; op += heroPow(u); } } else if (canSee(S, team, u)) { en++; ep += heroPow(u); } }
+      if (on <= en || op < ep * ADV.margin) continue;
+      const h = e.hp / e.maxHp; if (h > ADV.tHp) continue; if (h < bh) { bh = h; best = e; } // 체력이 tHp 아래인 적만(멀쩡한 적은 쫓아가도 못 잡음)
+    }
+    return best;
+  }
+  // 곁(10칸)에 보이는 적 영웅이 있고 우리 머릿수가 더 많은가 (귀환을 미룰지 볼 때)
+  function advNear(S, c) { if (!justWon(S, c)) return false; let on = 0, en = 0; for (const u of S.units) if (u.alive && isHero(u) && dist(u, c) < 10) { if (u.team === c.team) on++; else if (canSee(S, c.team, u)) en++; } return en > 0 && on > en; }
   const LANE_ON = { meet: 7, late: 120, bushFar: 16, soloSkill: 0.5 };
   const SUP_AI = { laneX: 1.8, leash: 12, leadMelee: 0.8, leadRanged: 0.3, back: 1.5, yieldR: 10, harassMul: 0.6, punch: 1.0, skillMp: 1.2, skillBonus: 0.35, adcBias: 1.5, hurtBias: 2 };
   // 바텀 둘이 같이 움직이기 (C-2 2단계, v0.99.69): DUO = 같은 라인 아군이 싸움을 걸면 따라 들어감 / SUP_PEEL = 원딜이 물리면 서폿이 문 적에게 붙음 / SUP_RECALL = 원딜이 귀환하면 같이
@@ -1825,8 +1903,8 @@ const SimMake = (MAP_IN) => {
   //   r = 캠프 터 반지름(그 안은 벽이 없음). stored = 보관(게임에 안 나옴). side = 탑 쪽 −1 / 바텀 쪽 +1. PIT_LIST: 에픽 둥지 자리(지금은 빈 공터)
   // === MAP_DATA_BEGIN (tools/apply-map.js가 다시 씀 — 손으로 고치지 말 것) ===
   const JG_GRID = { x0: -46, y0: -6, res: 0.5, nx: 185, ny: 185,
-    walls: '6552.#29.#153.4#25.4#151.9#17.9#150.11#13.12#150.10#13.13#145.#4.9#13.13#144.3#4.8#13.3#4.7#141.6#5.6#13.2#7.4#141.8#5.5#13.#10.#141.10#8.#17.4#144.11#25.6#6.4#132.12#24.8#4.6#131.11#3.5#16.9#4.7#129.8#7.6#15.8#6.6#129.6#7.8#15.7#8.6#128.5#9.8#14.7#9.5#128.5#9.8#14.7#9.5#128.5#9.8#14.6#10.6#127.4#10.8#14.5#11.7#120.3#4.3#10.8#14.4#12.8#118.5#4.#10.8#15.4#12.9#116.7#13.8#16.4#12.10#114.7#12.10#16.4#4.5#3.13#111.6#9.13#24.7#2.14#109.5#11.12#24.8#3.14#107.5#12.10#26.8#4.14#104.6#16.6#27.8#14.5#102.6#4.3#11.2#25.2#4.6#15.5#102.5#4.3#38.5#2.5#17.5#102.4#3.4#6.3#29.5#3.3#18.4#103.3#3.5#4.6#28.6#10.3#10.4#104.#4.4#5.6#4.8#16.7#8.5#4.3#3.2#109.5#5.6#4.9#15.8#6.6#4.3#9.3#92.2#8.6#4.6#3.10#15.8#5.8#3.4#7.5#90.4#7.6#4.6#3.10#15.8#4.10#2.4#6.6#89.6#8.5#3.5#4.9#17.8#3.15#7.7#87.7#9.12#5.8#17.8#4.14#8.7#85.7#11.10#6.8#17.8#4.13#10.7#83.5#8.3#5.6#8.7#19.7#6.11#4.#8.5#81.3#10.7#17.5#21.4#9.9#4.3#10.3#76.6#10.10#16.3#36.5#6.5#10.3#74.6#11.11#64.6#11.3#73.6#10.14#62.7#10.5#70.7#9.7#3.6#12.2#25.2#10.7#3.8#9.6#69.7#9.5#7.4#11.4#23.4#9.7#3.8#9.7#67.9#8.4#9.4#9.6#21.6#8.7#4.7#9.7#68.7#7.#.3#11.4#7.8#19.7#7.8#4.7#8.9#79.6#12.6#4.10#18.8#6.8#4.8#6.10#77.8#13.5#3.11#17.11#3.9#4.8#5.11#64.#12.8#13.6#2.11#16.13#2.9#5.6#4.14#63.9#4.8#13.6#3.10#16.13#2.8#16.14#63.9#3.9#12.6#30.11#30.12#63.9#3.10#10.3#34.9#35.9#63.9#3.11#46.8#108.8#1217.8#108.8#46.11#3.9#63.9#35.9#34.3#10.10#3.9#63.12#30.11#30.6#12.9#3.8#64.14#16.8#2.13#16.10#3.6#13.8#4.8#63.15#4.6#5.9#2.13#16.11#2.6#13.8#76.12#5.8#4.9#3.11#17.11#3.5#13.8#76.11#6.8#4.8#6.8#18.10#4.6#12.6#78.10#8.7#4.8#7.7#19.8#7.4#11.3#.#7.7#67.8#9.7#4.7#8.6#21.6#9.4#9.4#8.8#68.7#9.8#3.7#9.4#23.4#11.4#7.5#9.7#69.6#9.8#3.7#10.2#25.2#12.6#3.7#9.6#71.5#10.7#62.14#10.5#74.3#11.6#64.11#11.5#75.3#10.5#6.5#36.3#16.10#10.5#77.3#10.3#4.9#9.4#21.5#17.7#10.3#81.5#8.#4.11#6.7#19.7#8.6#5.3#8.5#83.7#10.13#4.8#17.8#6.10#11.7#85.7#8.14#4.8#17.8#5.12#9.7#87.7#7.15#3.8#17.9#4.5#3.5#8.6#89.6#6.4#2.10#4.8#15.10#3.6#4.6#7.4#90.5#7.4#3.8#5.8#15.10#3.6#4.6#8.2#92.3#9.3#4.6#6.8#15.9#4.6#5.5#109.2#3.3#4.5#8.7#16.8#4.6#5.4#4.#104.4#10.3#10.6#28.6#4.5#3.3#103.4#18.3#3.5#29.3#6.4#3.4#102.5#17.5#2.5#38.3#4.5#102.5#15.6#4.2#25.2#11.3#4.6#102.5#14.8#27.6#16.6#104.14#4.8#26.10#12.5#107.14#3.8#24.12#11.5#109.14#2.7#24.13#9.6#111.13#3.5#4.4#16.10#12.7#114.10#12.4#16.8#13.7#116.9#12.4#15.8#10.#4.5#118.8#12.4#14.8#10.3#4.3#120.7#11.5#14.8#10.4#127.6#10.6#14.8#9.5#128.5#9.7#14.8#9.5#128.5#9.7#14.8#9.5#128.6#8.7#15.8#7.6#129.6#6.8#15.6#7.8#129.7#4.9#16.5#3.11#131.6#4.8#24.11#133.4#6.6#25.10#145.4#17.#8.9#142.#10.#13.5#5.7#142.4#7.2#13.6#5.5#142.7#4.3#13.8#4.3#144.13#13.9#4.#145.13#13.10#149.13#13.11#149.10#17.9#150.5#25.4#152.2#29.#6552.',
-    bushes: '10798.2#30.3#150.2#30.3#150.2#30.3#162.3#17.3#162.3#182.3#182.3#32.#149.3#31.2#17.#101.2#61.2#17.3#99.4#60.#18.4#97.4#81.2#99.2#1140.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#163.2#17.2#305.3#83.4#95.6#80.4#95.6#80.4#97.4#181.3#182.3#288.6#81.3#96.5#81.3#199.4#181.4#47.4#181.4#199.3#81.5#96.3#81.6#288.3#182.3#181.4#97.4#80.6#95.4#80.6#95.4#83.3#305.2#17.2#163.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#1140.2#99.2#81.4#97.4#18.#60.4#99.3#17.2#61.2#101.#17.2#31.3#149.#32.3#182.3#182.3#162.3#17.3#162.3#30.2#150.3#30.2#150.3#30.2#10798.' };
+    walls: '6552.#29.#153.4#25.4#151.9#17.9#150.11#13.12#150.10#13.13#145.#4.9#13.13#144.3#4.8#13.3#4.7#141.6#5.6#13.2#7.4#141.8#5.5#13.#10.#141.10#8.#17.4#144.11#25.6#6.4#132.12#24.8#4.6#131.11#3.5#16.9#4.7#129.8#7.6#15.8#6.6#129.6#7.8#15.7#8.6#128.5#9.8#14.7#9.5#128.5#9.8#14.7#9.5#128.5#9.8#14.6#10.6#127.4#10.8#14.5#11.7#120.3#4.3#10.8#14.4#12.8#118.5#4.#10.8#15.4#12.9#116.7#13.8#16.4#12.10#114.7#12.10#16.4#4.5#3.13#111.6#9.13#24.7#2.14#109.5#11.12#24.8#3.14#107.5#12.10#26.8#4.14#104.6#16.6#27.8#14.5#102.6#4.3#11.2#25.2#4.6#15.5#102.5#4.3#38.5#2.5#17.5#102.4#3.4#6.3#29.5#3.3#18.4#103.3#3.5#4.6#28.6#10.3#10.4#104.#4.4#5.6#4.8#16.7#8.5#4.3#3.2#109.5#5.6#4.9#15.8#6.6#4.3#9.3#92.2#8.6#4.6#3.10#15.8#5.8#3.4#7.5#90.4#7.6#4.6#3.10#15.8#4.10#2.3#7.6#89.6#8.5#3.5#4.9#17.8#3.14#8.7#87.7#9.12#5.8#17.8#4.13#9.7#85.7#11.10#6.8#17.8#4.13#10.7#83.5#8.3#5.4#10.7#19.7#6.11#4.#8.5#81.3#10.7#17.5#21.4#9.9#4.3#10.3#76.6#10.10#16.3#36.5#6.5#10.3#74.6#11.11#64.6#11.3#73.6#10.14#62.7#10.5#70.7#9.7#3.6#12.2#25.2#10.7#3.8#9.6#69.7#9.5#7.4#11.4#23.4#9.7#3.8#9.7#67.9#8.4#9.4#9.6#21.6#8.7#4.7#9.7#68.7#7.#.3#11.4#7.8#19.7#7.8#4.7#8.9#79.6#12.6#4.10#18.8#6.8#4.8#6.10#77.8#13.5#3.11#17.11#3.9#4.8#5.11#64.#12.8#13.6#2.11#16.13#2.9#5.6#4.14#63.9#4.8#13.6#3.10#16.13#2.8#16.14#63.9#3.9#12.6#30.11#30.12#63.9#3.10#10.3#34.9#35.9#63.9#3.11#46.8#108.8#1217.8#108.8#46.11#3.9#63.9#35.9#34.3#10.10#3.9#63.12#30.11#30.6#12.9#3.8#64.14#16.8#2.13#16.10#3.6#13.8#4.8#63.15#4.6#5.9#2.13#16.11#2.6#13.8#76.12#5.8#4.9#3.11#17.11#3.5#13.8#76.11#6.8#4.8#6.8#18.10#4.6#12.6#78.10#8.7#4.8#7.7#19.8#7.4#11.3#.#7.7#67.8#9.7#4.7#8.6#21.6#9.4#9.4#8.8#68.7#9.8#3.7#9.4#23.4#11.4#7.5#9.7#69.6#9.8#3.7#10.2#25.2#12.6#3.7#9.6#71.5#10.7#62.14#10.5#74.3#11.6#64.11#11.5#75.3#10.5#6.5#36.3#16.10#10.5#77.3#10.3#4.9#9.4#21.5#17.7#10.3#81.5#8.#4.11#6.7#19.7#10.4#5.3#8.5#83.7#10.13#4.8#17.8#6.10#11.7#85.7#9.13#4.8#17.8#5.12#9.7#87.7#8.14#3.8#17.9#4.5#3.5#8.6#89.6#7.3#2.10#4.8#15.10#3.6#4.6#7.4#90.5#7.4#3.8#5.8#15.10#3.6#4.6#8.2#92.3#9.3#4.6#6.8#15.9#4.6#5.5#109.2#3.3#4.5#8.7#16.8#4.6#5.4#4.#104.4#10.3#10.6#28.6#4.5#3.3#103.4#18.3#3.5#29.3#6.4#3.4#102.5#17.5#2.5#38.3#4.5#102.5#15.6#4.2#25.2#11.3#4.6#102.5#14.8#27.6#16.6#104.14#4.8#26.10#12.5#107.14#3.8#24.12#11.5#109.14#2.7#24.13#9.6#111.13#3.5#4.4#16.10#12.7#114.10#12.4#16.8#13.7#116.9#12.4#15.8#10.#4.5#118.8#12.4#14.8#10.3#4.3#120.7#11.5#14.8#10.4#127.6#10.6#14.8#9.5#128.5#9.7#14.8#9.5#128.5#9.7#14.8#9.5#128.6#8.7#15.8#7.6#129.6#6.8#15.6#7.8#129.7#4.9#16.5#3.11#131.6#4.8#24.11#133.4#6.6#25.10#145.4#17.#8.9#142.#10.#13.5#5.7#142.4#7.2#13.6#5.5#142.7#4.3#13.8#4.3#144.13#13.9#4.#145.13#13.10#149.13#13.11#149.10#17.9#150.5#25.4#152.2#29.#6552.',
+    bushes: '10798.2#30.3#150.2#30.3#150.2#30.3#162.3#17.3#162.3#182.3#182.3#32.#149.3#31.2#17.#101.2#61.2#17.3#99.4#60.#18.4#97.4#81.2#99.2#76.2#182.3#182.2#308.3#181.3#198.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#163.2#17.2#305.3#83.4#95.6#80.4#95.6#80.4#97.4#181.3#182.3#288.6#81.3#96.5#81.3#199.4#181.4#47.4#181.4#199.3#81.5#96.3#81.6#288.3#182.3#181.4#97.4#80.6#95.4#80.6#95.4#83.3#305.2#17.2#163.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#162.3#17.3#198.3#181.3#308.2#182.3#182.2#76.2#99.2#81.4#97.4#18.#60.4#99.3#17.2#61.2#101.#17.2#31.3#149.#32.3#182.3#182.3#162.3#17.3#162.3#30.2#150.3#30.2#150.3#30.2#10798.' };
   const CAMP_LIST = [
     { id: 'c0', kind: 'big', name: '숲의 수호자', x: -9.5, y: 60, r: 2.1, team: 0, side: -1 },
     { id: 'c1', kind: 'wolves', name: '늑대 무리', x: -23.5, y: 47, r: 2.1, team: 0, side: -1 },
@@ -2130,7 +2208,7 @@ const SimMake = (MAP_IN) => {
   });
   const SIMPLE_ITEMS = ['potion', 'refill', 'ctrl', 'iron', 'pick', 'tome', 'wand', 'armor', 'chain', 'cloth', 'veil', 'gem', 'boots', 'warb', 'steelb', 'mrboots', 'sorcb', 'sBlade', 'sOrb', 'sPlate', 'sVeil', 'sup1', 'sup2', 'sup3'];
   const SUP = { share: 0.4, own: 0.5, range: 8, aegisR: 5, aegisDur: 3, aegisBase: 120, aegisHp: 0.08 }; // 서폿 아이템 수치
-  const SIMPLE_BUILD = { knight: 's_mix', fighter: 's_mix', vampire: 's_mix', golem: 's_def', treant: 's_def', antlion: 's_def', chain: 's_def' }; // 나머지: 마법이면 s_ap, 아니면 s_ad
+  const SIMPLE_BUILD = { beetle: 's_def', knight: 's_mix', fighter: 's_mix', vampire: 's_mix', golem: 's_def', treant: 's_def', antlion: 's_def', chain: 's_def' }; // 나머지: 마법이면 s_ap, 아니면 s_ad
   if (ITEM_MODE === 'simple') { // 안 쓰는 것은 지우지 않고 꺼 둠 (off) — 상점·빌드 선택에 안 나옴
     for (const k in ITEMS) ITEMS[k].off = !SIMPLE_ITEMS.includes(k);
     for (const k in BUILDS) BUILDS[k].off = !BUILDS[k].simple;
@@ -2248,6 +2326,20 @@ const SimMake = (MAP_IN) => {
       skill: { kind: 'snipe', cd: 8, range: 6.2, base: 45, ratio: 0.45, cast: 0.3, slow: 0.3, cost: 45, icon: 'skRock' },            // 임시 (저격 빌림 + 둔화)
       skill2: { kind: 'spin', cd: 12, cost: 50, dur: 2.0, tick: 0.35, radius: 1.8, range: 1.8, base: 12, ratio: 0.18 },         // 임시 (회전 베기 빌림)
       ult: { kind: 'quake', cd: 75, cost: 100, range: 7, radius: 2.4, stun: 1.25, cast: 0.3, base: 190, ratio: 0.5, icon: 'skSlam' }, // 핵심: 돌진 → 주변 띄우기(기절)
+      builds: ['tank', 'bruiser', 'vamp'],
+    },
+    // 쇠똥구리 존슨 (v0.99.101 사용자: 정글러 존슨을 플레이어도 고를 수 있게) — 근접 탱커·방해꾼. 스킬은 정글러 존슨(JG_TYPES.beetle)과 같은 동작 + 마나·스킬 레벨
+    //   1단계: Q만 들어감. W(땅속 잠복)·R(똥 굴러가유)은 STAGE_OFF로 꺼 둠 — 다음 단계에서 챔피언용으로 옮김. 이 팀의 정글러는 존슨이 아닌 쪽으로(create)
+    beetle: {
+      melee: true,
+      persona: { strong: ['team', 'fight'], weak: ['vision'], quirk: 'hothead' },
+      hp: 880, ad: 66, armor: 46, mr: 40, range: 1.2, regenMul: 1.5, csHeal: 0.015, towerMul: 1.2, cleave: 0.2, as: 0.66, ms: 3.3, windup: 0.23, mp: 290, mpGrow: 30, mpRegen: 2.2,
+      grow: { hp: 108, ad: 4.4, armor: 4.0, mr: 1.8, as: 0.02 },
+      // Q 악취의 고리: 내 둘레에 고리 — dur초 동안 tick마다 피해(미니언·몬스터엔 monMul배) + 적 영웅 침묵. range = 이 안에 들어오면 켬. estMul = 싸움 계산에서 한 번의 Q를 몇 틱으로 칠지
+      skill: { kind: 'stink', cd: 11, cost: 45, range: 2.1, radius: 2.4, dur: 3.5, tick: 0.5, base: 10, ratio: 0.12, silence: 0.75, monMul: 1.6, estMul: 4, icon: 'skRoar' },
+      skill2: { kind: 'burrow', cd: 12, cost: 50, range: 7.5, speed: 9, max: 1.3, emerge: 1.0, radius: 1.9, base: 55, ratio: 0.35, air: 0.9, behind: 1.0, icon: 'skDash' }, // W 땅속 잠복 (2단계 v0.99.102): 땅속으로 대상에게 가서 튀어나오며 둘레를 띄움
+      // R 똥 굴러가유 (3단계 v0.99.104): 붙은 챔피언을 공에 가둬 굴림. 수치는 정글러 존슨(JG_TYPES.beetle.r)과 같게 맞춰 둠 — 한쪽을 고치면 같이 볼 것. base·hit는 스킬 레벨만큼 세짐
+      ult: { kind: 'ball', cd: 60, cost: 100, range: 1.5, grab: 1.5, gap: 1.2, ballR: 0.85, v0: 4, acc: 1.9, vMax: 9.5, turn: 0.9, max: 4, base: 90, ratio: 0.6, spd: 12, hit: 110, hitRatio: 0.7, knock: 2.6, air: 0.8, stun: 0.6, seekT: 30, look: 11, minClear: 3, minGoal: 8, ahead: 5, probe: 0.5, icon: 'skRock' },
       builds: ['tank', 'bruiser', 'vamp'],
     },
     vampire: {
@@ -2605,6 +2697,8 @@ const SimMake = (MAP_IN) => {
       jg: [0, 1].map((team) => ({ role: 'jungle', sk: clamp(opts.jgSkill && opts.jgSkill[team] != null ? +opts.jgSkill[team] : 0.6, 0.05, 1), sickleN: 2, sickleT: 0, sickleForget: null, mental: 60, mentalBase: 60, honor: honorIn(opts, team, 'jungle'), nextT: 0, unit: null, level: 1, xp: 0, respawnAt: 0, k: 0, d: 0, a: 0, gold: 0, camps: 0, items: [], wardsKilled: 0 })),
     };
     // junglers start at the fountain, clear camps (camps spawn at 1:00) and gank around 2:00
+    { const jr = mulberry32((seed ^ 0x6a09e667) >>> 0); // 정글러 종류: 옵션으로 주거나, 없으면 시드로(경기 난수와 따로)
+      for (let team = 0; team < 2; team++) { const want = opts.jgType && opts.jgType[team], roll = jr(); S.jg[team].type = want && JG_TYPES[want] ? want : roll < 0.5 ? 'beetle' : 'hunter'; } }
     S.jg[0].nextT = 115 + S.r() * 40;
     S.jg[1].nextT = 115 + S.r() * 40;
     // 보물두꺼비: decided at the start with its own RNG (S.tr) so a match without one plays exactly as before
@@ -2682,6 +2776,7 @@ const SimMake = (MAP_IN) => {
       if (mine) S.me = c;
       recompute(c); c.hp = c.maxHp; c.mp = c.maxMp;
     }
+    for (let team = 0; team < 2; team++) if (S.jg[team].type === 'beetle' && S.champs.some((c) => c.team === team && c.key === 'beetle')) S.jg[team].type = 'hunter'; // 존슨 라이너가 있는 팀: 정글러는 다른 종류로 (v0.99.101 사용자)
     const foe0 = laneFoe(S, S.me);
     pushLog(S, `게임 시작 — ${S.me.name}(${S.me.def.title}) vs ${foe0.name}(${foe0.def.title})`, 'neutral');
     return S;
@@ -3621,6 +3716,7 @@ const SimMake = (MAP_IN) => {
       for (const a of assists) if (a.kind === 'champ') mood(S, a, MENTAL.ev.assist);
       if (killer) pushLog(S, `${killer.name}${josa(killer.name, '이', '가')} ${t.name} 처치!${stolen ? ` (${srcName(src)} 막타)` : ''}`, killer.team === 0 ? 'ally' : 'enemy');
       else pushLog(S, `${t.name}${josa(t.name, '이', '가')} ${srcName(src)}에게 처형당했습니다`, t.team === 0 ? 'enemy' : 'ally');
+      noteDeath(S, t);
       pushEvent(S, { type: 'kill', killer: who(killer || src), victim: who(t), jg: true, exec: !killer, at: { x: t.x, y: t.y } });
       { // 정글러 멘탈 + 정글몹에 처형당하면 놀림거리
         const E2 = MENTAL.ev; moodJ(S, t.team, src.kind === 'monster' ? -20 : E2.death);
@@ -3670,6 +3766,7 @@ const SimMake = (MAP_IN) => {
       pushLog(S, text, killerTeam === 0 ? 'ally' : 'enemy');
       if (killer && killer.kind === 'champ' && killer.leg) legendOnKill(S, killer, t, !assists.length && !(S.jg[killer.team].unit && S.jg[killer.team].unit.alive && dist(S.jg[killer.team].unit, t) < 8));
       const dive = !!(killer && killer.diving && killer.diving.victim === t.id);
+      noteDeath(S, t);
       pushEvent(S, { type: 'kill', killer: who(killer || src), victim: who(t), at: { x: t.x, y: t.y }, first, dive, exec: !killer, gank: (killer && killer.kind === 'jungler') || S.units.some((j) => j.kind === 'jungler' && j.alive && j.team === killerTeam && j.jgState === 'engage') });
       giveXp(S, killerTeam, t.x, t.y, 140 + 20 * t.level);
       { // 멘탈: 죽은 쪽은 깎이고(갱·연속 데스·아군 정글 남 탓·상대 도발), 잡은 쪽은 오름. 명예로 정해져서 채팅 난수와 무관
@@ -4054,7 +4151,7 @@ const SimMake = (MAP_IN) => {
   function toadBurst(S, u, tz) {
     const aF = 100 / (100 + tz.armor);
     if (u.kind === 'jungler') { const J = S.jg[u.team]; return u.ad * aF + (sickleReady(S, u) && J.sickleForget !== tz.id ? SICKLE.dmg(J.level) : 0); }
-    return u.ad * aF + (skillReady(u) ? skDmg(u, u.def.skill, 'q') * defF(tz, u.def.skill) : 0);
+    return u.ad * aF + (skillReady(u) ? qEst(u) * defF(tz, u.def.skill) : 0);
   }
   // 막타 구간: '내 공격이 닿을 때쯤 남을 체력'을 한 방에 지울 수 있나 (체력 %가 아니라 몇 초 안에 죽나). 오차는 파밍 숙련도
   function toadZone(S, u, tz, sk) {
@@ -4423,17 +4520,17 @@ const SimMake = (MAP_IN) => {
     if (Math.floor(S.t * 30) % 6 || j.recall || j.hp / j.maxHp < JG_CC.hp || S.t < (j.ccCd || 0)) return false;
     const team = j.team; let best = null, bd = 1e9;
     for (const e of S.units) {
-      if (!e.alive || e.team !== 1 - team || !isHero(e) || !validTarget(S, team, e) || !e.hurtBy) continue;
+      if (!e.alive || e.team !== 1 - team || e.kind !== 'champ' || !validTarget(S, team, e) || !e.hurtBy) continue; // 챔피언만 — 상대 정글러를 넣으면 갱 시작(startGank)이 챔피언 숙련도를 읽다 멈췄음 (v0.99.90 고침)
       const d = dist(j, e); if (d > JG_CC.join || d >= bd) continue;
       const until = Math.max(e.stunUntil || 0, e.snareUntil || 0, e.airUntil || 0, e.yank ? S.t + e.yank.t : 0);
       if (until - S.t < CC_FOLLOW.min && !S.champs.some((a) => a.team === team && a.alive && a.commit && a.commit.burst && a.commit.id === e.id && S.t < a.commit.until && dist(a, e) < 4)) continue; // 묶인 순간이 짧아도, 아군이 끌어와 몰아치는 중이면 같이 들어감
       let by = false; for (const k in e.hurtBy) { const h = e.hurtBy[k]; if (h.u && h.u.team === team && h.u.kind === 'champ' && S.t - h.t < CC_FOLLOW.win) { by = true; break; } } if (!by) continue;
-      const tw = e.kind === 'champ' ? frontTower(S, e.team, e.lane) : null; if (tw && tw.alive && dist(e, tw) < tw.range - 0.5) continue;
+      const tw = frontTower(S, e.team, e.lane); if (tw && tw.alive && dist(e, tw) < tw.range - 0.5) continue;
       bd = d; best = e;
     }
     if (!best) return false;
     j.ccCd = S.t + JG_CC.cd; j.campI = null; j.path = null;
-    if (best.kind === 'champ') j.gRole = best.role;
+    j.gRole = best.role;
     if (j.jgState === 'lurk' || j.jgState === 'approach') startGank(S, j, best);
     else { j.jgState = 'assist'; j.foe = best.id; j.stateT = 0; j.target = null; }
     if (team === 0) { pushLog(S, `아군 정글러 CC 호응 → ${best.name}`, 'ally'); talk(S, 'jgCc', 25, [['jg', ['잡았다 간다!', '호응 간다', '나이스 묶음 ㄱㄱ']]], true); }
@@ -4460,6 +4557,25 @@ const SimMake = (MAP_IN) => {
     return true;
   }
   // jungler kit: Q lasso (slow), W pounce (덮치기, the leap from the bush), R roar (lv6: AoE damage + slow)
+  // 정글러 종류 (v0.99.92, 사용자 디자인). hunter = 예전부터 있던 정글러(올가미 · 덮치기 · 야수의 포효), beetle = 쇠똥구리 존슨.
+  //   hp·ad·armor·mr = [1레벨, 레벨당], ms = 이동 속도, spr = 도트 이름. 존슨: 조금 느리고 단단함.
+  //   존슨 Q 악취의 고리(stink): dur초 동안 자기 둘레 radius칸에 고리 — tick초마다 base + ratio×공격력 피해, 안에 있는 적 영웅은 침묵(silence초씩 이어 붙음 — 스킬을 못 씀). W·R은 다음 단계에서(지금은 덮치기·포효를 같이 씀)
+  const JG_TYPES = {
+    hunter: { key: 'hunter', name: '정글러', spr: 'jungler', hp: [850, 95], ad: [72, 5.5], armor: [30, 3.5], mr: [30, 1.25], ms: 3.8 },
+    beetle: { key: 'beetle', name: '쇠똥구리 존슨', spr: 'beetle', hp: [930, 104], ad: [66, 5.0], armor: [34, 3.8], mr: [32, 1.3], ms: 3.6,
+      q: { kind: 'stink', name: '악취의 고리', cd: 12, dur: 3.5, radius: 2.4, tick: 0.5, base: 10, ratio: 0.12, silence: 0.75, monMul: 1.6 },
+      // W 땅속 잠복(burrow, v0.99.93): 갱을 걸 때 range칸 안이면 땅속으로 들어가 speed로 파고 감(그동안 공격받지 않음, 흙더미가 보임). 대상에 emerge칸까지 붙거나 max초가 지나거나 벽에 막히면 튀어나오며
+      //   둘레 radius칸의 적에게 base + ratio×공격력 피해, 영웅은 air초 띄움. 덮치기 대신 (쿨 cd초, 푸른 기운이면 0.75배)
+      w: { kind: 'burrow', name: '땅속 잠복', cd: 12, range: 7.5, speed: 9, max: 1.3, emerge: 1.0, radius: 1.9, base: 55, ratio: 0.35, air: 0.9, behind: 1.0 },
+      // R 똥 굴러가유(ball, v0.99.94): 거의 붙은(grab칸) 상대 챔피언 한 명을 공에 가두고 굴림. 속도 v0에서 초당 acc씩 vMax까지 빨라지고, 방향은 초당 turn(rad)밖에 못 틂.
+      //   공(반지름 ballR, 존슨 앞 gap칸)이 벽·건물·다른 적 영웅에 부딪히면 깨짐. 갇힌 상대: 굴러가는 동안 공격받지 않고, 깨질 때 base + ratio×공격력 + 속도 보너스(spd×(지금 속도 − v0)) 피해 + stun초 멈춤.
+      //   부딪힌 적 영웅: hit + hitRatio×공격력 + 같은 속도 보너스 피해, knock칸 밀리며 air초 뜸. max초가 지나거나 우리 포탑 사거리 안에 닿으면 거기서 깨뜨림(배달).
+      //   AI: 우리 포탑(seekT칸 안, 없으면 본진) 쪽을 목표로, look칸 앞까지 가장 길게 굴릴 수 있는 방향으로 시작(가는 길에 다른 적 영웅이 맞으면 그쪽을 더 침). minClear칸도 못 굴릴 자리면 안 씀. 쿨 cd, 6레벨부터
+      r: { kind: 'ball', name: '똥 굴러가유', cd: 60, grab: 1.5, gap: 1.2, ballR: 0.85, v0: 4, acc: 1.9, vMax: 9.5, turn: 0.9, max: 4, base: 90, ratio: 0.6, spd: 12, hit: 110, hitRatio: 0.7, knock: 2.6, air: 0.8, stun: 0.6, seekT: 30, look: 11, minClear: 3, minGoal: 8, ahead: 5, probe: 0.5 } },
+  };
+  const jgType = (S, team) => JG_TYPES[S.jg[team].type] || JG_TYPES.hunter;
+  // 침묵: 스킬을 못 씀(평타·이동은 됨). 챔피언은 c._S로, 정글러는 S로 봄
+  const silenced = (u) => !!u._S && u._S.t < (u.silenceUntil || 0);
   const JG_KIT = {
     q: { name: '올가미', cd: 10, range: 6.5, base: 35, ratio: 0.3, slow: 0.45, dur: 2.0 },
     w: { name: '덮치기' },
@@ -4468,8 +4584,14 @@ const SimMake = (MAP_IN) => {
   // cast a jungler spell at a champion/jungler target if it makes sense; true = used this tick
   function jgSpells(S, j, t) {
     if (!t || !t.alive || (t.kind !== 'champ' && t.kind !== 'jungler') || j.leap) return false;
-    const d = dist(j, t);
-    if (j.level >= 6 && (j.cdR || 0) <= 0 && d <= JG_KIT.r.radius) {
+    if (S.t < (j.silenceUntil || 0)) return false; // 침묵: 정글러도 스킬을 못 씀
+    const d = dist(j, t), JT = jgType(S, j.team);
+    if (JT.q && JT.q.kind === 'stink') { // 존슨 Q: 붙은 상대 둘레에 악취의 고리 (올가미 대신)
+      if (j.level >= 2 && (j.cdQ || 0) <= 0 && d <= JT.q.radius - 0.3 && !j.stink) { j.cdQ = JT.q.cd; j.stink = { until: S.t + JT.q.dur, next: S.t }; fx(S, 'stinkOn', j.x, j.y, { team: j.team, life: 0.5, r: JT.q.radius }); fxNum(S, j.x, j.y - 0.6, JT.q.name + '!', '#b6e05a'); if (j.team === 0) pushLog(S, '아군 정글러 ' + JT.q.name, 'ally'); return true; }
+    }
+    if (JT.r && JT.r.kind === 'ball') { // 존슨 R: 붙은 챔피언을 공에 가둬 굴림 (포효 대신)
+      if (j.level >= 6 && (j.cdR || 0) <= 0 && t.kind === 'champ' && !t.balled && !t.cocoon && d <= JT.r.grab && !(S.t < (t.stasisUntil || 0))) { const plan = ballPlan(S, j, t, JT.r); if (plan) { startBall(S, j, t, JT.r, plan); return true; } }
+    } else if (j.level >= 6 && (j.cdR || 0) <= 0 && d <= JG_KIT.r.radius) {
       const k = JG_KIT.r; j.cdR = k.cd;
       for (const e of enemiesAround(S, j.team, j, k.radius)) {
         damage(S, j, e, (k.base + k.ratio * j.ad) * (e.kind === 'minion' ? 0.6 : 1), { skill: e.kind !== 'minion', ult: true });
@@ -4480,7 +4602,7 @@ const SimMake = (MAP_IN) => {
       pushEvent(S, { type: 'ult', who: who(j), name: k.name, at: { x: j.x, y: j.y } });
       return true;
     }
-    if (j.level >= 2 && (j.cdQ || 0) <= 0 && d <= JG_KIT.q.range && d > 1.6 && !(S.t < (t.slowUntil || 0))) {
+    if (!JT.q && j.level >= 2 && (j.cdQ || 0) <= 0 && d <= JG_KIT.q.range && d > 1.6 && !(S.t < (t.slowUntil || 0))) {
       const k = JG_KIT.q; j.cdQ = k.cd; faceTo(j, t);
       S.proj.push({ x: j.x, y: j.y, z: 0.6, id: t.id, src: j.id, team: j.team, dmg: k.base + k.ratio * j.ad, speed: 15, kind: 'lasso', skill: true, slow: { pct: k.slow, dur: k.dur } });
       fxNum(S, j.x, j.y - 0.6, k.name + '!', '#ffd36e');
@@ -4490,11 +4612,152 @@ const SimMake = (MAP_IN) => {
   }
   // 정글러가 갱킹 전에 플레이어에게 묻기 (지금은 꺼 둠: 정글러가 스스로 판단)
   const JG_ASK_PLAYER = false;
-  const jgLvStats = (L) => { const hp = Math.round(850 + 95 * (L - 1)); return { hp, maxHp: hp, ad: 72 + 5.5 * (L - 1), armor: 30 + 3.5 * (L - 1), mr: 30 + 1.25 * (L - 1) }; };
+  const jgLvStats = (L, T = JG_TYPES.hunter) => { const hp = Math.round(T.hp[0] + T.hp[1] * (L - 1)); return { hp, maxHp: hp, ad: T.ad[0] + T.ad[1] * (L - 1), armor: T.armor[0] + T.armor[1] * (L - 1), mr: T.mr[0] + T.mr[1] * (L - 1) }; };
+  // ---- 똥 굴러가유 (존슨 R) ----
+  // 굴릴 목표와 처음 방향 (난수 안 씀): 목표 = 우리 포탑(없으면 본진). 16방향 중 그 방향으로 곧게 굴렸을 때 (막히기 전 거리) × (목표 쪽일수록 큼) + (가는 길에 다른 적이 맞으면 보너스)가 가장 큰 쪽
+  // 그 방향으로 공이 곧게 갈 수 있는 거리 (far까지. 벽·맵 밖, 그리고 목표가 아닌 건물에 막힘)
+  function ballClear(S, j, a, K, far, goal) {
+    const dx = Math.cos(a), dy = Math.sin(a); let s = 0.5;
+    for (; s <= far; s += 0.5) { const x = j.x + dx * (K.gap + s), y = j.y + dy * (K.gap + s);
+      if (!walkable(x, y) || S.towers.some((tw) => tw.alive && !(goal && tw.x === goal.x && tw.y === goal.y) && Math.hypot(tw.x - x, tw.y - y) < (tw.radius || 0.8) + K.ballR)) break; }
+    return s - 0.5;
+  }
+  // 공을 굴려 갈 목표 (우리 포탑, 없으면 본진)
+  function ballGoal(S, j, K) {
+    let goal = null, gd = 1e9, kind = 'home';
+    // 목표 포탑: minGoal보다 먼 것 중 가장 가까운 우리 포탑 (바로 옆 포탑이면 굴릴 거리가 안 나와서 그 뒤 포탑으로 — v0.99.96). 그런 게 없으면 가장 가까운 포탑
+    for (const tw of S.towers) if (tw.alive && tw.team === j.team && tw.range > 0) { const d = dist(tw, j); if (d < K.seekT && d >= K.minGoal && d < gd) { gd = d; goal = { x: tw.x, y: tw.y }; kind = 'tower'; } }
+    if (!goal) for (const tw of S.towers) if (tw.alive && tw.team === j.team && tw.range > 0) { const d = dist(tw, j); if (d < K.seekT && d < gd) { gd = d; goal = { x: tw.x, y: tw.y }; kind = 'tower'; } }
+    if (!goal) { const f = MAP.fountains[j.team]; goal = { x: f.x, y: f.y }; gd = dist(f, j); }
+    return { goal, gd, kind };
+  }
+  function ballPlan(S, j, t, K) {
+    const { goal, gd, kind } = ballGoal(S, j, K);
+    const foes = S.units.filter((e) => e.alive && e.team === 1 - j.team && isHero(e) && e !== t && canSee(S, j.team, e) && dist(e, j) < K.look + 1);
+    const ga = Math.atan2(goal.y - j.y, goal.x - j.x); let best = null, bs = -1e9;
+    for (let i = 0; i < 16; i++) {
+      const a = ga + i / 16 * Math.PI * 2, dx = Math.cos(a), dy = Math.sin(a); let clear = 0, hit = false;
+      const far = ballClear(S, j, a, K, K.look, goal);
+      for (let s = 0.5; s <= far; s += 0.5) { const x = j.x + dx * (K.gap + s), y = j.y + dy * (K.gap + s); clear = s; if (foes.some((e) => Math.hypot(e.x - x, e.y - y) < K.ballR + e.radius)) { hit = true; break; } }
+      if (clear < K.minClear && !hit) continue;
+      let da = a - ga; while (da > Math.PI) da -= Math.PI * 2; while (da < -Math.PI) da += Math.PI * 2;
+      const sc = Math.min(clear, gd) * (0.25 + 0.75 * Math.max(0, Math.cos(da))) + (hit ? 5 : 0) - Math.abs(da) * 0.01;
+      if (sc > bs) { bs = sc; best = a; }
+    }
+    return best === null ? null : { goal, kind, ang: best };
+  }
+  function startBall(S, j, t, K, plan) {
+    const champ = j.kind === 'champ'; // 챔피언 존슨: 쿨 감소·마나 적용, 하던 동작을 끊음
+    j.cdR = champ ? K.cd * cdMul(j, 'r') : K.cd; j.roll = { id: t.id, ang: plan.ang, v: K.v0, t: 0, goal: plan.goal, kind: plan.kind, spin: 0 };
+    if (champ) { j.mp -= K.cost; j.mv = null; j.plan = null; j.atk.wind = null; j.cast = null; j.cast2 = null; j.dash = null; j.burrow = null; j.recall = null; }
+    else { j.mv = null; j.path = null; j.leap = null; j.atk.wind = 0; }
+    t.balled = { by: j.id, spin: 0, dx: Math.cos(plan.ang), dy: Math.sin(plan.ang) }; t.mv = null; t.recall = null; t.dash = null; t.yank = null; if (t.chg) t.chg = null; t.commit = null; t.plan = null;
+    fxNum(S, j.x, j.y - 0.7, K.name + '!', '#c9a85a', true);
+    pushEvent(S, { type: 'ult', who: who(j), name: K.name, at: { x: j.x, y: j.y } });
+    pushLog(S, (champ ? j.name : (j.team === 0 ? '아군' : '적') + ' 정글러') + ' ' + K.name + ' → ' + t.name, j.team === 0 ? 'ally' : 'warn');
+  }
+  function breakBall(S, j, K, why, hitE) {
+    (S.ballEnds || (S.ballEnds = {}))[why] = ((S.ballEnds || {})[why] || 0) + 1; // 어떻게 끝났는지 세어 둠(확인용 — 경기에는 안 씀)
+    const R = j.roll, t = byId(S, R.id), bx = j.x + Math.cos(R.ang) * K.gap, by = j.y + Math.sin(R.ang) * K.gap, bonus = K.spd * Math.max(0, R.v - K.v0);
+    j.roll = null;
+    fx(S, 'ballBreak', bx, by, { team: j.team, life: 0.6, r: 1.6 }); fx(S, 'burst', bx, by, { team: j.team, life: 0.4, big: true });
+    if (t) { t.balled = null; t.stasisUntil = 0; const q = walkable(bx, by) ? { x: bx, y: by } : nearestWalkable(bx, by); t.x = q.x; t.y = q.y; t.mv = null;
+      if (t.alive && why !== 'dead') { damage(S, j, t, (j.kind === 'champ' ? skDmg(j, K, 'r') : K.base + K.ratio * j.ad) + bonus, { skill: true, ult: true }); if (t.alive) { t.stunUntil = Math.max(t.stunUntil || 0, S.t + K.stun); fxNum(S, t.x, t.y - 0.6, '쿵!', '#ffd36e', true); } } }
+    if (hitE && hitE.alive) { damage(S, j, hitE, K.hit * (j.kind === 'champ' ? rkMul(j, 'r') : 1) + K.hitRatio * j.ad + bonus, { skill: true, ult: true });
+      if (hitE.alive) { const kx = hitE.x + Math.cos(R.ang) * K.knock, ky = hitE.y + Math.sin(R.ang) * K.knock; hitE.yank = { x: kx, y: ky, t: 0.3, v: 12 }; hitE.mv = null; hitE.recall = null; knockUp(S, hitE, K.air); } }
+    if (j.kind === 'champ') { const nx = t && t.alive ? t : hitE && hitE.alive ? hitE : null; if (nx && j.alive) j.commit = { id: nx.id, until: S.t + 2.5, label: '굴려 왔다!' }; return; } // 챔피언: 풀려난 상대를 잠깐 몰아침
+    j.jgState = 'engage'; j.target = (hitE && hitE.alive ? hitE : t && t.alive ? t : null) ? (hitE && hitE.alive ? hitE.id : t.id) : null; j.stateT = 0; if (!j.target) j.jgState = 'farm';
+  }
+  function rollTick(S) {
+    // 정글러 둘(예전 순서 그대로) 다음에 챔피언들
+    const list = []; for (const J of S.jg) if (J.unit && J.unit.roll) list.push([J.unit, (JG_TYPES[J.type] || {}).r]);
+    for (const c of S.champs) if (c.roll) list.push([c, c.def.ult && c.def.ult.kind === 'ball' ? c.def.ult : null]);
+    for (const [j, K] of list) {
+      const R = j.roll, t = byId(S, R.id);
+      if (!K || !j.alive || !t || !t.alive) { if (K) breakBall(S, j, K, 'dead', null); else j.roll = null; continue; }
+      if (S.t < (j.stunUntil || 0)) { breakBall(S, j, K, 'stun', null); continue; }
+      R.t += DT; R.v = Math.min(K.vMax, K.v0 + K.acc * R.t);
+      // 방향: 목표 쪽으로 조금씩만 (빠를수록 덜 틀어짐). 틀었더니 바로 앞이 벽이면 그대로 감
+      if (R.goal) { if (R.goal.id) { const g = byId(S, R.goal.id); if (g && g.alive) { R.goal.x = g.x; R.goal.y = g.y; } }
+        let da = Math.atan2(R.goal.y - j.y, R.goal.x - j.x) - R.ang; while (da > Math.PI) da -= Math.PI * 2; while (da < -Math.PI) da += Math.PI * 2;
+        // 벽 피하기 (v0.99.96): 목표 쪽으로 틀 방향이 ahead칸 안에서 막혀 있으면 — 지금 방향이 뚫려 있으면 그대로, 아니면 좌우 중 더 뚫린 쪽으로 틂
+        const A = Math.min(K.ahead, Math.max(1, Math.hypot(R.goal.x - j.x, R.goal.y - j.y) - K.gap - 0.5));
+        if (ballClear(S, j, R.ang + clamp(da, -K.probe, K.probe), K, A, R.goal) < A) {
+          const c = ballClear(S, j, R.ang, K, A, R.goal), l = ballClear(S, j, R.ang - K.probe, K, A, R.goal), r = ballClear(S, j, R.ang + K.probe, K, A, R.goal);
+          if (c >= A) da = 0; else if (Math.abs(l - r) > 0.4) da = l > r ? -1 : 1;
+        }
+        const lim = K.turn * DT * (K.v0 / R.v + 0.35); R.ang += clamp(da, -lim, lim); }
+      const dx = Math.cos(R.ang), dy = Math.sin(R.ang), st = R.v * DT, nx = j.x + dx * st, ny = j.y + dy * st, bx = nx + dx * K.gap, by = ny + dy * K.gap;
+      // 부딪힘: 벽·맵 밖, 건물, 다른 적 영웅
+      if (!walkable(bx, by) || !walkable(nx, ny)) { breakBall(S, j, K, 'wall', null); continue; }
+      { const tw = S.towers.find((w) => w.alive && Math.hypot(w.x - bx, w.y - by) < (w.radius || 0.8) + K.ballR); if (tw) { breakBall(S, j, K, tw.team === j.team && tw.range > 0 ? 'tower' : 'wall', null); continue; } }
+      let hitE = null; for (const e of S.units) if (e.alive && e.team === 1 - j.team && isHero(e) && e !== t && !(S.t < (e.stasisUntil || 0)) && Math.hypot(e.x - bx, e.y - by) < K.ballR + e.radius) { hitE = e; break; }
+      j.x = nx; j.y = ny; j.mv = null; j.face = dx >= 0 ? 1 : -1; R.spin += st / K.ballR;
+      t.x = bx; t.y = by; t.mv = null; t.stasisUntil = S.t + DT * 2; t.stunUntil = Math.max(t.stunUntil || 0, S.t + DT * 2); t.balled.spin = R.spin; t.balled.dx = dx; t.balled.dy = dy;
+      if (Math.floor(S.t * 30) % 4 === 0) fx(S, 'trail', j.x - dx * 0.4, j.y - dy * 0.4, { team: j.team, life: 0.3 });
+      if (hitE) { breakBall(S, j, K, 'hit', hitE); continue; }
+      // 배달 (v0.99.96): 사거리 끝에서 깨지지 않고 목표 포탑까지 굴려 박음(위 건물 충돌). 사거리 안에서 포탑을 스쳐 지나가기 시작하면 거기서 깸
+      let myT = false;
+      if (R.kind === 'tower' && R.goal) { const gx = R.goal.x - bx, gy = R.goal.y - by, gd = Math.hypot(gx, gy), tw = S.towers.find((w) => w.alive && w.team === j.team && w.x === R.goal.x && w.y === R.goal.y);
+        if (gx * dx + gy * dy > 0) R.app = true; else if (R.app && tw && gd < tw.range - 1.2) myT = true; }
+      if (R.t >= K.max || myT) breakBall(S, j, K, myT ? 'tower' : 'time', null);
+    }
+  }
+  // 땅속 잠복 한 틱 (정글러 j.leap / 챔피언 c.burrow 공통). L = { id, t(남은 시간), dodged, goal }. 튀어나왔으면 true
+  //   나올 자리: 보통은 대상 발밑(emerge칸 안에 들면 나옴). L.goal이 있으면(= 곧 궁으로 굴릴 생각, 사용자 v0.99.102) 대상 너머 — 우리 포탑 반대쪽 behind칸 — 까지 가서 나옴 → 굴릴 방향 앞에 대상이 놓임
+  function burrowStep(S, u, W, L, t, one) {
+    L.t -= DT;
+    const live = !!t && t.alive; let ax = live ? t.x : u.x, ay = live ? t.y : u.y, near = W.emerge;
+    if (live && L.goal) { const gx = t.x - L.goal.x, gy = t.y - L.goal.y, gl = Math.hypot(gx, gy) || 1, bx = t.x + gx / gl * W.behind, by = t.y + gy / gl * W.behind; if (walkable(bx, by)) { ax = bx; ay = by; near = 0.2; } }
+    const d = live ? Math.hypot(ax - u.x, ay - u.y) : 0;
+    let pop = !live || L.t <= 0 || d <= near;
+    if (!pop) { const st = Math.min(W.speed * DT, d), nx = u.x + (ax - u.x) / d * st, ny = u.y + (ay - u.y) / d * st;
+      if (walkable(nx, ny)) { u.x = nx; u.y = ny; faceTo(u, t); u.stasisUntil = S.t + DT * 2; u.mv = null; } else pop = true; } // 땅속: 공격받지 않음. 벽에 막히면 거기서 나옴
+    if (!pop) return false;
+    u.stasisUntil = 0; if (live) faceTo(u, t);
+    fx(S, 'emerge', u.x, u.y, { team: u.team, life: 0.5, r: W.radius }); fx(S, 'burst', u.x, u.y, { team: u.team, life: 0.35, big: true });
+    for (const e of S.units) {
+      if (!e.alive || e.team === u.team || e.kind === 'tower' || e.kind === 'ward' || e.kind === 'trap' || dist(e, u) > W.radius + (e.radius || 0) * 0.5 || S.t < (e.stasisUntil || 0)) continue;
+      const hero = isHero(e);
+      if (hero && live && e === t && L.dodged) { fxNum(S, e.x, e.y - 0.5, '피함!', '#9fd0ff'); if (e.kind === 'champ' && S.cr() < 0.7) say(S, e, pick(S, CHAT.dodge), 'all', 0.5); continue; }
+      damage(S, u, e, one, { skill: hero, leap: true });
+      if (hero && e.alive) knockUp(S, e, W.air);
+    }
+    return true;
+  }
+  // 챔피언의 땅속 잠복 (존슨 W)
+  function burrowTick(S) {
+    for (const c of S.champs) { if (!c.burrow) continue;
+      if (!c.alive) { c.burrow = null; continue; }
+      const W = c.def.skill2, t = byId(S, c.burrow.id);
+      if (burrowStep(S, c, W, c.burrow, t, skDmg(c, W, 'w'))) { c.burrow = null; if (t && t.alive && !c.commit) c.commit = { id: t.id, until: S.t + 2.5, label: '덮침!' }; } // 나온 뒤엔 그 상대를 잠깐 몰아침
+    }
+  }
+  // 악취의 고리: 켜져 있는 동안 tick마다 둘레 적에게 피해 + 영웅 침묵 (정글러를 따라다님)
+  // 챔피언이 Q로 켬 (v0.99.101)
+  function castStink(S, c, sk) { c.stink = { until: S.t + sk.dur, next: S.t }; fx(S, 'stinkOn', c.x, c.y, { team: c.team, life: 0.5, r: sk.radius }); fxNum(S, c.x, c.y - 0.6, sk.name + '!', '#b6e05a'); }
+  function stinkTick(S) {
+    // 정글러 둘(예전 순서 그대로) 다음에 챔피언들. 수치: 정글러 = JG_TYPES의 q, 챔피언 = def.skill(스킬 레벨만큼 세짐)
+    const list = []; for (const J of S.jg) if (J.unit && J.unit.stink) list.push([J.unit, (JG_TYPES[J.type] || {}).q, null]);
+    for (const c of S.champs) if (c.stink) list.push([c, c.def.skill.kind === 'stink' ? c.def.skill : null, 'q']);
+    for (const [j, k, slot] of list) {
+      if (!j.alive || S.t >= j.stink.until) { j.stink = null; continue; }
+      if (S.t < j.stink.next) continue;
+      if (!k) { j.stink = null; continue; }
+      j.stink.next = S.t + k.tick;
+      const one = slot ? skDmg(j, k, slot) : k.base + k.ratio * j.ad;
+      for (const e of S.units) {
+        if (!e.alive || e.team === j.team || e.kind === 'tower' || e.kind === 'ward' || e.kind === 'trap' || dist(e, j) > k.radius + (e.radius || 0) * 0.5) continue;
+        const hero = isHero(e);
+        damage(S, j, e, one * (hero ? 1 : k.monMul), { skill: hero });
+        if (hero && e.alive) { if (!(S.t < (e.silenceUntil || 0))) fxNum(S, e.x, e.y - 0.7, '침묵!', '#b6e05a'); e.silenceUntil = Math.max(e.silenceUntil || 0, S.t + k.silence); }
+      }
+    }
+  }
   // level stats + items -> apply to the jungler unit (keeps the hp ratio)
   function jgApply(u, J) {
-    const b = jgLvStats(J.level);
-    let hp = b.maxHp, ad = b.ad, armor = b.armor, asMul = 1, ms = 3.8, ls = 0, mr = 30 + J.level * 1.25;
+    const JT = JG_TYPES[J.type] || JG_TYPES.hunter, b = jgLvStats(J.level, JT);
+    let hp = b.maxHp, ad = b.ad, armor = b.armor, asMul = 1, ms = JT.ms, ls = 0, mr = b.mr;
     for (const k of J.items) { const it = ITEMS[k]; hp += it.hp || 0; ad += it.ad || 0; armor += it.armor || 0; asMul += it.as || 0; ms += it.ms || 0; ls += it.ls || 0; mr += it.mr || 0; }
     u.mr = mr;
     const ratio = u.maxHp ? u.hp / u.maxHp : 1;
@@ -4544,8 +4807,9 @@ const SimMake = (MAP_IN) => {
     const J = S.jg[team], f = at || MAP.fountains[team];
     const u = add(S, {
       kind: 'jungler', team, name: (team === 0 ? '아군' : '적') + ' 정글러', x: f.x, y: f.y,
-      ...jgLvStats(J.level), range: 1.2, as: 0.8, ms: 3.8, radius: 0.48, sight: 6, windup: 0.2, proj: 0,
+      ...jgLvStats(J.level, jgType(S, team)), range: 1.2, as: 0.8, ms: jgType(S, team).ms, radius: 0.48, sight: 6, windup: 0.2, proj: 0,
     });
+    u.jgType = jgType(S, team).key; u.jgName = jgType(S, team).name; // 종류(도트·스킬), 화면에 보일 이름. 기록·채팅의 이름은 역할(아군 정글러) 그대로
     u.level = J.level; u.jgState = 'farm'; u.stateT = 0; u.campI = null; u.seenBy = [false, false];
     u.wards = 1; u.wardRecharge = 90; u.lensCd = 0; u.cdQ = 0; u.cdR = 0;
     if (S.t < BUFF_OPEN && !S.leashDone?.[team]) {
@@ -4870,14 +5134,16 @@ const SimMake = (MAP_IN) => {
   function startGank(S, j, enemy) {
     { const g = (enemy.ganked || (enemy.ganked = [])).filter((x) => S.t - x < 300); g.push(S.t); enemy.ganked = g; if (g.length === 3 && enemy.kind === 'champ') { mood(S, enemy, MENTAL.ev.camped); if (enemy.team === 0) { const LN = LANES[enemy.lane].name; talk(S, 'camped', 120, [[enemy.role, [`정글 ${LN}에 텐트 쳤네 ㅡㅡ`, `또 왔어?? ${LN}만 오네`, `상대 정글 ${LN}에 살아`, '우리 정글 어디?']], ['jg', ['내가 커버 갈게', 'ㄱㅊ 버텨']]], true); } } } // 텐트
     j.jgState = 'engage'; j.stateT = 0; j.target = enemy.id; j.leapCd = j.leapCd || 0;
-    if (dist(j, enemy) <= 6.2 && S.t >= j.leapCd) {
+    const JW = jgType(S, j.team).w || null; // 존슨이면 땅속 잠복, 아니면 덮치기
+    if (dist(j, enemy) <= (JW ? JW.range : 6.2) && S.t >= j.leapCd && !(S.t < (j.silenceUntil || 0))) {
       // the target may see it coming: warded/visible jungler or a careful player sidesteps
       const seen = canSee(S, enemy.team, j);
       const careful = enemy.tend === 'def' ? 0.25 : enemy.tend === 'mid' ? 0.1 : 0;
-      const dodged = S.r() < (seen ? 0.55 : 0) + careful * enemy.sk.vision;
-      j.leap = { id: enemy.id, t: 0.6, dodged }; j.leapCd = S.t + 12 * (hasBuff(S, j, 'blue') ? 0.75 : 1);
-      fxNum(S, j.x, j.y - 0.6, '덮치기!', '#ffb347', true);
-      pushEvent(S, { type: 'leap', who: who(j), victim: who(enemy), at: { x: enemy.x, y: enemy.y }, dodged });
+      const dodged = S.r() < (seen ? (JW ? 0.3 : 0.55) : 0) + careful * enemy.sk.vision; // 땅속으로 오면 덜 피함(흙더미만 보임)
+      const JR = jgType(S, j.team).r, wantBall = !!JW && !!JR && JR.kind === 'ball' && j.level >= 6 && (j.cdR || 0) <= 1.5 && enemy.kind === 'champ'; // 궁이 준비돼 있으면 상대 뒤에서 나와 바로 굴림
+      j.leap = JW ? { id: enemy.id, t: JW.max, dodged, burrow: true, goal: wantBall ? ballGoal(S, j, JR).goal : null } : { id: enemy.id, t: 0.6, dodged }; j.leapCd = S.t + (JW ? JW.cd : 12) * (hasBuff(S, j, 'blue') ? 0.75 : 1);
+      fxNum(S, j.x, j.y - 0.6, (JW ? JW.name : '덮치기') + '!', '#ffb347', true);
+      pushEvent(S, { type: 'leap', name: JW ? JW.name : '덮치기', who: who(j), victim: who(enemy), at: { x: enemy.x, y: enemy.y }, dodged });
     }
     pushLog(S, j.team === 0 ? `아군 정글러 갱킹! → ${enemy.name}` : `적 정글러 갱킹! (${j.bushRef.label})`, j.team === 0 ? 'ally' : 'warn');
     callCounter(S, 1 - j.team, j);
@@ -4970,6 +5236,7 @@ const SimMake = (MAP_IN) => {
     const cdRate = DT * (hasBuff(S, j, 'blue') ? 1.25 : 1);
     if (j.cdQ > 0) j.cdQ -= cdRate;
     if (j.cdR > 0) j.cdR -= cdRate;
+    if (j.roll) { j.mv = null; j.intent = '공 굴리는 중'; return; } // 공을 굴리는 동안은 다른 판단을 안 함 (rollTick이 움직임)
     jgLens(S, j);
     if (j.atk.wind) { j.mv = null; return; }
     jgSickleAI(S, j);
@@ -5068,6 +5335,11 @@ const SimMake = (MAP_IN) => {
       }
     } else if (j.jgState === 'engage') {
       const t = byId(S, j.target);
+      if (j.leap && j.leap.burrow) { // 땅속 잠복 (존슨 W): 땅속으로 대상에게 파고 가서 튀어나오며 둘레를 띄움
+        const W = jgType(S, j.team).w;
+        if (burrowStep(S, j, W, j.leap, t, W.base + W.ratio * j.ad)) j.leap = null;
+        return;
+      }
       if (j.leap) {
         // 덮치기: fast leap out of the bush, stuns on landing
         j.leap.t -= DT;
@@ -5088,6 +5360,7 @@ const SimMake = (MAP_IN) => {
       const finishing = t && t.alive && t.hp / t.maxHp < 0.4 && j.hp / j.maxHp > 0.45; // low target: worth a tower dive
       if (!t || !t.alive || j.stateT > 9 || j.hp / j.maxHp < 0.3 || (tw.alive && dist(t, tw) < tw.range - (finishing ? 6.5 : 3.5))) {
         if (j.team === 0 && t && t.alive && t.kind === 'champ') talk(S, 'miss', 0, [['jg', TALK.miss], tox(honorOf(S, gL(S, 0))) > 0.4 && S.cr() < 0.7 ? [gr, ['?', '그걸 놓침?', '스킬 왜 안 맞음 ㅡㅡ'], pingAt('what', j)] : [gr, TALK.missRe]], true);
+        if (t && !t.alive && j.hp / j.maxHp > 0.35) { const g = advTarget(S, j, null); if (g) { j.target = g.id; j.stateT = 0; if (g.kind === 'champ') j.gRole = g.role; if (j.team === 0) pushLog(S, `아군 정글러 — ${g.name}도 잡는다`, 'ally'); return; } } // 잡고 나서 곁에 남은 적이 있고 우리가 앞서면 이어서 (v0.99.95)
         if (t && !t.alive && t.kind === 'champ' && j.hp / j.maxHp > 0.4) {
           j.jgState = 'siege'; j.stateT = 0; j.target = null;
           if (j.team === 0) talk(S, 'siege', 20, [['jg', ['밀고 가자', '포탑 치자 ㄱㄱ', '타워 ㄱ']], [gr, ['ㄱㄱ', 'ㅇㅋ 밀자']]], true);
@@ -5188,14 +5461,14 @@ const SimMake = (MAP_IN) => {
     const W = gank ? 4.5 : 4.0;
     const aF = 100 / (100 + E.armor);
     let dmg = c.ad * c.as * W * aF * 0.85;
-    if (c.rank.q > 0 && c.skillCd <= 0.6 && c.mp >= c.def.skill.cost) dmg += skDmg(c, c.def.skill, 'q') * defF(E, c.def.skill) * (c.def.magic ? 2 : 1); // a caster gets ~2 Qs off in a fight
+    if (c.rank.q > 0 && c.skillCd <= 0.6 && c.mp >= c.def.skill.cost) dmg += qEst(c) * defF(E, c.def.skill) * (c.def.magic ? 2 : 1); // a caster gets ~2 Qs off in a fight
     if (wReady(c)) { const w2 = c.def.skill2; dmg += skDmg(c, w2, 'w') * (w2.kind === 'spin' ? w2.dur / w2.tick * 0.35 : 1) * defF(E, w2); }
     dmg *= CHAMP_VS_CHAMP;
     if (rReady(c)) dmg += ultDmg(c, E);
     let allyJg = false;
     for (const j of S.units) if (j.kind === 'jungler' && j.alive && j.team === c.team && (j.jgState === 'engage' || j.jgState === 'assist') && dist(j, E) < 5) { dmg += j.ad * j.as * W * aF; allyJg = true; }
     const myF = 100 / (100 + c.armor);
-    let inc = (E.ad * E.as * W * myF + (E.rank.q > 0 && E.skillCd <= 0.6 && E.mp >= E.def.skill.cost ? skDmg(E, E.def.skill, 'q') * defF(c, E.def.skill) * (E.def.magic ? 2 : 1) : 0)) * CHAMP_VS_CHAMP;
+    let inc = (E.ad * E.as * W * myF + (E.rank.q > 0 && E.skillCd <= 0.6 && E.mp >= E.def.skill.cost ? qEst(E) * defF(c, E.def.skill) * (E.def.magic ? 2 : 1) : 0)) * CHAMP_VS_CHAMP;
     const enT = frontTower(S, E.team, E.lane);
     const dive = enT.alive && dist(E, enT) < enT.range + 1.2;
     if (dive) inc = inc * 1.3 + towerBase(S, enT) * (TOWER_RAMP[0] + TOWER_RAMP[1] + TOWER_RAMP[2]) * (1 - (c.def.towerDR || 0)) * 100 / (100 + c.armor); // the defender fights back with its tower
@@ -5617,7 +5890,8 @@ const SimMake = (MAP_IN) => {
       }
       return;
     }
-    if (S.t < (c.stasisUntil || 0)) { c.mv = null; c.plan = null; c.atk.wind = null; c.cast = null; c.cast2 = null; c.dash = null; c.spin = null; c.pit = null; c.chg = null; c.intent = c.cocoon ? '뿌리에 갇힘' : c.gaRevive ? '부활 대기' : '시간 정지'; return; }
+    if (c.roll) { c.mv = null; c.plan = null; c.atk.wind = null; c.intent = '공 굴리는 중'; return; } // 굴리는 동안은 다른 판단을 안 함 (rollTick이 움직임)
+    if (S.t < (c.stasisUntil || 0)) { c.mv = null; c.plan = null; c.atk.wind = null; c.cast = null; c.cast2 = null; c.dash = null; c.spin = null; c.pit = null; c.chg = null; c.intent = c.burrow ? '땅속 잠복' : c.balled ? '공에 갇힘' : c.cocoon ? '뿌리에 갇힘' : c.gaRevive ? '부활 대기' : '시간 정지'; return; }
     if (c.gaRevive) { c.gaRevive = false; c.hp = c.maxHp * 0.5; fx(S, 'burst', c.x, c.y, { team: c.team, life: 0.6, big: true }); fxNum(S, c.x, c.y - 0.6, '부활!', '#ffe58a', true); }
     if (c.pit) { c.mv = null; c.plan = null; c.atk.wind = null; c.intent = '모래지옥'; return; } // 채널링 중: 제자리
     if (c.chg) { c.mv = null; c.plan = null; c.atk.wind = null; c.intent = c.chg.lv >= c.def.skill.maxLv ? '기 최대!' : '기 모으는 중'; return; }
@@ -5767,6 +6041,7 @@ const SimMake = (MAP_IN) => {
           c.mv = { x: t.x, y: t.y };
           return;
         }
+        if (sk.kind === 'stink') { castStink(S, c, sk); c.mv = { x: t.x, y: t.y }; return; } // 고리를 켜고 그대로 붙어서 침
         if (sk.kind === 'root') { startRoot(S, c, true); return; }
         if (sk.kind === 'trap') { // 싸울 땐 상대 발밑에 (가는 쪽 예측, 교전 숙련도만큼)
           const lead = t.mv ? Math.min(1.2, Math.hypot(t.mv.x - t.x, t.mv.y - t.y)) * c.sk.fight : 0, md = t.mv ? Math.hypot(t.mv.x - t.x, t.mv.y - t.y) || 1 : 1;
@@ -5828,15 +6103,17 @@ const SimMake = (MAP_IN) => {
     return S.t - c.lastDamagedAt > 1.2;
   }
 
+  const qEst = (u) => skDmg(u, u.def.skill, 'q') * (u.def.skill.estMul || 1); // 싸움 계산에서 Q 한 번을 얼마로 칠지 (악취의 고리처럼 여러 틱이면 estMul)
   const skDmg = (u, sk, slot) => sk.base * rkMul(u, slot) + (sk.ratio || 0) * u.ad + (sk.apRatio || 0) * (u.ap || 0);
   const defF = (t, sk) => 100 / (100 + (sk && sk.magic ? (t.mr || 0) : (t.armor || 0)));
+  const STAGE_OFF = {}; // 챔피언용으로 아직 안 옮긴 스킬 kind (존슨 W·R — 단계가 끝나면 여기서 뺌)
   const ALLY_W = { bark: 1 }, ALLY_R = { cocoon: 1 }; // 아군에게 쓰는 스킬: 따로 판단 (barkTarget / cocoonPick)
   const aiHold = (c) => !!c.testSkill && !c._man; // 스킬 직접 쓰기(테스트) 중: AI는 스킬을 안 씀
-  const skillReady = (c) => c.def.skill.kind !== 'mirror' && c.rank.q > 0 && c.skillCd <= 0 && c.mp >= c.def.skill.cost && !aiHold(c);
-  const wReady = (c) => !!c.def.skill2 && c.rank.w > 0 && c.cdW <= 0 && c.mp >= c.def.skill2.cost && !c.spin && !aiHold(c) && !ALLY_W[c.def.skill2.kind];
+  const skillReady = (c) => c.def.skill.kind !== 'mirror' && c.rank.q > 0 && c.skillCd <= 0 && c.mp >= c.def.skill.cost && !aiHold(c) && !silenced(c);
+  const wReady = (c) => !!c.def.skill2 && c.rank.w > 0 && c.cdW <= 0 && c.mp >= c.def.skill2.cost && !c.spin && !aiHold(c) && !ALLY_W[c.def.skill2.kind] && !STAGE_OFF[c.def.skill2.kind] && !silenced(c);
   const barkReady = (c) => !!c.def.skill2 && ALLY_W[c.def.skill2.kind] && c.rank.w > 0 && c.cdW <= 0 && c.mp >= c.def.skill2.cost && !aiHold(c);
   const cocoonReady = (c) => !!c.def.ult && ALLY_R[c.def.ult.kind] && c.rank.r > 0 && c.cdR <= 0 && c.mp >= c.def.ult.cost && !aiHold(c);
-  const rReady = (c) => !!c.def.ult && c.rank.r > 0 && c.cdR <= 0 && c.mp >= c.def.ult.cost && !aiHold(c) && !ALLY_R[c.def.ult.kind];
+  const rReady = (c) => !!c.def.ult && c.rank.r > 0 && c.cdR <= 0 && c.mp >= c.def.ult.cost && !aiHold(c) && !ALLY_R[c.def.ult.kind] && !STAGE_OFF[c.def.ult.kind] && !silenced(c);
   const ultDmg = (c, t) => { const u = c.def.ult; return (skDmg(c, u, 'r') + (u.missing || 0) * (t.maxHp - t.hp)) * defF(t, u) * CHAMP_VS_CHAMP; };
   // fight spell pick: ultimate to finish / when it's a real fight, W in range, then Q, else autos
   function fightPlan(S, c, E, label, intentLabel, burst) { // burst = 스킬을 아끼지 않음 (CC 호응)
@@ -5847,7 +6124,9 @@ const SimMake = (MAP_IN) => {
     const tossKind = !!c.def.skill2 && c.def.skill2.kind === 'toss';
     const tossBad = tossKind && c.peel && S.t < c.peel.until && (() => { const a = byId(S, c.peel.id); if (!a || !a.alive) return false; const L = d || 1, th = c.def.skill2.throw; return Math.hypot(c.x - (E.x - c.x) / L * th - a.x, c.y - (E.y - c.y) / L * th - a.y) < dist(E, a); })();
     if (tossKind && !tossBad && wReady(c) && d <= c.def.skill2.range && !(S.t < (E.airUntil || 0))) return [{ type: 'skillW', id: E.id }, intentLabel || label];
-    if (c.def.ult.kind === 'pit') { // 자이드: 둘 이상 걸리거나, 같이 싸울 사람이 있거나, 상대가 많이 깎였을 때 모래지옥 — Q가 있으면 먼저 던져 둠(2초 뒤 끌려온 적에게 날아감)
+    if (c.def.ult.kind === 'ball') { // 존슨: 붙어 있고 굴릴 길이 있으면 공에 가둬 우리 쪽으로 굴림 (안 되면 아래 W·Q·평타로)
+      if (rReady(c) && E.kind === 'champ' && d <= c.def.ult.grab && !E.balled && !E.cocoon && !(S.t < (E.stasisUntil || 0)) && ballPlan(S, c, E, c.def.ult)) return [{ type: 'ult', id: E.id }, intentLabel || label];
+    } else if (c.def.ult.kind === 'pit') { // 자이드: 둘 이상 걸리거나, 같이 싸울 사람이 있거나, 상대가 많이 깎였을 때 모래지옥 — Q가 있으면 먼저 던져 둠(2초 뒤 끌려온 적에게 날아감)
       if (rReady(c) && d <= 6) {
         const R = c.def.ult.radius, foes = S.units.filter((f) => f.alive && f.team !== c.team && (f.kind === 'champ' || f.kind === 'jungler') && canSee(S, c.team, f));
         const nAt = (p, r) => foes.filter((f) => dist(f, p) <= r).length;
@@ -5865,10 +6144,19 @@ const SimMake = (MAP_IN) => {
   function castW(S, c, t) {
     const sk = c.def.skill2; c.cdW = sk.cd * cdMul(c, 'w'); c.mp -= sk.cost;
     if (sk.kind === 'spin') { c.spin = { until: S.t + sk.dur, next: S.t }; }
+    else if (sk.kind === 'burrow') { // 땅속 잠복: 궁을 쓸 수 있으면 상대 뒤에서 나옴
+      const R = c.def.ult, wantBall = R && R.kind === 'ball' && rReady(c) && t.kind === 'champ' && !!R.seekT;
+      c.burrow = { id: t.id, t: sk.max, dodged: false, goal: wantBall ? ballGoal(S, c, R).goal : null }; c.mv = null; c.atk.wind = null; c.stasisUntil = S.t + DT * 2;
+    } // (컷인 없음 — 'leap' 이벤트는 정글러의 갱에만. 챔피언 W는 다른 W처럼 이름 글자만 뜸, v0.99.106)
     else { c.cast2 = { kind: sk.kind, t: sk.cast, x: t.x, y: t.y, id: t.id }; if (sk.magic) fx(S, 'meteorWarn', t.x, t.y, { team: c.team, life: sk.cast, r: sk.radius, small: true }); else if (sk.kind === 'volley') fx(S, 'arrowRain', t.x, t.y, { team: c.team, life: sk.cast + 0.05, r: sk.radius }); }
     if (t.kind === 'champ') fxNum(S, c.x, c.y - 0.4, sk.name + '!', '#ffd36e');
   }
   function castR(S, c, t) {
+    if (c.def.ult.kind === 'ball') { // 존슨: 굴릴 길이 있을 때만 시작 (없으면 쿨·마나 안 쓰고 접음)
+      const K = c.def.ult, plan = t.kind === 'champ' && !t.balled && !t.cocoon && !(S.t < (t.stasisUntil || 0)) ? ballPlan(S, c, t, K) : null;
+      if (plan) startBall(S, c, t, K, plan); else { c.plan = null; if (c.manual) { c.manual = null; fxNum(S, c.x, c.y - 0.6, '굴릴 길이 없어요', '#9aa3c0'); } }
+      return;
+    }
     const sk = c.def.ult; c.cdR = sk.cd * cdMul(c, 'r'); c.mp -= sk.cost; faceTo(c, t);
     c.cast2 = { kind: sk.kind, t: sk.cast, x: t.x, y: t.y, id: t.id };
     if (sk.kind === 'meteor') fx(S, 'meteorWarn', t.x, t.y, { team: c.team, life: sk.cast, r: sk.radius });
@@ -5884,6 +6172,7 @@ const SimMake = (MAP_IN) => {
   function enemiesAround(S, team, p, r) { return S.units.filter((u) => u.alive && u.team !== team && u.team !== 2 && (u.kind === 'minion' || u.kind === 'champ' || u.kind === 'jungler') && dist(u, p) <= r + (u.radius || 0)); }
   // wave clear with W: a cluster of 3+ minions worth the spell
   function waveSpell(S, c, enT) {
+    if (c.def.skill2.kind === 'burrow') return null; // 땅속 잠복은 웨이브 정리에 안 씀
     if (!wReady(c) || c.mp < c.def.skill2.cost + c.def.skill.cost * 0.5) return null;
     const sk = c.def.skill2;
     let best = null, bn = 2;
@@ -6021,7 +6310,7 @@ const SimMake = (MAP_IN) => {
     } }
     // 포탑 다이브 대응: the enemy laner is under my tower and the tower shoots it
     if (Evis && myT.alive && myT.range > 0 && myT.target === E.id && dist(E, myT) < myT.range + 0.3 && dist(c, myT) < myT.range + 4 && !c.commit) {
-      const eBurst = (E.ad * E.as * 2.5 * 100 / (100 + c.armor) + (skillReady(E) ? skDmg(E, E.def.skill, 'q') * defF(c, E.def.skill) : 0)) * CHAMP_VS_CHAMP;
+      const eBurst = (E.ad * E.as * 2.5 * 100 / (100 + c.armor) + (skillReady(E) ? qEst(E) * defF(c, E.def.skill) : 0)) * CHAMP_VS_CHAMP;
       const eLow = E.hp / E.maxHp < 0.18;
       const risky = c.hp < eBurst * (1.1 + 0.4 * (1 - c.sk.fight));
       if (!risky || eLow) {
@@ -6036,14 +6325,26 @@ const SimMake = (MAP_IN) => {
       setPlan(c, { type: 'move', ...LP(LY(E) + hd * away, c.laneX) }, '포탑에 맡김');
       return;
     }
+    // 수적 우위 마무리 (v0.99.95): 맞상대가 아니어도, 곁에 남은 적 영웅을 아군과 같이 잡음 (맞상대와의 1:1 판단은 아래 올인 판단)
+    if (!c.commit && hpP > ADV.hp && !c.recall && !c.bushWait && !c.hookLurk && S.t >= (c.advCd || 0) && Math.floor(S.t * 30) % 5 === 0) {
+      const g = advTarget(S, c, null);
+      if (g && !(g === E && Evis && dist(c, E) < 8)) { // 내 맞상대가 바로 앞이면 원래 올인 판단에 맡김
+        c.commit = { id: g.id, until: S.t + ADV.hold, label: '마무리!', follow: true }; c.advCd = S.t + ADV.hold + ADV.cd;
+        if (team === 0 && S.t - (c.advLogT ?? -99) > 10) { c.advLogT = S.t; pushLog(S, `${c.name} 수적 우위 — ${g.name} 마무리`, 'ally'); }
+        const [pl, lb] = fightPlan(S, c, g, '마무리!'); setPlan(c, pl, lb); return;
+      }
+    }
     // all-in check (a "go" ping makes the champion braver for a few seconds)
     const goOn = c.pingGo && S.t < c.pingGo.until;
     if (Evis && dist(c, E) < (goOn ? 10 : 8)) {
       const est = estimateFight(S, c, E, goOn ? { ...T, allIn: T.allIn + 0.4, riskMul: T.riskMul * 0.75 } : T);
+      // 혼자 다이브는 안 함 (v0.99.95, 제보: 다이브보다 포탑 — 그레고리가 혼자 두 번 들어가 둘 다 실패): 상대가 빈사거나, 곁에 같이 들어갈 아군 영웅이 있을 때만. 안 들어가면 밀기 단계가 포탑을 침
+      if (est.go && est.dive && !goOn && E.hp / E.maxHp >= ADV.diveHp && !S.units.some((a) => a.alive && a.team === team && a !== c && isHero(a) && dist(a, E) < ADV.diveNear)) est.go = false;
       if (est.go) {
         const label = est.allyJg ? '호응!' : '올인!';
         c.commit = { id: E.id, until: S.t + (c.def.melee ? 5.5 : 4) + (quirk(c) === 'hothead' ? (tilted(c) ? 3 : 1.5) : 0) + c.tr.commit, label };
         if (est.dive) { c.diving = { victim: E.id, t0: S.t }; pushLog(S, `${c.name} 포탑 다이브 시도!`, team === 0 ? 'ally' : 'warn'); }
+        // (혼자 다이브 막기는 아래 soloDive에서 est.go를 꺼서 여기까지 안 옴)
         else if (est.allyJg && team === 0) pushLog(S, `${c.name} 갱킹 호응`, 'ally');
         const [pl, lb] = fightPlan(S, c, E, est.dive ? '다이브!' : label);
         setPlan(c, pl, lb);
@@ -6245,9 +6546,15 @@ const SimMake = (MAP_IN) => {
       for (const u of S.units) if (u.alive && u.kind === 'minion' && dist(u, c) < 9) { if (u.team === team) mine++; else theirs++; }
       const mySg = siegeFront(S, team, lane);
       const defending = mySg && S.units.some((u) => u.alive && u.kind === 'minion' && u.team !== team && dist(u, mySg) < 9);
-      const wantClear = pulling ? defending && theirs >= mine + 3 : enemyAway || defending || tn === 'agg' || theirs >= mine + 2;
+      const wantClear = pulling ? defending && theirs >= mine + 3 : enemyAway || defending || tn === 'agg' || theirs >= mine + 2 || (pushPhase(S, lane) && hpP > PUSH_PHASE.hp); // 밀기 단계면 스킬로도 웨이브를 지움
       const m = wantClear && !(supYield && !defending) ? waveSpell(S, c, enT) : null; // 서폿은 원딜 미니언을 스킬로 안 지움 (포탑 수비 때만)
       if (m) { setPlan(c, { type: 'skillW', id: m.id }, '스킬로 정리'); return; }
+      // 악취의 고리로 웨이브 정리 (존슨): 고리 안에 미니언이 셋 이상이고 마나가 넉넉할 때
+      if (wantClear && !(supYield && !defending) && c.def.skill.kind === 'stink' && !c.stink && skillReady(c) && c.mp >= c.def.skill.cost * 2) {
+        const R = c.def.skill.radius - 0.2; let n = 0, near = null, nd = 1e9;
+        for (const u of S.units) if (u.alive && u.kind === 'minion' && u.team !== team && canSee(S, team, u)) { const d = dist(u, c); if (d <= R) n++; if (d < nd) { nd = d; near = u; } }
+        if (n >= 3 && near) { setPlan(c, { type: 'skill', id: near.id }, '악취로 정리'); return; }
+      }
     }
 
     // 곰덫 깔기 (평소, 마나 넉넉할 때 12~20초마다)
@@ -6392,8 +6699,9 @@ const SimMake = (MAP_IN) => {
       }
     }
 
-    // push when enemy away (their jungler nearby is not "away")
-    if (enemyAway && !(enemyJg && dist(enemyJg, c) < 8 && !(S.t < (c.ejGo || 0)))) {
+    // push when enemy away (their jungler nearby is not "away") — 밀기 단계(pushPhase)면 상대가 앞에 있어도 밀음: 라인을 당기는 중·혼자 남은 서폿·원딜이 빠지는 중·체력 낮음은 제외
+    const pushing = !enemyAway && pushPhase(S, lane) && hpP > PUSH_PHASE.hp && !pulling && !supAlone && !adBack && !c.bushWait && !c.hookLurk;
+    if ((enemyAway || pushing) && !(enemyJg && dist(enemyJg, c) < 8 && !(S.t < (c.ejGo || 0)))) {
       let best = null, bd = 1e9;
       for (const u of S.units) if (u.alive && u.kind === 'minion' && u.team !== team && canSee(S, team, u)) {
         const d = dist(c, u); if (d < 7 && u.hp < bd * 1) { bd = u.hp; best = u; }
@@ -6401,7 +6709,8 @@ const SimMake = (MAP_IN) => {
       const sg = siegeFront(S, 1 - team, lane);
       const allyNearTower = sg && S.units.some((u) => u.alive && u.kind === 'minion' && u.team === team && dist(u, sg) < 7);
       const shotAt = enT.alive && dist(sg || enT, enT) <= enT.range + 1;
-      const towerFree = sg && dist(c, sg) < 10 && (!shotAt || (enT.target !== c.id && (byId(S, enT.target)?.kind === 'minion' || allyNearTower)));
+      let towerFree = sg && dist(c, sg) < 10 && (!shotAt || (enT.target !== c.id && (byId(S, enT.target)?.kind === 'minion' || allyNearTower)));
+      if (towerFree && pushing) { let foes = 0, ours = 0; for (const u of S.units) if (u.alive && isHero(u) && dist(u, sg) < PUSH_PHASE.near) { if (u.team === team) ours++; else if (canSee(S, team, u)) foes++; } if (foes > ours || !allyNearTower) towerFree = false; } // 상대가 지키는 건물은 우리 웨이브가 닿아 있고 머릿수가 안 밀릴 때만
       if (towerFree && (!best || allyNearTower)) { setPlan(c, { type: 'attack', id: sg.id }, sg.role === 'nexus' ? '넥서스 공격!' : sg.role === 'inhib' ? '억제기 공격' : '포탑 공격'); return; }
       if (best && !(supYield && best.hp / best.maxHp < 0.5) && !(enT.alive && dist(best, enT) < enT.range && !allyNearTower)) { setPlan(c, { type: 'attack', id: best.id }, '푸시'); return; } // 서폿은 막타 될 미니언은 원딜에게
     }
@@ -6616,6 +6925,7 @@ const SimMake = (MAP_IN) => {
     return true;
   }
   function aiRecall(S, c, E, hpP) {
+    if (!c.recallReq && hpP > ADV.recallHp && advNear(S, c)) return; // 수적 우위로 남은 적이 곁에 있으면 귀환을 미룸(잡고 나서 감)
     if (!c.recallReq && Math.hypot(c.x - MAP.fountains[c.team].x, c.y - MAP.fountains[c.team].y) > 6) {
       const nb = nextBuy(c);
       const nextCost = nb ? Math.min(nb.cost, 1000) : 9999;
@@ -7153,10 +7463,12 @@ const SimMake = (MAP_IN) => {
   // ---- 스킬 직접 쓰기 (테스트 모드, Sim.cmd.skill): 가까운 적을 대상으로, 없으면 앞쪽 빈 곳으로 ----
   const TEST_CD = 1;
   function manualSkill(S, c, slot, phase) {
+    if (phase === 'down' && S.t < (c.silenceUntil || 0)) { fxNum(S, c.x, c.y - 0.7, '침묵!', '#b6e05a'); return; }
     if (!c || !c.alive || !c.testSkill) return;
     const sk = slot === 'q' ? c.def.skill : slot === 'w' ? c.def.skill2 : slot === 'r' ? c.def.ult : null;
     if (!sk) return;
     if (phase === 'up') { if (slot === 'q' && c.chg && c.chg.manual) fistRelease(S, c); return; }
+    if (STAGE_OFF[sk.kind]) { fxNum(S, c.x, c.y - 0.6, '아직 준비 중인 스킬이에요', '#9aa3c0'); return; }
     if (stunned(S, c) || c.chg || c.cast || c.cast2 || c.dash || c.pit || c.spin || S.t < (c.stasisUntil || 0)) return;
     const cdNow = slot === 'q' ? c.skillCd : slot === 'w' ? c.cdW : c.cdR;
     if (cdNow > 0) { fxNum(S, c.x, c.y - 0.6, `쿨타임 ${cdNow.toFixed(1)}초`, '#9aa3c0'); return; }
@@ -7177,6 +7489,7 @@ const SimMake = (MAP_IN) => {
         let tg = null, td = 1e9; for (const o of S.units) if (o.alive && o.team !== c.team && o.team !== 2 && isHero(o) && canSee(S, c.team, o) && dist(o, c) <= sk.range && dist(o, c) < td) { td = dist(o, c); tg = o; }
         if (!tg) { tg = c; for (const o of S.units) if (o.alive && o.team === c.team && o !== c && isHero(o) && dist(o, c) <= sk.range && o.hp / o.maxHp < tg.hp / tg.maxHp) tg = o; }
         castR(S, c, tg); c.plan = null;
+      } else if (slot === 'q' && sk.kind === 'stink') { c.skillCd = sk.cd * cdMul(c, 'q'); castStink(S, c, sk); c.plan = null; // 내 둘레에 바로 켬 (대상 없어도 됨)
       } else if (slot === 'q' && sk.kind === 'hook') { c.skillCd = sk.cd * cdMul(c, 'q'); faceTo(c, t); throwHook(S, c, t, sk); c.mv = null; c.plan = null; // 누르자마자 발사 (대상이 없어도 보는 쪽으로)
       } else if (slot === 'q' && sk.kind === 'chargeFist') { c.skillCd = sk.cd * cdMul(c, 'q'); startCharge(S, c, t); c.chg.manual = true; c.plan = null; }
       else if (slot === 'w' && (sk.kind === 'spin' || sk.kind === 'summon' || sk.kind === 'toss' || !real || dist(c, t) <= sk.range) && (real || ['cone', 'volley', 'rake', 'spin', 'summon', 'toss'].includes(sk.kind))) { faceTo(c, t); castW(S, c, t); c.mv = null; c.plan = null; }
@@ -7451,6 +7764,9 @@ const SimMake = (MAP_IN) => {
     teamStrategyTick(S);
     mentalTick(S);
     sickleTick(S);
+    stinkTick(S);
+    burrowTick(S);
+    rollTick(S);
     fireTick(S);
     ctrlTick(S);
     burnTick(S);
@@ -7649,7 +7965,7 @@ const SimMake = (MAP_IN) => {
     usePotion(S) { return usePotion(S, S.me); },
   };
 
-  return { BUFF_OPEN, SPAWN_HOLD, DT, MAP, frontTower, siegeFront, exposed, ITEMS, BUILDS, MATCHUPS, CHAMPS, SKILLS, skillGain, TEND, TEAM, create, step, cmd, nextBuy: (c) => nextBuy(c, false), currentTarget: (c) => currentTarget(c, false), costToBuild: (k, c) => costToBuild(k, invKeys(c)), canSee, tileVisible, visGrid, terrainAt, walkable, findPath, bushAt, byId, homeDir, _incoming: incoming, _dbg: { findLastHit, lanePos }, JG_KIT, canLearn, SK_MAX, honorLevel, HONOR_NAME, ROLES, LANES, ACTIVE_ROLES, ACTIVE_LANES, ROLE_POOL, laneBushCells, laner, laneFoe, laneDist, CARD_RULES, settleCards, TOAD, talentOf, TALENT, GOALS, COMPLY, foeGuess, TRAITS, LEGEND_KEYS, LUCK, RARITY, rollRarity, parseCard, traitText, luckVal, TRAIT_SLOTS, SICKLE, buildOrder: (S, c) => buildOrder(S, c, false), magShare, MENTAL, MENTAL_NAME, COND_NAME, mentalState };
+  return { JG_TYPES, BUFF_OPEN, SPAWN_HOLD, DT, MAP, frontTower, siegeFront, exposed, ITEMS, BUILDS, MATCHUPS, CHAMPS, SKILLS, skillGain, TEND, TEAM, create, step, cmd, nextBuy: (c) => nextBuy(c, false), currentTarget: (c) => currentTarget(c, false), costToBuild: (k, c) => costToBuild(k, invKeys(c)), canSee, tileVisible, visGrid, terrainAt, walkable, findPath, bushAt, byId, homeDir, _incoming: incoming, _dbg: { findLastHit, lanePos }, JG_KIT, canLearn, SK_MAX, honorLevel, HONOR_NAME, ROLES, LANES, ACTIVE_ROLES, ACTIVE_LANES, ROLE_POOL, laneBushCells, laner, laneFoe, laneDist, CARD_RULES, settleCards, TOAD, talentOf, TALENT, GOALS, COMPLY, foeGuess, TRAITS, LEGEND_KEYS, LUCK, RARITY, rollRarity, parseCard, traitText, luckVal, TRAIT_SLOTS, SICKLE, buildOrder: (S, c) => buildOrder(S, c, false), magShare, MENTAL, MENTAL_NAME, COND_NAME, mentalState };
 };
 const Sim = SimMake();
 Sim.withMap = (mapIn) => SimMake(mapIn); // 다른 맵 자료로 만든 별도 sim (이 Sim과 상태를 나누지 않음)
@@ -7685,11 +8001,28 @@ const Render = (() => {
   const iso = (x, y) => [OX + (x - y) * 8, OY + (x + y) * 4];
   const unIso = (sx, sy) => { const a = (sx - OX) / 8, b = (sy - OY) / 4; return [(a + b) / 2, (b - a) / 2]; };
 
+  // 굴러가는 똥 공 (존슨 R): 반지름 R(그림 px)인 구를 화면 칸마다 계산 — 구 위의 점을 굴러간 각도만큼 되돌려 무늬(3D 체크 + 지푸라기 점)를 읽고, 빛은 왼쪽 위에서. 굴러가는 방향(화면 기준 dx·dy)에 따라 무늬가 흘러 3D로 굴러 보임
+  function drawBall(ctx, cx, cy, R, spin, dx, dy) {
+    const L = Math.hypot(dx, dy) || 1, ax = -dy / L, ay = dx / L, ca = Math.cos(-spin), sa = Math.sin(-spin); // 회전축 = 굴러가는 방향에 수직(화면 안)
+    for (let y = -R; y <= R; y++) for (let x = -R; x <= R; x++) {
+      const r2 = x * x + y * y; if (r2 > R * R + R * 0.6) continue;
+      if (r2 > (R - 1) * (R - 1) + (R - 1) * 0.6) { ctx.fillStyle = '#1b1626'; ctx.fillRect(Math.round(cx + x), Math.round(cy + y), 1, 1); continue; }
+      const nx = x / R, ny = y / R, nz = Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny));
+      const dot = ax * nx + ay * ny, crx = ay * nz, cry = -ax * nz, crz = ax * ny - ay * nx; // Rodrigues (축의 z = 0)
+      const px3 = nx * ca + crx * sa + ax * dot * (1 - ca), py3 = ny * ca + cry * sa + ay * dot * (1 - ca), pz3 = nz * ca + crz * sa;
+      const chk = (Math.floor(px3 * 2.2 + 8) + Math.floor(py3 * 2.2 + 8) + Math.floor(pz3 * 2.2 + 8)) & 1, hsh = Math.abs(Math.sin(Math.floor(px3 * 5 + 20) * 12.9898 + Math.floor(py3 * 5 + 20) * 78.233 + Math.floor(pz3 * 5 + 20) * 37.719) * 43758.5453) % 1;
+      const lit = -nx * 0.45 - ny * 0.6 + nz * 0.66;
+      let col = lit > 0.82 ? '#b8894a' : lit > 0.45 ? (chk ? '#8a6a3a' : '#7a5a30') : lit > 0.1 ? (chk ? '#6b4a2a' : '#5c3f23') : '#4a321c';
+      if (hsh < 0.07 && lit > 0.1) col = '#c9a85a'; else if (hsh > 0.95) col = '#3b2816';
+      ctx.fillStyle = col; ctx.fillRect(Math.round(cx + x), Math.round(cy + y), 1, 1);
+    }
+  }
   const PAL = {
     k: '#1b1626', m: '#c9cfd9', M: '#7c8598', s: '#f1c39b', w: '#ffffff', y: '#f5c542', Y: '#fff0b3',
     b: '#7a4a2a', o: '#a06a3a', R: '#d23a3a', r: '#ff7b6b', g: '#356b2c', G: '#4f8a3c', e: '#2a2140',
     h: '#7cc45a', d: '#24521f', p: '#8a5ce0', P: '#d4bfff', v: '#4a2f8f', c: '#7fe8ff',
     O: '#c45f2c', n: '#d99250', u: '#d8cdb0', // 주황 포인트 (버섯·꽃)
+    q: '#534560', x: '#ad482b', j: '#ee8a36', // 쇠똥구리 존슨 (보랏빛 회색 · 붉은 갈색 · 주황)
   };
   // 톤 조절: 부쉬 풀잎·잔디 포기는 형광 연두를 빼고 정글 잔디 톤으로
   const TONE_GRASS = { h: '#6a9a4c', G: '#4a7f3a', g: '#36652e', d: '#264b22' };
@@ -7836,6 +8169,13 @@ const Render = (() => {
     ], [
       '..k.....k...', '.kAk...kAk..', '.kAAkkkAAk..', '.kAAAAAAAk..', '.kAwkAAwkk..', '..kAAAAAk...', '.kkbbbbbkk..',
       'kmkbAAAbkmk.', 'kmkbAAAbkmk.', '.k.kbbbk.k..', '..kCk.kCk...', '..kCk.kCk...', '..kk...kk...',
+    ]],
+    beetle: [[ // 쇠똥구리 존슨 (사용자 도트, 걷는 두 장). 몸 파랑 = 팀 색(A·B·C)
+      '.......k....', '...kCCkCk...', '..kcBAACk...', '.kcBACyyACyk', '.kBACkykCkyk', 'kAAACjkYYkjk', 'kCCAAxjkkjk.',
+      '.kCCjxxxxCk.', '.kAkCCqqCkAk', 'kcBkCAAACkBA', 'kBAkqCCqkAAk', 'kCkAkqqkCkAk', '.k.Akkkk.kAk', '...kk.....kk',
+    ], [
+      '.......k....', '...kCCkCk...', '..kcBAACk...', '.kcBACyyACyk', '.kBACkykCkyk', 'kAAACjkYYkjk', 'kCCAAxjkkjk.',
+      '.kCCjxxxxCk.', '.kAkCCqqCkAk', 'kcBkCAAACkBA', 'kBAkqCCqkAAk', 'kCkCkqqkCkCk', 'k.kAkkkkAk.k', '..kk....kk..',
     ]],
     towerBase: [[
       '...kkkkkkkk...', '..kmMmMmMmMk..', '..kMMMMMMMMk..', '...kmmmmmmk...', '...kmMmmMmk...', '...kmmmmmmk...',
@@ -8068,7 +8408,7 @@ const Render = (() => {
     return c.toDataURL();
   }
   // square face crop for pickers (x, y, size in sprite pixels)
-  const FACE = { knight: [2, 0, 8], ranger: [2, 0, 8], mage: [1, 0, 9], fighter: [2, 0, 8], jungler: [1, 0, 9], golem: [1, 0, 10], vampire: [2, 0, 8], chain: [2, 0, 8], gambler: [1, 0, 9], trapper: [2, 0, 8], treant: [1, 0, 10], antlion: [1, 0, 10], assassin: [2, 0, 8], summoner: [2, 0, 8], mirror: [2, 0, 8] };
+  const FACE = { knight: [2, 0, 8], ranger: [2, 0, 8], mage: [1, 0, 9], fighter: [2, 0, 8], jungler: [1, 0, 9], beetle: [1, 0, 10], golem: [1, 0, 10], vampire: [2, 0, 8], chain: [2, 0, 8], gambler: [1, 0, 9], trapper: [2, 0, 8], treant: [1, 0, 10], antlion: [1, 0, 10], assassin: [2, 0, 8], summoner: [2, 0, 8], mirror: [2, 0, 8] };
   function faceURL(key, team = 0, px = 64) {
     const s = sprite(key, team, 0, false), [fx, fy, fs] = FACE[key] || [2, 0, 8];
     const c = makeCanvas(px, px), x = c.getContext('2d'); x.imageSmoothingEnabled = false;
@@ -9009,6 +9349,13 @@ const Render = (() => {
     ctx.drawImage(ground.canvas, 0, 0);
     ctx.setTransform(U, 0, 0, U, -camX * U, -camY * U);
 
+    // 악취의 고리 (존슨 Q): 정글러 둘레에 연두 고리 + 피어오르는 냄새 점
+    for (const u of S.units) if (u.stink && u.alive && (omni || visible(u))) {
+      const R = (Sim.JG_TYPES && Sim.JG_TYPES.beetle.q.radius) || 2.4, [cx, cy] = iso(u.x, u.y), rx = R * 8 * Math.SQRT2, ry = R * 4 * Math.SQRT2;
+      ctx.globalAlpha = 0.22; ctx.fillStyle = '#7fa832'; ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+      ellipseDots(ctx, cx, cy, R, '#c9ec6a', Math.floor(t * 8), 2);
+      for (let i = 0; i < 14; i++) { const q = (i / 14 + t * 0.5) % 1, a = i * 2.9 + t * 0.7, rr = 0.25 + 0.7 * ((i * 7) % 10) / 10; ctx.fillStyle = i % 2 ? '#b6e05a' : '#6f8f2c'; px(ctx, cx + Math.cos(a) * rx * rr, cy + Math.sin(a) * ry * rr - q * 9); }
+    }
     // 모래지옥 (자이드 R): 바닥 모래 + 안으로 빨려 드는 소용돌이
     for (const u of S.units) if (u.pit && u.alive && (omni || visible(u))) {
       const P = u.pit, [cx, cy] = iso(P.x, P.y), rx = P.r * 8 * Math.SQRT2, ry = P.r * 4 * Math.SQRT2;
@@ -9061,6 +9408,18 @@ const Render = (() => {
       const [sx0, sy0] = iso(u.x, u.y);
       const air = S.t < (u.airUntil || 0) ? Math.round(Math.sin(Math.PI * Math.min(1, 1 - (u.airUntil - S.t) / (u.airDur || 1))) * (u.airH && u.airH.until === u.airUntil ? u.airH.h : 7)) : 0; // 공중에 뜸 (모래폭풍 7px, 넘겨 던지기는 더 높이)
       const sx = Math.round(sx0), sy = Math.round(sy0) - air;
+      if (u.balled) { // 공에 갇힘(존슨 R): 몸 대신 굴러가는 공
+        const B = u.balled, R = 10, sdx = (B.dx - B.dy) * 8, sdy = (B.dx + B.dy) * 4;
+        ctx.globalAlpha = vis ? 1 : 0.4; ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fillRect(sx - 8, sy - 1, 16, 3);
+        drawBall(ctx, sx, sy - R + 1, R, B.spin, sdx, sdy);
+        ctx.globalAlpha = 1; continue;
+      }
+      if ((u.leap && u.leap.burrow) || u.burrow) { // 땅속 잠복(존슨 W — 정글러 j.leap / 챔피언 c.burrow): 몸 대신 움직이는 흙더미 (체력 막대도 안 그림)
+        ctx.globalAlpha = vis ? 1 : 0.4;
+        ctx.fillStyle = '#3b2c1a'; ctx.fillRect(sx - 5, sy - 1, 10, 2); ctx.fillStyle = '#5e4424'; ctx.fillRect(sx - 4, sy - 3, 8, 2); ctx.fillStyle = '#8a6a3a'; ctx.fillRect(sx - 3, sy - 4, 6, 1); ctx.fillStyle = '#b8894a'; px(ctx, sx - 1, sy - 5); px(ctx, sx + 1, sy - 5);
+        for (let i = 0; i < 6; i++) { const a = t * 16 + i * 1.7; ctx.fillStyle = i % 2 ? '#8a6a3a' : '#d9b46a'; px(ctx, sx + Math.cos(a) * 6, sy - 3 - Math.abs(Math.sin(a * 1.3)) * 5); }
+        ctx.globalAlpha = 1; continue;
+      }
       let alpha = 1;
       if (!vis) alpha = 0.35; else if (u.bush) alpha = 0.6;
       alpha *= fade(u);
@@ -9129,7 +9488,7 @@ const Render = (() => {
         // revealed by a sweeper lens: violet sparkle above it
         if (u.revealUntil > S.t) { ctx.fillStyle = '#c69bff'; const k = Math.floor(t * 6) % 4; px(ctx, sx - 3 + k * 2, fy - 3); px(ctx, sx + 3 - k * 2, fy - 4); }
       } else {
-        const name = u.kind === 'champ' ? u.key : u.kind === 'jungler' ? 'jungler' : u.sub;
+        const name = u.kind === 'champ' ? u.key : u.kind === 'jungler' ? (SPR[u.jgType] ? u.jgType : 'jungler') : u.sub;
         const moving = !!u.mv && !u.atk.wind;
         const frame = moving ? Math.floor(u.walk * 2.2) % 2 : 0;
         const s = sprite(name, u.kind === 'monster' ? (u.sub === 'redBuff' ? 1 : 0) : u.team, frame, u.face < 0, u.golden && !flash ? 'gold' : flash);
@@ -9153,7 +9512,8 @@ const Render = (() => {
           for (let i = 0; i < 4; i++) { const k2 = (t * 3 + i / 4) % 1; ctx.fillStyle = i % 2 ? '#fff6d6' : '#ffd36e'; px(ctx, sx + u.face * 7, sy - 6 - k2 * 14); }
           if (u.mv) { ctx.fillStyle = 'rgba(255,230,140,0.6)'; for (let i = 0; i < 3; i++) ctx.fillRect(Math.round(sx - u.face * (9 + i * 3)), Math.round(sy - 8 - i * 4), 4, 1); }
         }
-        ctx.drawImage(s, sx - Math.floor(s.width / 2) * sc + ox, sy - sh + sc + oy, sw, sh);
+        if (u.roll) { ctx.save(); ctx.translate(0, 2 * (sy - sh + sc + oy) + sh); ctx.scale(1, -1); ctx.drawImage(s, sx - Math.floor(s.width / 2) * sc + ox, sy - sh + sc + oy, sw, sh); ctx.restore(); } // 공을 굴리는 존슨: 물구나무(위아래 뒤집힘)
+        else ctx.drawImage(s, sx - Math.floor(s.width / 2) * sc + ox, sy - sh + sc + oy, sw, sh);
         if (u.sub === 'ttoad') { // treasure glitter: sparks around it, coins on the ground behind a hop
           for (let i = 0; i < 4; i++) { const a = t * 2.2 + i * 1.571, k = (Math.sin(t * 7 + i) + 1) / 2; ctx.fillStyle = k > 0.6 ? '#ffffff' : '#ffe27a'; px(ctx, sx + Math.cos(a) * 10, sy - sh * 0.55 + Math.sin(a) * 5); }
           if (u.mv) { ctx.fillStyle = '#f5c542'; px(ctx, sx - u.face * 6, sy - 1); }
@@ -9169,6 +9529,7 @@ const Render = (() => {
         if (u.kind === 'champ' && u.maxMp) { ctx.fillStyle = '#1b1626'; ctx.fillRect(sx - bw / 2, by + 3, bw, 1); ctx.fillStyle = '#5aa0ff'; ctx.fillRect(sx - bw / 2, by + 3, Math.round(bw * u.mp / u.maxMp), 1); }
         if (S.t < (u.mirrorUntil || 0)) { ctx.globalAlpha = 0.85; ellipseDots(ctx, sx, sy - Math.round(sh * 0.45), 0.85, Math.floor(t * 10) % 2 ? '#ffffff' : '#9fe8ff', Math.floor(t * 12), 1); ctx.globalAlpha = alpha; } // 거울 방패
         if (u.sandMark && S.t < u.sandMark.until) { ctx.fillStyle = '#e0b65a'; for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2 + t * 3; px(ctx, sx + Math.cos(a) * 5, sy + 1 + Math.sin(a) * 2); } } // 사막 낙인
+        if (S.t < (u.silenceUntil || 0)) { ctx.fillStyle = '#b6e05a'; const bb = Math.round(Math.sin(t * 9) * 1); for (const [dx, dy] of [[-2, 0], [0, 0], [2, 0], [-1, -1], [1, -1], [-1, 1], [1, 1]]) px(ctx, sx + dx + 7, by - 3 + dy + bb); } // 침묵: 머리 옆 연두 표시
         if (S.t < (u.stunUntil || 0) && !u.yank) { // stun stars (끌려오는·넘어가는 중에는 안 그림 — 기절이 아님)
           ctx.fillStyle = '#ffe14d';
           for (let i = 0; i < 3; i++) { const a = t * 7 + i * 2.094; px(ctx, sx + Math.cos(a) * 6, by - 4 + Math.sin(a) * 2); }
@@ -9357,6 +9718,9 @@ const Render = (() => {
         if (k < 0.3) { const yy = Math.round(sy) - 44 + Math.round(k / 0.3 * 40); ctx.fillStyle = '#7c8598'; ctx.fillRect(Math.round(sx) - 4, yy, 8, 30); ctx.fillStyle = '#c9cfd9'; ctx.fillRect(Math.round(sx) - 3, yy, 6, 30); ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(sx) - 1, yy, 1, 30); ctx.fillStyle = '#f5c542'; ctx.fillRect(Math.round(sx) - 7, yy - 3, 14, 3); ctx.fillStyle = '#7a4a2a'; ctx.fillRect(Math.round(sx) - 1, yy - 9, 3, 6); }
         else { ctx.fillStyle = '#fff6d6'; for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; const r = 4 + k * 24; px(ctx, sx + Math.cos(a) * r, sy - 4 + Math.sin(a) * r * 0.5 - (1 - k) * 6, 2, 1); } }
         ctx.globalAlpha = 1; }
+      else if (f.type === 'ballBreak') { ctx.globalAlpha = 1 - k; ellipseDots(ctx, sx, sy, 0.3 + k * (f.r || 1.6), '#8a6a3a', 0, 1); for (let i = 0; i < 16; i++) { const a = i * 0.39 + f.t0 * 3, rr = 2 + k * 18; ctx.fillStyle = ['#6b4a2a', '#8a6a3a', '#4a321c', '#c9a85a'][i % 4]; ctx.fillRect(Math.round(sx + Math.cos(a) * rr), Math.round(sy - 6 + Math.sin(a) * rr * 0.5 - Math.sin(k * Math.PI) * 10), 2, 2); } ctx.globalAlpha = 1; }
+      else if (f.type === 'stinkOn') { ctx.globalAlpha = 1 - k; ellipseDots(ctx, sx, sy, 0.4 + k * (f.r || 2.4), '#c9ec6a', 0, 1); ctx.globalAlpha = 1; }
+      else if (f.type === 'emerge') { ctx.globalAlpha = 1 - k; ellipseDots(ctx, sx, sy, 0.3 + k * (f.r || 1.9), '#8a6a3a', 0, 1); ellipseDots(ctx, sx, sy, 0.2 + k * (f.r || 1.9) * 0.6, '#d9b46a', 0, 2); for (let i = 0; i < 12; i++) { const a = i * 0.52 + f.t0, rr = 3 + k * 14; ctx.fillStyle = i % 3 ? '#8a6a3a' : '#3b2c1a'; px(ctx, sx + Math.cos(a) * rr, sy + Math.sin(a) * rr * 0.5 - Math.sin(k * Math.PI) * 9); } ctx.globalAlpha = 1; }
       else if (f.type === 'roar') { ctx.globalAlpha = 1 - k; ellipseDots(ctx, sx, sy, 0.5 + k * (f.r || 2.8), '#ff9c4d', 0, 1); ellipseDots(ctx, sx, sy, 0.3 + k * (f.r || 2.8) * 0.7, '#ffe58a', 0, 2);
         ctx.fillStyle = '#ffffff'; for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; const r1 = 6 + k * 18, r2 = r1 + 5; for (let j = 0; j < 3; j++) { const r = r1 + (r2 - r1) * j / 2; px(ctx, sx + Math.cos(a) * r, sy - 8 + Math.sin(a) * r * 0.5); } } ctx.globalAlpha = 1; }
       else if (f.type === 'mirrorHit') { ctx.globalAlpha = 1 - k; ellipseDots(ctx, sx, sy - 6, 0.5 + k * 1.6, '#ffffff', 0, 1); ellipseDots(ctx, sx, sy - 6, 0.3 + k * 1.1, '#9fe8ff', 1, 2); ctx.globalAlpha = 1; }
@@ -9517,7 +9881,7 @@ const Render = (() => {
     dctx.textAlign = 'center'; dctx.textBaseline = 'alphabetic';
     // intent labels + level
     for (const c of S.champs) {
-      if (!c.alive || !visible(c)) continue;
+      if (!c.alive || !visible(c) || c.balled || c.burrow) continue; // 공에 갇힌 챔피언은 이름표도 안 그림
       const [sx, sy] = iso(c.x, c.y);
       const barY = offY + (sy - 26) * scale;
       const X = offX + sx * scale, Y = barY - 2 * scale;
@@ -9559,7 +9923,7 @@ const Render = (() => {
     }
     // jungler labels
     for (const j of S.units) {
-      if (j.kind !== 'jungler' || !j.alive || !visible(j)) continue;
+      if (j.kind !== 'jungler' || !j.alive || !visible(j) || (j.leap && j.leap.burrow)) continue; // 땅속이면 이름표 안 그림
       const [sx, sy] = iso(j.x, j.y);
       dctx.font = `${Math.round(f1 * 0.85)}px "Do Hyeon", sans-serif`;
       const label = j.recall ? '귀환' : j.jgState === 'engage' ? '갱킹!' : j.jgState === 'lurk' ? '매복' : j.jgState === 'assist' ? '맞갱!' : j.jgState === 'duel' ? '교전' : j.jgState === 'siege' ? '라인 밀기' : j.jgState === 'cover' ? '라인 커버' : j.jgState === 'farm' ? '정글링' : j.jgState === 'ask' ? '갱킹 준비' : '이동';
@@ -9666,10 +10030,17 @@ const Render = (() => {
   window.claude?.hot?.snapshot?.(() => ({ settings }));
   window.__game = { get S() { return S; }, get foeSeen() { return foeSeen; }, setSpeed: (v) => setSpeed(v) }; // debug handle (console / tests)
 
+  // 정글러 종류(v0.99.92): 경기 중이면 sim에서, 매칭 화면이면 매치 정보에서. jgSpr = 도트 이름, jgNm = 보일 이름
+  let jgForce = null; // 치트: null 무작위 · 'bb' 둘 다 존슨 · 'hh' 둘 다 기존 · 'bh' 아군만 존슨 · 'hb' 상대만 존슨
+  const jgRollType = (team) => (jgForce ? jgForce[team] === 'b' : Math.random() < 0.5) ? 'beetle' : 'hunter';
+  const jgTypeOf = (team) => (S && S.jg && S.jg[team] && S.jg[team].type) || (curMatch && (team ? curMatch.jg1 : curMatch.jg0).type) || 'hunter';
+  const jgSpr = (team) => (Sim.JG_TYPES[jgTypeOf(team)] || Sim.JG_TYPES.hunter).spr, jgNm = (team) => (Sim.JG_TYPES[jgTypeOf(team)] || Sim.JG_TYPES.hunter).name;
+  const isJgKey = (k, s) => k === 'jungler' || (k === 'beetle' && !!s && s.type !== undefined), // 존슨은 챔피언이기도 함(v0.99.101) — 정글 자리(s.type 있음)일 때만 정글러로 봄
+    jgKeyNm = (k) => k === 'beetle' ? Sim.JG_TYPES.beetle.name : '정글러';
   let curMatch = null, lastOpts = null, cmdLog = [], testLane = null; // testLane: 치트 '탑에서 1:1 시험'(3:3 B단계 확인용) · // 이상해요 제보용: 이번 판 create 옵션 + 플레이어 명령 기록
   function newGame(o = {}) {
-    S = Sim.create(lastOpts = { luck: lkSpec(settings.champ), blueTraits: trSpec(settings.champ), redTraits: o.match && o.match.mid1 ? o.match.mid1.traits : [], jgSkill: o.match ? [o.match.jg0.skill / 10, o.match.jg1.skill / 10] : undefined, condition: condForce ?? condOf(settings.champ), foeCond: pickOne([-1, -0.5, 0, 0, 0, 0.5, 1]), toadChance: toadChance(), blueChamp: settings.champ, redChamp: o.redChamp, honor: o.honor, blueSkill: mySkillSet(), redSkill: (o.foeSkill ?? settings.foeSkill) / 10, blueBuild: Sim.CHAMPS[settings.champ].builds[0], picks: o.picks, laneOverride: testLane ? { mid: testLane } : undefined, myRole: testLane ? 'mid' : settings.role });
-    curMatch = o.match || null; cmdLog = [];
+    S = Sim.create(lastOpts = { luck: lkSpec(settings.champ), blueTraits: trSpec(settings.champ), redTraits: o.match && o.match.mid1 ? o.match.mid1.traits : [], jgSkill: o.match ? [o.match.jg0.skill / 10, o.match.jg1.skill / 10] : undefined, jgType: o.match && o.match.jg0.type ? [o.match.jg0.type, o.match.jg1.type] : jgForce ? [jgRollType(0), jgRollType(1)] : undefined, condition: condForce ?? condOf(settings.champ), foeCond: pickOne([-1, -0.5, 0, 0, 0, 0.5, 1]), toadChance: toadChance(), blueChamp: settings.champ, redChamp: o.redChamp, honor: o.honor, blueSkill: mySkillSet(), redSkill: (o.foeSkill ?? settings.foeSkill) / 10, blueBuild: Sim.CHAMPS[settings.champ].builds[0], picks: o.picks, laneOverride: testLane ? { mid: testLane } : undefined, myRole: testLane ? 'mid' : settings.role });
+    curMatch = o.match || null; cmdLog = []; $('askPic').src = Render.portraitURL(jgSpr(0), 0, 3);
     foeSeen = { items: [], wards: 0, t: null }; foeSeenBy = {}; jgSeenItems[0] = []; jgSeenItems[1] = []; lastGold = null; resetChat(); settled = false; skCache = ''; $('bSkill').innerHTML = ''; $('bCards').innerHTML = ''; resetCards();
     FX.overT = 0; FX.low = null; FX.lowCd = 0; FX.zoomUntil = 0; FX.slowUntil = 0; view.style.scale = ''; $('fxLayer').innerHTML = '';
     acc = 0; logCount = -1; overShown = false; cam.snap = true; toastIdx = 0; evIdx = 0; lastMyKill = -99; $('killBan').hidden = true;
@@ -9681,7 +10052,7 @@ const Render = (() => {
     $('sbRedPic').src = $('foePic').src = Render.portraitURL(r.key, 1);
     $('hbPic').src = Render.portraitURL(b.key, 0);
     $('hbName').textContent = b.name;
-    const SK_ICON = { dash: 'skDash', snipe: 'skSnipe', empower: 'skEmpower', spin: 'skSpin', volley: 'skVolley', slam: 'skSlam', bigshot: 'skBig', meteor: 'skMeteor', cone: 'skScissors', blast: 'skPaper', chargeDash: 'skRock', hook: 'skLasso', quake: 'skSlam', dice: 'skSnipe', trap: 'skRock', root: 'skRoar', tornado: 'skTornado', rake: 'skRake', pit: 'skPit', blink: 'skDash', summon: 'skRoar', mirror: 'skMirror' };
+    const SK_ICON = { dash: 'skDash', snipe: 'skSnipe', empower: 'skEmpower', spin: 'skSpin', volley: 'skVolley', slam: 'skSlam', bigshot: 'skBig', meteor: 'skMeteor', cone: 'skScissors', blast: 'skPaper', chargeDash: 'skRock', hook: 'skLasso', quake: 'skSlam', dice: 'skSnipe', trap: 'skRock', root: 'skRoar', tornado: 'skTornado', rake: 'skRake', pit: 'skPit', blink: 'skDash', summon: 'skRoar', mirror: 'skMirror', stink: 'skRoar', burrow: 'skDash', ball: 'skRock' };
     $('skIcon').src = Render.portraitURL(b.def.skill.icon || SK_ICON[b.def.skill.kind] || 'skSnipe', 0, 4);
     $('skLabel').textContent = b.def.skill.name;
     $('sk2Icon').src = Render.portraitURL(b.def.skill2.icon || SK_ICON[b.def.skill2.kind], 0, 4); $('sk2Label').textContent = b.def.skill2.name; $('sk2Cost').textContent = b.def.skill2.cost;
@@ -9861,6 +10232,8 @@ const Render = (() => {
     // 내 초상화를 누르면 카메라가 바로 내 챔피언으로 (둘러보기 끝)
     $('hudMe').title = '눌러서 카메라를 내 챔피언으로';
     $('hudMe').addEventListener('click', () => { cam.freeUntil = 0; cam.snap = true; if (cam.tf) { cam.tf = null; cam.tfOffUntil = performance.now() + 8000; } }); // 한타 관전 중이면 8초간 끔
+    $('camMode').onclick = () => { const i = CAM_MODES.findIndex((x) => x[0] === camMode()); setCamMode(CAM_MODES[(i + 1) % CAM_MODES.length][0]); };
+    { let m = 'auto'; try { m = localStorage.getItem('moba.camMode') || 'auto'; } catch (e) { /* */ } setCamMode(m, true); }
     $('zoomIn').onclick = () => setZoom(zoom * 1.2);
     $('zoomOut').onclick = () => setZoom(zoom / 1.2);
     $('zoomLv').onclick = () => setZoom(1);
@@ -9899,7 +10272,7 @@ const Render = (() => {
     };
     $('askYes').onclick = () => { Sim.cmd.answerGank(S, true); updateUI(true); };
     $('askNo').onclick = () => { Sim.cmd.answerGank(S, false); updateUI(true); };
-    $('askPic').src = Render.portraitURL('jungler', 0, 3);
+    $('askPic').src = Render.portraitURL('jungler', 0, 3); // 판이 시작되면 newGame에서 종류에 맞게 다시 넣음
     $('kbX').src = Render.portraitURL('skDash', 0, 3);
     $('tbBoard').onclick = () => { boardPinned = !boardPinned; $('tbBoard').setAttribute('aria-pressed', String(boardPinned)); showBoard(boardPinned); };
     window.addEventListener('keyup', (e) => { if (e.key === 'Tab' && !boardPinned) showBoard(false); });
@@ -9915,6 +10288,21 @@ const Render = (() => {
       else if (e.key === 'Escape') { e.preventDefault(); openChat(false); }
     });
     $('hbSkills').addEventListener('click', (e) => { const b = e.target.closest('[data-learn]'); if (!b) return; e.stopPropagation(); Sim.cmd.learn(S, b.dataset.learn); updateUI(true); });
+    // 스킬 설명창 (v0.99.97, 제보: 스킬 칸에서 스킬 정보가 보였으면): 칸을 누르거나(폰) 올리면(마우스) 이름·설명·쿨타임·마나. 직접 쓰기(치트) 중에는 누르면 시전이라 안 뜸
+    { const SL = { slotSkill: ['q', 'skill', 'Q'], slotSkill2: ['w', 'skill2', 'W'], slotUlt: ['r', 'ult', 'R'] }; let shown = null, pinned = false, hideT = 0;
+      const esc = (t) => String(t).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+      const hide = () => { shown = null; pinned = false; clearTimeout(hideT); $('skTip').hidden = true; };
+      const show = (id, pin) => {
+        const c = S && S.me, row = SL[id]; if (!c || !row) return;
+        const sk = c.def[row[1]], rk = (c.rank && c.rank[row[0]]) || 0, lock = row[0] === 'r' && c.level < 6;
+        $('skTip').innerHTML = `<div class="t"><b>${esc(sk.name)}</b><small>${row[2]} · ${lock ? '6레벨에 배움' : rk ? '스킬 레벨 ' + rk : '아직 안 배움'}</small></div><div>${esc(sk.desc || '설명 없음')}</div>` +
+          `<div class="n">쿨타임 ${sk.cd}초${sk.cost ? ' · 마나 ' + sk.cost : ''}</div><div class="a">${c.testSkill ? '직접 쓰기 켜짐 (치트) — 칸을 눌러서 씀' : 'AI 자동 스킬 — 챔피언이 상황을 보고 스스로 써요'}</div>`;
+        $('skTip').hidden = false; shown = id; pinned = !!pin; clearTimeout(hideT); if (pin) hideT = setTimeout(hide, 7000);
+      };
+      $('hbSkills').addEventListener('click', (e) => { if (e.target.closest('[data-learn]') || (S && S.me && S.me.testSkill)) return; const sl = e.target.closest('.slot'); if (!sl) return; e.stopPropagation(); if (shown === sl.id && pinned) hide(); else show(sl.id, true); });
+      for (const id in SL) { $(id).addEventListener('mouseenter', () => { if (!pinned && !(S && S.me && S.me.testSkill)) show(id, false); }); $(id).addEventListener('mouseleave', () => { if (!pinned && shown === id) hide(); }); }
+      document.addEventListener('click', () => { if (pinned) hide(); });
+    }
     // 스킬 직접 쓰기 (테스트 모드): 스킬 칸을 누르면 시전, 기 모으는 스킬은 누르고 있는 동안 모으고 떼면 나감
     { const SLOT = { slotSkill: 'q', slotSkill2: 'w', slotUlt: 'r' }; let held = null, heldEl = null;
       // 포인터·터치·마우스 이벤트가 같이 와도 한 번만 처리 (브라우저마다 오는 게 달라서 셋 다 받음). 떼는 건 화면 어디서 떼도 됨
@@ -9953,7 +10341,7 @@ const Render = (() => {
     $('bugWho').onclick = (e) => { const b = e.target.closest('button[data-w]'); if (!b) return; bugWho = bugWho === b.dataset.w ? null : b.dataset.w; for (const x of $('bugWho').children) x.classList.toggle('on', x.dataset.w === bugWho); };
     const showBug = (on) => { if (on && $('bugPop').hidden) { grabBugShot(); bugPrevPaused = paused; paused = true; } else if (!on && !$('bugPop').hidden) paused = bugPrevPaused; // 제보 창이 열려 있는 동안 게임 멈춤 (정확한 장면 기록)
       $('bugPop').hidden = !on; $('tbBug').setAttribute('aria-expanded', String(on)); if (on) { $('bugNote').textContent = '게임을 멈췄어요. 지금 장면의 시드·시간·최근 기록이 같이 저장돼요'; bugSync(); $('bugText').focus(); } };
-    // 제보 보관·전송 (v0.99.89): 앱(아티팩트) 안에서는 저장소로, 밖(파일·웹 주소)에서는 받는 주소(REPORT_HOOK — 테스트 빌드에만 들어감)로 보내고, 어느 쪽이든 이 기기에도 남겨 둠(내보내기용)
+    // 제보 보관·전송: 앱(아티팩트) 안에서는 저장소로, 밖(파일·웹 주소)에서는 받는 주소(REPORT_HOOK — 테스트 빌드에만 들어감)로 보내고, 어느 쪽이든 이 기기에도 남겨 둠(내보내기용)
     const REPORT_HOOK = atob("N2Zac2hrVTlhSU1sYXJVbVZ0SlJsekVSdUwtTDJ0Z25DVW9HSmZvTm83aVp1TFg2NW9ZQW1XYjJtN1JlT28xX0N4Nk0vMjc1OTA0NzY0NzgyODY5NDc1MS9za29vaGJldy9pcGEvbW9jLmRyb2NzaWQvLzpzcHR0aA==").split('').reverse().join('');
     const inApp = () => !!(window.claude && window.claude.use);
     const bugStore = () => { try { const L = JSON.parse(localStorage.getItem('moba.bugs') || '[]'); return Array.isArray(L) ? L : []; } catch (e) { return []; } };
@@ -10016,7 +10404,6 @@ const Render = (() => {
       if (u || e.target.closest('button[data-c]')) showCheat(false); // 쓰면 바로 닫힘 (화면을 가리지 않게)
       if (u && u.dataset.ui === 'fxToggle') { settings.fx = settings.fx === false; u.textContent = `연출(슬로우·클로즈업) ${settings.fx ? '켜짐' : '꺼짐'}`; return; }
       if (u && u.dataset.ui === 'talkToggle') { settings.talkFeed = !settings.talkFeed; applyTalkFeed(); return; }
-      if (u && u.dataset.ui === 'tfCamToggle') { settings.tfCam = settings.tfCam === false; u.textContent = `교전 관전 카메라: ${settings.tfCam === false ? '꺼짐' : '켜짐'}`; return; }
       if (u && u.dataset.ui === 'quickKnight') { testLane = null; showCheat(false); quickStart('knight'); return; }
       if (u && u.dataset.ui === 'quickTop') { testLane = 'top'; showCheat(false); quickStart(settings.champ || 'knight'); return; }
       if (u && u.dataset.ui === 'skipIntro') { setSkipIntro(!skipIntro()); return; }
@@ -10024,6 +10411,7 @@ const Render = (() => {
       if (u && u.dataset.ui === 'legAll') { for (const k of Sim.LEGEND_KEYS) addCard('T', k, 4); saveCareer(); return; }
       if (u && u.dataset.ui === 'trAll') { for (const k in Sim.TRAITS) addCard('T', k, Sim.TRAITS[k].legend ? 4 : Math.floor(Math.random() * 4)); for (const k in Sim.LUCK) addCard('L', k, Math.floor(Math.random() * 4)); saveCareer(); return; }
       if (u && u.dataset.ui === 'pgReset') { try { localStorage.removeItem(AUTO_BUILD_KEY); } catch (e) { /* */ } return; }
+      if (u && u.dataset.ui === 'jgTypeCycle') { const seq = [null, 'bb', 'hh', 'bh', 'hb'], nm = { bb: '둘 다 존슨', hh: '둘 다 기존 정글러', bh: '아군만 존슨', hb: '상대만 존슨' }; jgForce = seq[(seq.indexOf(jgForce) + 1) % seq.length]; u.innerHTML = `정글러 종류: ${jgForce ? nm[jgForce] : '무작위'} <small>다음 판부터</small>`; return; }
       if (u && u.dataset.ui === 'condCycle') { condForce = condForce == null ? -2 : condForce >= 2 ? null : condForce + 1; u.innerHTML = `내 컨디션 바꾸기 <small>${condForce == null ? '원래대로' : Sim.COND_NAME(condForce)} · 다음 판부터</small>`; return; }
       if (u) { skillCheat(u.dataset.ui); return; }
       const b = e.target.closest('button[data-c]'); if (!b) return;
@@ -10047,9 +10435,15 @@ const Render = (() => {
     $('cancelSetup').onclick = () => { $('setup').hidden = true; };
     $('startBtn').onclick = () => { settings.foeSkill = +$('foeSkill').value; $('setup').hidden = true; newGame(); };
     $('pgStart').onclick = closePregame;
+    $('taYes').onclick = () => tutAnswer(true); $('taNo').onclick = () => tutAnswer(false);
+    $('tbHelp').onclick = () => tutOpen();
+    $('tutNext').onclick = () => tutStep(1); $('tutPrev').onclick = () => tutStep(-1); $('tutSkip').onclick = () => tutClose();
+    window.addEventListener('resize', () => { if (!$('tut').hidden) tutShow(); });
     for (const id of ['foeSkill']) $(id).oninput = () => { $(id + 'Out').textContent = $(id).value; $('foeRk').innerHTML = rankTag(+$(id).value); };
     window.addEventListener('keydown', (e) => {
       if (!$('og').hidden) { if (e.key === 'Escape' && !$('ogQueue').hidden) showLobby(); return; }
+      if (!$('tutAsk').hidden) { if (e.key === 'Enter') { e.preventDefault(); tutAnswer(true); } else if (e.key === 'Escape') tutAnswer(false); return; }
+      if (!$('tut').hidden) { if (e.key === 'Enter' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); tutStep(1); } else if (e.key === 'ArrowLeft') tutStep(-1); else if (e.key === 'Escape') tutClose(); return; }
       if (!$('pregame').hidden) { if (e.key === 'Enter') closePregame(); return; }
       if (e.key === 'Enter' && !e.target.closest('input') && $('setup').hidden) { e.preventDefault(); openChat(true); return; }
       if (e.target.closest('input') || !$('setup').hidden) { if (e.key === 'Escape') $('setup').hidden = true; return; }
@@ -10118,9 +10512,19 @@ const Render = (() => {
   }
   // 한타 관전 (기획서 11.18): 내가 안 싸우는데 다른 곳에서 2v2 이상 교전 → 싸우는 아군을 따라감.
   // 그 아군 싸움이 끝나면(죽음·킬·중단) 같은 한타의 다른 아군으로, 다 끝나면 1.5초 머물다 나에게. 드래그 중·설정 끔·초상화 눌러 복귀 직후엔 안 함
+  // 카메라 방식 (v0.99.97, 제보: 카메라 이동이 잦아 눈이 아픔): auto = 내 챔피언 + 다른 곳 교전을 따라감(예전 그대로) / me = 내 챔피언만 / free = 스스로 안 움직임(끌기·미니맵, 초상화를 누르면 나에게)
+  const CAM_MODES = [['auto', '자동', '카메라: 자동 — 내 챔피언을 따라가고, 다른 곳 교전도 보여 줘요'], ['me', '나만', '카메라: 나만 — 내 챔피언만 따라가요'], ['free', '자유', '카메라: 자유 — 끌어서 직접 움직여요 (초상화를 누르면 나에게)']];
+  const camMode = () => settings.camMode || 'auto';
+  function setCamMode(m, quiet) {
+    const row = CAM_MODES.find((x) => x[0] === m) || CAM_MODES[0]; settings.camMode = row[0];
+    try { localStorage.setItem('moba.camMode', row[0]); } catch (e) { /* */ }
+    $('camModeNow').textContent = row[1]; cam.tf = null;
+    if (row[0] !== 'free') { cam.freeUntil = 0; } // 자유에서 나오면 바로 내 챔피언으로
+    if (!quiet) cam.note = { txt: row[2], until: performance.now() + 2600 };
+  }
   const fightRecent = (u) => u && u.alive && S.t - (u.fightT ?? -99) < 2.5;
   function fightFocus() {
-    if (settings.tfCam === false || performance.now() < (cam.tfOffUntil || 0)) { cam.tf = null; return null; }
+    if (camMode() !== 'auto' || performance.now() < (cam.tfOffUntil || 0)) { cam.tf = null; return null; }
     const me = S.me;
     if (fightRecent(me)) { cam.tf = null; return null; } // 내가 싸우면 나
     const heroes = S.champs.concat([S.jg[0].unit, S.jg[1].unit]).filter(fightRecent);
@@ -10139,12 +10543,15 @@ const Render = (() => {
   }
   function camTagUI(f) {
     const el = $('camTag'); if (!el) return;
-    const u = f && f.id !== undefined ? f : null, txt = u ? `교전 관전 · ${u.kind === 'jungler' ? '아군 정글러' : u.name}` : f ? '교전 관전' : '';
-    if (el.dataset.t !== txt) { el.dataset.t = txt; el.innerHTML = txt ? `${txt} <small>(초상화 누르면 나에게)</small>` : ''; el.hidden = !txt; }
+    if (S && S.over) f = null;
+    const note = !(S && S.over) && cam.note && performance.now() < cam.note.until ? cam.note.txt : ''; // 카메라 방식을 바꾼 직후 잠깐 알림
+    const u = f && f.id !== undefined ? f : null, txt = note || (u ? `교전 관전 · ${u.kind === 'jungler' ? '아군 정글러' : u.name}` : f ? '교전 관전' : '');
+    if (el.dataset.t !== txt) { el.dataset.t = txt; el.innerHTML = note ? txt : txt ? `${txt} <small>(초상화 누르면 나에게)</small>` : ''; el.hidden = !txt; }
   }
   function updateCam(dt) {
     const c = S.me;
     if (cam.freeUntil && performance.now() < cam.freeUntil) { camTagUI(null); return; }
+    if (camMode() === 'free' && !cam.snap) { camTagUI(null); return; } // 자유: 스스로 안 움직임 (초상화를 누르면 cam.snap으로 한 번만 나에게)
     const f = fightFocus(); camTagUI(f);
     // dead: the camera stays where I died (the view goes grey); on respawn it jumps to me — 다른 곳 한타가 있으면 그쪽을 보여 줌
     if (!c.alive && !f) { cam.wasDead = true; return; }
@@ -10170,7 +10577,10 @@ const Render = (() => {
   function timeScale() { const now = performance.now(); return now < FX.stopUntil ? 0 : now < FX.slowUntil ? FX.slow : 1; }
   function fxPop(text, color) { if (!fxOn()) return; const el = document.createElement('div'); el.className = 'fxpop'; el.textContent = text; if (color) el.style.color = color; $('fxLayer').appendChild(el); setTimeout(() => el.remove(), 1500); }
   function fxFlash() { if (!fxOn()) return; const el = document.createElement('div'); el.className = 'flashW'; $('fxLayer').appendChild(el); setTimeout(() => el.remove(), 1000); }
-  function fxShake(small) { const c = small ? 'shakeS' : 'shake'; view.classList.remove('shake', 'shakeS'); void view.offsetWidth; view.classList.add(c); }
+  // 그 자리가 지금 화면 안에 있나 (자리 정보가 없으면 있다고 봄)
+  const onScreen = (at) => { if (!at) return true; const [sx, sy] = Render.iso(at.x, at.y), k = scale * Render.U / dpr, ox = (sx - cam.x) * k, oy = (sy - cam.y) * k; return ox > 0 && oy > 0 && ox < view.clientWidth && oy < view.clientHeight; };
+  // 화면 흔들기. at을 주면 그 자리가 화면 안일 때만 (v0.99.98 사용자: 화면 밖 아군 전투로는 내 화면이 안 흔들리게 — 내 스킬만 흔들면 한타가 심심해서, "보이는 싸움만")
+  function fxShake(small, at) { if (at && !onScreen(at)) return false; const c = small ? 'shakeS' : 'shake'; view.classList.remove('shake', 'shakeS'); void view.offsetWidth; view.classList.add(c); return true; }
   // 컷인: a band sweeps across with the portrait (ultimates; also the jungler's pounce)
   function cutIn(w, title, sub) {
     if (!fxOn()) return;
@@ -10195,7 +10605,7 @@ const Render = (() => {
     // the game stops while the banner covers the screen, then the fight kicks off with a bang
     const HOLD = 2650;
     fxStop(HOLD); fxFlash();
-    const shakeAll = (small) => { fxShake(small); el.classList.remove('tf-shake', 'tf-shakeS'); void el.offsetWidth; el.classList.add(small ? 'tf-shakeS' : 'tf-shake'); };
+    const shakeAll = (small) => { if (!fxShake(small, ev.at)) return; el.classList.remove('tf-shake', 'tf-shakeS'); void el.offsetWidth; el.classList.add(small ? 'tf-shakeS' : 'tf-shake'); }; // 화면 밖 교전이면 띠만 뜨고 안 흔들림
     setTimeout(() => shakeAll(false), 230);                                         // the title slams down
     all.forEach((_, i) => setTimeout(() => shakeAll(true), (0.15 + i * 0.12) * 1000 + 230)); // each band hits
     setTimeout(() => {
@@ -10224,12 +10634,12 @@ const Render = (() => {
         if (ev.victim.kind === 'champ') { fxSlow(0.22, 950); fxZoom(ev.at, 1.5, 1150); }
         else if (ev.jg) { fxSlow(0.45, 450); fxZoom(ev.at, 1.25, 600); }
       } else if (ev.type === 'leap' && mineSide(ev.who, ev.victim)) {
-        cutIn(ev.who, ev.dodged ? '피함!' : '덮치기!', `${ev.who.name} → ${ev.victim.name}`);
+        cutIn(ev.who, ev.dodged ? '피함!' : (ev.name || '덮치기') + '!', `${ev.who.name} → ${ev.victim.name}`);
         fxSlow(0.3, 650); fxZoom(ev.at, 1.3, 800);
       } else if (ev.type === 'skillHit' && mineSide(ev.who, ev.victim)) {
-        fxStop(70); if (fxOn()) fxShake(true);
+        if (onScreen(ev.at)) { fxStop(70); if (fxOn()) fxShake(true); } // 화면 밖에서 맞은 스킬은 멈칫·흔들림 없음
       } else if (ev.type === 'struct' && ev.role !== 'nexus') {
-        fxSlow(0.4, 550); fxShake(false); fxPop(`${ev.team === 1 ? '적' : '우리'} ${ev.name} 파괴!`, ev.team === 1 ? '#9fd0ff' : '#ff9c88');
+        fxSlow(0.4, 550); fxShake(false, ev.at); fxPop(`${ev.team === 1 ? '적' : '우리'} ${ev.name} 파괴!`, ev.team === 1 ? '#9fd0ff' : '#ff9c88');
       } else if (ev.type === 'item' && (ev.who.team === 0 || S.vis[0].has(ev.who.id))) {
         fxPop(`${ev.name}!`, '#ffe58a'); fxSlow(0.4, 500);
       } else if (ev.type === 'teamfight') {
@@ -10363,15 +10773,19 @@ const Render = (() => {
   // 방향 추천(★): 지금은 상대 라이너 상성표로, 나중에 상대 팀 조합 꼬리표로
   function recDir(me) { const rec = me.def.builds; return rec.slice().sort((a, b) => muOf(b).v - muOf(a).v || rec.indexOf(a) - rec.indexOf(b))[0]; }
   function foeTeamHTML() {
-    const foes = S.champs.filter((c) => c.team === 1).map((c) => Render.portraitURL(c.key, 1)).concat(Render.portraitURL('jungler', 1));
+    const foes = S.champs.filter((c) => c.team === 1).map((c) => Render.portraitURL(c.key, 1)).concat(Render.portraitURL(jgSpr(1), 1));
     const sh = Sim.magShare(S, 0);
     const tag = sh >= 0.6 ? '<span class="tag">마법 피해 많음</span>' : sh <= 0.4 ? '<span class="tag phys">물리 피해 많음</span>' : '<span class="tag">마법·물리 섞임</span>';
     return `상대 ${foes.map((u) => `<img alt="" src="${u}">`).join('')}${tag}`;
   }
+  // 빌드 고르기 창 (v0.99.99 사용자: 단순 아이템 모드에선 챔피언마다 방향이 하나라 고를 게 없음 → 끔. 아이템 디벨롭 때 다시 켬 — 창과 코드는 그대로 둠)
+  //   꺼져 있으면 ★ 방향으로 바로 시작하고, 그 자리에 "튜토리얼을 보시겠습니까?"를 처음 한 번 물음
+  const BUILD_PICK = false;
   function openPregame() {
     const me = S.me;
     const keys = me.def.builds, star = recDir(me);
     pgChoice = star; pgMoreK = null;
+    if (!BUILD_PICK) { closePregame(); tutAsk(); return; }
     if (autoBuild()) { closePregame(); return; } // 다음부터 자동: 화면 없이 ★ 방향으로
     paused = true;
     $('pgFoes').innerHTML = foeTeamHTML();
@@ -10411,6 +10825,48 @@ const Render = (() => {
     paused = false;
     invCache.b = ''; updateUI(true);
   }
+  // ---- 튜토리얼 (v0.99.99, 테스터 제보 + 사용자): HUD를 하나씩 밝히고 설명. 보는 동안 게임은 멈춤. 경기에는 영향 없음 ----
+  const TUT_KEY = 'moba.tutAsked';
+  const TUT = [ // [밝힐 곳(없으면 화면 가운데), 제목, 글, 작은 글]
+    [null, '챔피언은 스스로 싸워요', '이 게임은 챔피언을 직접 조종하지 않아요. 챔피언이 알아서 싸우고, 나는 <b>방향만</b> 정해 줘요.', '지금부터 내가 누를 수 있는 것들을 하나씩 짚어 드릴게요.'],
+    ['#hudMenu', '스타일', '<b>공격적 · 중간 · 수비적</b> 중에 골라요. 챔피언이 얼마나 과감하게 싸울지가 바뀌어요.', '옆의 「숙련도」는 판을 할수록 오르는 챔피언의 실력이에요.'],
+    ['#tbRecall', '귀환', '본진으로 돌아가 체력을 채우고 아이템을 사요. 챔피언이 스스로도 가지만, 눌러서 먼저 보낼 수 있어요.', '키보드: B'],
+    ['#tbShop', '상점', '살 아이템을 미리 예약해 둘 수 있어요. 골드가 모이면 귀환할 때 사요.', '예약하지 않아도 AI가 알아서 골라요 · 키보드: P'],
+    ['#tbWard', '와드', '누른 뒤 <b>맵의 원하는 자리</b>를 누르면 그곳에 와드를 박아요. 주변이 밝아져서 상대 정글러가 오는 걸 미리 볼 수 있어요.', '키보드: F'],
+    ['#hbSkills', '스킬', '스킬은 챔피언이 알아서 써요(<b>AI 자동 스킬</b>). 레벨이 오르면 칸 위에 초록 <b>+</b>가 떠요 — 눌러서 올릴 스킬을 골라요.', '안 고르면 잠시 뒤 AI가 올려요 · 칸을 누르면 스킬 설명이 나와요'],
+    ['#chatOpen', '핑 · 채팅', '<b>맵을 길게 누르면</b> 핑 바퀴가 나와요. 가자 · 도와줘 · 빠져 중에 골라 팀에게 신호를 보내요.', '아래 「채팅」은 상대에게 보이는 전체 채팅이에요'],
+    ['#hudMe', '내 챔피언 · 카메라', '화면을 끌면 다른 곳을 둘러볼 수 있어요. <b>여기를 누르면</b> 카메라가 내 챔피언으로 돌아와요.', '미니맵을 눌러도 그 자리를 볼 수 있어요'],
+    ['#zoomCtl', '카메라 방식 · 확대', '「카메라」를 누를 때마다 <b>자동</b>(다른 곳 교전도 보여 줌) → <b>나만</b> → <b>자유</b>로 바뀌어요. + − 로 확대·축소해요.', '화면이 자꾸 옮겨 가서 어지러우면 「나만」으로'],
+    ['#tbBoard', '상황판', '양 팀의 킬 · 레벨 · 아이템을 한눈에 봐요.', '키보드: Tab을 누르고 있기'],
+    ['.hud-menu', '속도 · 이상해요 · 도움말', '<b>1x</b>를 누르면 빠르게 돌릴 수 있어요. 이상한 장면을 보면 <b>「이상해요」</b>로 알려 주세요 — 그 순간의 기록이 같이 전달돼요.', '이 안내는 「도움말」로 언제든 다시 볼 수 있어요. 즐거운 게임 되세요!'],
+  ];
+  let tutI = 0, tutPrevPaused = false;
+  const tutSeen = () => { try { return localStorage.getItem(TUT_KEY) === '1'; } catch (e) { return false; } };
+  const tutMark = () => { try { localStorage.setItem(TUT_KEY, '1'); } catch (e) { /* storage off */ } };
+  function tutAsk() { // 처음 한 번만 물음 (답하면 다시 안 물음 — 「도움말」로 다시 볼 수 있음)
+    if (tutSeen() || !isDesk()) return;
+    paused = true; $('tutAsk').hidden = false; $('taYes').focus();
+  }
+  function tutAnswer(yes) { tutMark(); $('tutAsk').hidden = true; paused = false; if (yes) tutOpen(); }
+  function tutOpen() {
+    if (!$('tut').hidden) return;
+    for (const id of ['cheatPop', 'bugPop']) { const el = $(id); if (el && !el.hidden) el.hidden = true; }
+    tutPrevPaused = paused; paused = true; tutI = 0; $('tut').hidden = false; tutShow();
+  }
+  function tutClose() { if ($('tut').hidden) return; $('tut').hidden = true; paused = tutPrevPaused; tutMark(); }
+  function tutShow() {
+    const [sel, title, text, sub] = TUT[tutI], hole = $('tutHole'), card = $('tutCard');
+    $('tutT').textContent = title; $('tutP').innerHTML = text + (sub ? `<small>${sub}</small>` : '');
+    $('tutN').textContent = `${tutI + 1} / ${TUT.length}`; $('tutPrev').disabled = tutI === 0; $('tutNext').textContent = tutI === TUT.length - 1 ? '시작하기' : '다음';
+    const el = sel ? document.querySelector(sel) : null, r = el && el.offsetParent !== null ? el.getBoundingClientRect() : null, W = innerWidth, H = innerHeight, pad = 5;
+    if (r && r.width > 0) { hole.classList.remove('none'); hole.style.left = (r.left - pad) + 'px'; hole.style.top = (r.top - pad) + 'px'; hole.style.width = (r.width + pad * 2) + 'px'; hole.style.height = (r.height + pad * 2) + 'px'; }
+    else { hole.classList.add('none'); hole.style.left = (W / 2) + 'px'; hole.style.top = (H / 2) + 'px'; hole.style.width = '0px'; hole.style.height = '0px'; }
+    // 글 상자: 밝힌 곳의 위나 아래 중 넓은 쪽에, 화면 밖으로 안 나가게
+    const cw = card.offsetWidth, ch = card.offsetHeight; let x = (W - cw) / 2, y = (H - ch) / 2;
+    if (r && r.width > 0) { x = Math.max(10, Math.min(W - cw - 10, r.left + r.width / 2 - cw / 2)); const below = r.bottom + pad + 12, above = r.top - pad - 12 - ch; y = H - r.bottom > r.top ? below : above; y = Math.max(10, Math.min(H - ch - 10, y)); }
+    card.style.left = Math.round(x) + 'px'; card.style.top = Math.round(y) + 'px';
+  }
+  function tutStep(d) { const n = tutI + d; if (n < 0) return; if (n >= TUT.length) { tutClose(); return; } tutI = n; tutShow(); }
   function renderShopTop(force) {
     const c = S.me;
     const key = c.build + '|' + invKey(c.items) + '|' + c.queue.join(',') + '|' + Math.floor(c.gold / 25);
@@ -10461,7 +10917,7 @@ const Render = (() => {
       el.classList.toggle('poor', left > c.gold);
     }
   }
-  const picOf = (w) => w.kind === 'champ' ? Render.portraitURL(w.key, w.team) : w.kind === 'jungler' ? Render.portraitURL('jungler', w.team, 3) : w.kind === 'monster' ? Render.portraitURL(w.key, 0, 3)
+  const picOf = (w) => w.kind === 'champ' ? Render.portraitURL(w.key, w.team) : w.kind === 'jungler' ? Render.portraitURL(jgSpr(w.team), w.team, 3) : w.kind === 'monster' ? Render.portraitURL(w.key, 0, 3)
     : w.kind === 'tower' ? Render.portraitURL('towerBase', w.team, 2) : Render.portraitURL('melee', w.team, 4);
   function showKill(ev) {
     const mine = ev.killer.team === 0;
@@ -10483,7 +10939,7 @@ const Render = (() => {
     $('kbText').textContent = title; $('kbSub').textContent = sub;
     kb.hidden = true; void kb.offsetWidth; kb.hidden = false;
     clearTimeout(kbTimer); kbTimer = setTimeout(() => { kb.hidden = true; }, 2300);
-    if (!ev.jg) fxShake(false);
+    if (!ev.jg) fxShake(false, ev.at);
   }
   function showBoard(on) { $('board').hidden = !on; if (on) renderBoard(); }
   const itemValue = (items) => items.reduce((a, x) => a + (Sim.ITEMS[x.k].usable ? 0 : Sim.ITEMS[x.k].cost * (x.n || 1)), 0);
@@ -10516,7 +10972,7 @@ const Render = (() => {
     const its = mine ? J.items : jgSeenItems[team];
     const slots = [];
     for (let i = 0; i < 6; i++) { const k = its && its[i]; slots.push(`<span>${k ? `<img alt="${Sim.ITEMS[k].name}" title="${Sim.ITEMS[k].name}" src="${iconCache(k)}">` : ''}</span>`); }
-    return `<div class="b-row jg"><img class="pic" alt="" src="${portOf('jungler', team, 3)}"><span class="nm">${team ? '적' : '아군'} 정글러<small>${st}</small></span>
+    return `<div class="b-row jg"><img class="pic" alt="" src="${portOf(jgSpr(team), team, 3)}"><span class="nm">${team ? '적' : '아군'} ${jgNm(team)}<small>${st}</small></span>
       <span class="num">${J.level}</span><span class="num">${J.k}/${J.d}/${J.a || 0}</span><span class="num" title="잡은 정글 몬스터">${mine ? J.camps : '?'}</span><span class="num gold">${mine ? Math.floor(J.gold).toLocaleString('ko-KR') : '?'}</span><span class="its${mine || seen ? '' : ' old'}">${slots.join('')}<span class="sickle" title="사냥꾼의 낫 (2스택, 45초마다 충전)">낫${mine ? ' ' + '●'.repeat(J.sickleN) + '○'.repeat(2 - J.sickleN) : ''}</span></span></div>`;
   }
   const COIN = () => iconCache('coin');
@@ -10746,7 +11202,7 @@ const Render = (() => {
     const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const el = document.createElement('div');
     el.className = 'tk' + (m.key === 'jungler' ? ' jg' : '');
-    el.innerHTML = `<img alt="" src="${Render.portraitURL(m.key || 'jungler', 0, 3)}"><div class="bb"><small>${esc(m.name)}</small>${m.ping ? `<span class="pk ${m.ping}">${PK_NAME[m.ping]}</span>` : ''}${esc(m.text)}</div>`;
+    el.innerHTML = `<img alt="" src="${Render.portraitURL(m.key === 'jungler' ? jgSpr(m.team) : m.key || 'jungler', 0, 3)}"><div class="bb"><small>${esc(m.name)}</small>${m.ping ? `<span class="pk ${m.ping}">${PK_NAME[m.ping]}</span>` : ''}${esc(m.text)}</div>`;
     $('talk').appendChild(el);
     talkItems.push({ el, until: performance.now() + 6500 });
     while (talkItems.length > 4) talkItems.shift().el.remove();
@@ -10950,7 +11406,7 @@ const Render = (() => {
   function resultTeams() {
     const R0 = { top: '탑', mid: '미드' };
     const ln = (c) => `<div class="br${c === S.me ? ' me' : ''}"><img alt="" src="${portOf(c.key, c.team)}"><span class="nm">${c.name}<small>${R0[c.role] || ''}${c === S.me ? ' · 나' : ''}</small></span><span class="num">${c.k}/${c.d}/${c.a}</span><span class="num">CS ${c.cs}</span></div>`;
-    const jl = (t) => { const J = S.jg[t]; return `<div class="br"><img alt="" src="${portOf('jungler', t, 3)}"><span class="nm">정글러<small>정글</small></span><span class="num">${J.k}/${J.d}/${J.a || 0}</span><span class="num">캠프 ${J.camps}</span></div>`; };
+    const jl = (t) => { const J = S.jg[t]; return `<div class="br"><img alt="" src="${portOf(jgSpr(t), t, 3)}"><span class="nm">${jgNm(t)}<small>정글</small></span><span class="num">${J.k}/${J.d}/${J.a || 0}</span><span class="num">캠프 ${J.camps}</span></div>`; };
     const side = (t) => `<div class="bt ${t ? 'r' : 'b'}"><b>${t ? '레드' : '블루'} ${teamK(t)}킬</b>${lanersOf(t).map(ln).join('')}${jl(t)}</div>`;
     return side(0) + side(1);
   }
@@ -10971,7 +11427,7 @@ const Render = (() => {
     const others = Object.keys(Sim.CHAMPS).filter((k) => k !== champ);
     const myAvg = avgSk(mySk(champ));
     const lv = () => rndHonorLv();
-    const M = { me: { nick: career.name, honorLv: Sim.honorLevel(career.honor), team: 0 }, jg0: { nick: '정글러', honorLv: lv(), team: 0 }, mid1: { nick: '상대', honorLv: lv(), team: 1 }, jg1: { nick: '상대 정글', honorLv: lv(), team: 1 },
+    const M = { me: { nick: career.name, honorLv: Sim.honorLevel(career.honor), team: 0 }, jg0: { nick: '정글러', honorLv: lv(), team: 0, type: jgRollType(0) }, mid1: { nick: '상대', honorLv: lv(), team: 1 }, jg1: { nick: '상대 정글', honorLv: lv(), team: 1, type: jgRollType(1) },
       foeChamp: pickOne(others), foeSkill: settings.foeMode && settings.foeMode !== 'auto' ? settings.foeMode : Math.round(myAvg * 10) / 10 };
     $('og').hidden = true; $('banner').hidden = true;
     newGame({ redChamp: M.foeChamp, foeSkill: M.foeSkill, honor: [{ [settings.role]: career.honor, jungle: HON_VAL[M.jg0.honorLv] }, { [settings.role]: HON_VAL[M.mid1.honorLv], jungle: HON_VAL[M.jg1.honorLv] }], match: M });
@@ -11089,10 +11545,22 @@ const Render = (() => {
     const bx = document.querySelector('#banner .box'); if (!bx || $('banner').hidden) return;
     const ui = innerWidth >= innerHeight ? Math.min(1, innerWidth / 960, innerHeight / 540) : 1;
     bx.style.zoom = '1';
-    const k = Math.min(ui, (innerHeight * 0.94) / bx.offsetHeight, (innerWidth * 0.96) / bx.offsetWidth);
+    const ht = document.querySelector('.hud-top'), top = innerWidth < innerHeight && ht && ht.offsetParent ? Math.max(0, Math.round(ht.getBoundingClientRect().bottom) + 4) : 0; // 세로 폰: 위쪽 메뉴 아래부터 (제목이 메뉴에 가려졌음)
+    $('banner').style.paddingTop = top + 'px';
+    const k = Math.min(ui, ((innerHeight - top) * (top ? 0.98 : 0.94)) / bx.offsetHeight, (innerWidth * 0.96) / bx.offsetWidth);
     bx.style.zoom = String(k);
   }
   window.addEventListener('resize', fitBanner);
+  // 위쪽 정보 띠(#hud)가 길어져 가운데 상황판 탭과 겹치면 탭을 그만큼 오른쪽으로 민다 (가로 화면, v0.99.103)
+  function fitTopBar() {
+    const bt = $('tbBoard'), pill = $('hud'); if (!bt || !pill) return;
+    bt.style.marginLeft = '';
+    if (innerWidth < innerHeight || !isDesk()) return;
+    const a = pill.getBoundingClientRect(), b = bt.getBoundingClientRect(), ui = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ui')) || 1;
+    const ov = a.right + 10 - b.left; if (ov > 0 && a.width > 0 && b.width > 0) bt.style.marginLeft = Math.round(ov / ui) + 'px';
+  }
+  window.addEventListener('resize', fitTopBar);
+  try { new ResizeObserver(fitTopBar).observe($('hud')); } catch (e) { /* 없으면 창 크기 바뀔 때만 */ }
   function showScreen(id) {
     $('og').hidden = false; $('og').classList.remove('fade'); fitOg();
     for (const s of document.querySelectorAll('.og-scr')) { s.hidden = s.id !== id; s.classList.remove('enter'); }
@@ -11101,7 +11569,7 @@ const Render = (() => {
     paused = true;
   }
   function showLobby() {
-    ogClear(); $('banner').hidden = true; $('pregame').hidden = true;
+    ogClear(); $('banner').hidden = true; $('pregame').hidden = true; $('tutAsk').hidden = true; $('tut').hidden = true;
     renderLobby(); showScreen('ogLobby');
     $('ogPlay').focus();
   }
@@ -11172,7 +11640,7 @@ const Render = (() => {
     const fm = settings.foeMode ?? 'auto';
     const foeSkill = fm === 'auto' ? Math.max(1, Math.min(10, Math.round((myAvg + rnd(-0.9, 0.9)) * 10) / 10)) : fm;
     const nicks = NICKS.slice().sort(() => Math.random() - 0.5);
-    const mk = (skill, team, role) => ({ nick: nicks.pop(), honorLv: rndHonorLv(), skill, team, role });
+    const mk = (skill, team, role) => ({ nick: nicks.pop(), honorLv: rndHonorLv(), skill, team, role, ...(role === 'jungle' ? { type: jgRollType(team) } : {}) });
     og.match = {
       me: { nick: career.name, honorLv: Sim.honorLevel(career.honor), team: 0, role: settings.role, me: true },
       jg0: mk(Math.max(1, Math.min(10, myAvg + rnd(-1, 1))), 0, 'jungle'),
@@ -11193,7 +11661,7 @@ const Render = (() => {
     ogEvery(() => { left = Math.max(0, left - 1); $('csTime').textContent = left; if (left <= 0 && !og.locked) lockPick(); }, 1000);
     // the enemy side "locks in" at some point (still hidden)
     ogLater(() => { og.match.mid1.locked = true; drawSelect(); }, rnd(4, 14) * 1000);
-    og.match.al.forEach((a) => ogLater(() => { allyPick(a); drawSelect(); }, rnd(3, 12) * 1000)); // AI 팀원이 먼저 고를 수도 (그 챔피언은 나는 못 고름)
+    og.match.al.forEach((a) => ogLater(() => { allyPick(a); drawSelect(); }, rnd(3, 12) * 1000)); // AI 팀원이 먼저 고를 수도 (회색으로 보임 — 그래도 내가 가져올 수 있고, 그러면 그 팀원이 다시 고름)
   }
   // AI 팀원(다른 라인)의 픽: 내가 지금 보고 있는 챔피언은 피함
   function allyPick(a) {
@@ -11203,20 +11671,22 @@ const Render = (() => {
   function slotHTML(s, champKey, label) {
     const known = champKey !== null;
     const pic = known ? `<img alt="" src="${Render.faceURL(champKey, s.team, 48)}">` : '<span class="q">?</span>';
-    const name = known ? (champKey === 'jungler' ? '정글러' : Sim.CHAMPS[champKey].name) : (s.locked ? '선택 완료' : '선택 중…');
+    const name = known ? (isJgKey(champKey, s) ? jgKeyNm(champKey) : Sim.CHAMPS[champKey].name) : (s.locked ? '선택 완료' : '선택 중…');
     return `<div class="cs-slot${s.me ? ' me' : ''}${s.locked ? ' lock' : ''}">${pic}<div><b>${name}</b><small>${label} · ${escH(s.nick)}</small><div>${honorTag(HON_VAL[s.honorLv])}</div></div></div>`;
   }
   function drawSelect() {
     const M = og.match;
+    if (!og.locked) { const a = M.al.find((x) => x.locked && x.champ === og.pick); // 팀원이 고른 챔피언을 보고 있으면 알려 줌
+      $('csPhase').textContent = a ? `${Sim.CHAMPS[og.pick].name} — ${ROLE_NAME[a.role]} 팀원이 먼저 골랐어요. 「선택」을 누르면 내가 가져가고, 팀원은 다른 챔피언을 골라요` : `${ROLE_NAME[settings.role]} 라이너를 고르세요. 다른 라인은 AI 팀원이 맡아요 · 상대 픽은 로딩 화면에서 공개돼요`; }
     M.jg0.locked = true; M.jg1.locked = M.jg1.locked || M.mid1.locked;
     for (const f of M.fo) f.locked = f.locked || M.mid1.locked;
     const ord = (a) => a.sort((x, y) => ROLE_ORD[x[0].role] - ROLE_ORD[y[0].role]).map(([s, k, l]) => slotHTML(s, k, l)).join(''); // 탑 · 미드 · 정글 · 원딜 순
-    $('csBlue').innerHTML = ord([[Object.assign(M.me, { locked: og.locked }), og.pick, ROLE_NAME[settings.role]], ...M.al.map((a) => [a, a.locked ? a.champ : null, ROLE_NAME[a.role] + ' (AI)']), [M.jg0, 'jungler', '정글']]);
+    $('csBlue').innerHTML = ord([[Object.assign(M.me, { locked: og.locked }), og.pick, ROLE_NAME[settings.role]], ...M.al.map((a) => [a, a.locked ? a.champ : null, ROLE_NAME[a.role] + ' (AI)']), [M.jg0, (Sim.JG_TYPES[og.pick === 'beetle' || M.al.some((x) => x.locked && x.champ === 'beetle') ? 'hunter' : M.jg0.type] || Sim.JG_TYPES.hunter).spr, '정글']]); // 고르는 중에도 미리 보여 줌
     $('csRed').innerHTML = ord([[M.mid1, null, ROLE_NAME[settings.role]], ...M.fo.map((f) => [f, null, ROLE_NAME[f.role]]), [M.jg1, null, '정글']]);
     drawPicker();
     const d = Sim.CHAMPS[og.pick], p = mySk(og.pick), cs = career.champs[og.pick];
     const ic = (sk, fallback) => Render.portraitURL(sk.icon || fallback, 0, 3);
-    const SKI = { dash: 'skDash', snipe: 'skSnipe', empower: 'skEmpower', spin: 'skSpin', volley: 'skVolley', slam: 'skSlam', bigshot: 'skBig', meteor: 'skMeteor', cone: 'skScissors', blast: 'skPaper', chargeDash: 'skRock', hook: 'skLasso', quake: 'skSlam', dice: 'skSnipe', trap: 'skRock', root: 'skRoar', tornado: 'skTornado', rake: 'skRake', pit: 'skPit', blink: 'skDash', summon: 'skRoar', mirror: 'skMirror' };
+    const SKI = { dash: 'skDash', snipe: 'skSnipe', empower: 'skEmpower', spin: 'skSpin', volley: 'skVolley', slam: 'skSlam', bigshot: 'skBig', meteor: 'skMeteor', cone: 'skScissors', blast: 'skPaper', chargeDash: 'skRock', hook: 'skLasso', quake: 'skSlam', dice: 'skSnipe', trap: 'skRock', root: 'skRoar', tornado: 'skTornado', rake: 'skRake', pit: 'skPit', blink: 'skDash', summon: 'skRoar', mirror: 'skMirror', stink: 'skRoar', burrow: 'skDash', ball: 'skRock' };
     const skRow = (k, sk, extra) => `<img alt="" src="${ic(sk, SKI[sk.kind])}"><span><b>${k}</b> ${sk.name}${extra || ''} <small>— ${skLine(sk, d)}</small></span>`;
     $('csInfo').innerHTML = `<div class="r1"><img class="face" alt="" src="${faceOf(og.pick)}"><div class="nmw"><div><b>${d.name}</b> ${rankTag(avgSk(p))} ${condTag(og.pick)}</div><span>${d.title} · ${d.role} · ${cs ? `${cs.g}판 ${cs.w}승` : '첫 판'}</span></div></div>
       <p class="blurb">${d.desc || ''}</p>${personaLine(og.pick)}
@@ -11251,7 +11721,7 @@ const Render = (() => {
       const k = order[i];
       if (!k) return '<button class="cs-cell empty" disabled aria-label="빈 칸"></button>';
       const c = Sim.CHAMPS[k], on = favs.includes(k), taken = og.match && og.match.al && og.match.al.some((a) => a.locked && a.champ === k); // 팀원이 고른 챔피언
-      return `<button class="cs-cell${taken ? ' taken' : ''}" data-k="${k}" aria-pressed="${k === og.pick}" ${og.locked || taken ? 'disabled' : ''} title="${c.name}"><img alt="" src="${faceOf(k)}"><span class="nm">${c.name}</span><span class="cs-fav${on ? ' on' : ''}" data-fav="${k}" role="button" aria-label="즐겨찾기">${on ? '★' : '☆'}</span></button>`;
+      return `<button class="cs-cell${taken ? ' taken' : ''}" data-k="${k}" aria-pressed="${k === og.pick}" ${og.locked ? 'disabled' : ''} title="${c.name}${taken ? ' — 팀원이 골랐어요. 선택하면 내가 가져가요' : ''}"><img alt="" src="${faceOf(k)}"><span class="nm">${c.name}</span><span class="cs-fav${on ? ' on' : ''}" data-fav="${k}" role="button" aria-label="즐겨찾기">${on ? '★' : '☆'}</span></button>`;
     }).join('');
     $('csChamps').scrollTop = top;
     syncCsBar();
@@ -11282,7 +11752,9 @@ const Render = (() => {
   function lockPick() {
     if (og.locked) return;
     og.locked = true; settings.champ = og.pick;
+    for (const a of og.match.al) if (a.locked && a.champ === og.pick) { a.locked = false; a.champ = null; } // 내가 가져감 → 그 팀원은 아래에서 다시 고름
     allyPick();
+    if (og.pick === 'beetle' || og.match.al.some((a) => a.champ === 'beetle')) og.match.jg0.type = 'hunter'; // 우리 팀에 존슨 라이너 → 정글러는 다른 종류로
     $('csLock').disabled = true; $('csLock').textContent = '선택 완료';
     drawSelect();
     const finish = () => {
@@ -11299,18 +11771,19 @@ const Render = (() => {
     const ours = [settings.champ, ...M.al.map((a) => a.champ)]; // 상대는 우리가 안 쓴 챔피언 먼저
     M.foeChamp = aiPick(settings.role, ours);
     { const used = [...ours, M.foeChamp]; for (const f of M.fo) { f.champ = aiPick(f.role, used); used.push(f.champ); } }
+    if (M.foeChamp === 'beetle' || M.fo.some((f) => f.champ === 'beetle')) M.jg1.type = 'hunter'; // 상대 팀도 같은 규칙
     const myP = mySk(settings.champ);
-    const card = (s, key, label, skillLine) => { const pe = key !== 'jungler' && Sim.CHAMPS[key].persona;
+    const card = (s, key, label, skillLine) => { const pe = !isJgKey(key, s) && Sim.CHAMPS[key].persona;
       return `<div class="ld-card ${s.team ? 'red' : 'blue'}${s.me ? ' me' : ''}" style="animation-delay:${s.delay}s">
-      <div class="art"><span class="role">${label}</span><img class="pt" alt="" src="${Render.portraitURL(key, s.team, 8)}"></div><span class="cn">${key === 'jungler' ? '정글러' : Sim.CHAMPS[key].name}</span>
+      <div class="art"><span class="role">${label}</span><img class="pt" alt="" src="${Render.portraitURL(key, s.team, 8)}"></div><span class="cn">${isJgKey(key, s) ? jgKeyNm(key) : Sim.CHAMPS[key].name}</span>
       <span class="pn">${escH(s.nick)}</span><div class="bd">${rankTag(s.skillVal)}${honorTag(HON_VAL[s.honorLv])}</div>${pe ? `<span class="per">성격 · ${pe.name}</span>` : ''}${s.traits && s.traits.length ? `<span class="trl">특성 · ${trLine(s.traits)}</span>` : ''}${s.luck ? (() => { const c = Sim.parseCard(s.luck); return `<span class="trl lk">행운 · <span style="color:${RC(c.t)}">${Sim.LUCK[c.k].name}</span></span>`; })() : ''}${skillLine || ''}
       <div class="pg"><i></i></div><span class="pc">0%</span></div>`; };
     M.me.traits = trSpec(settings.champ); M.me.luck = lkSpec(settings.champ);
     M.me.skillVal = avgSk(myP); M.jg0.skillVal = M.jg0.skill; M.mid1.skillVal = M.mid1.skill; M.jg1.skillVal = M.jg1.skill; for (const x of [...M.al, ...M.fo]) x.skillVal = x.skill;
     const mySks = `<div class="ldc">${condTag(settings.champ)}</div><div class="sks">${Sim.SKILLS.map((d) => `<span class="s1"><em>${d.name}</em>${rankTag(myP[d.k])}</span>`).join('')}</div>`;
     const row = (list) => list.sort((x, y) => ROLE_ORD[x[0].role] - ROLE_ORD[y[0].role]).map((a, i) => { a[0].delay = (a[0].team * list.length + i) * 0.1; return card(...a); }).join(''); // 탑 · 미드 · 정글 · 원딜 순
-    $('ldBlue').innerHTML = row([[M.me, settings.champ, ROLE_NAME[settings.role], mySks], ...M.al.map((a) => [a, a.champ, ROLE_NAME[a.role]]), [M.jg0, 'jungler', '정글']]);
-    $('ldRed').innerHTML = row([[M.mid1, M.foeChamp, ROLE_NAME[settings.role]], ...M.fo.map((f) => [f, f.champ, ROLE_NAME[f.role]]), [M.jg1, 'jungler', '정글']]);
+    $('ldBlue').innerHTML = row([[M.me, settings.champ, ROLE_NAME[settings.role], mySks], ...M.al.map((a) => [a, a.champ, ROLE_NAME[a.role]]), [M.jg0, (Sim.JG_TYPES[M.jg0.type] || Sim.JG_TYPES.hunter).spr, '정글']]);
+    $('ldRed').innerHTML = row([[M.mid1, M.foeChamp, ROLE_NAME[settings.role]], ...M.fo.map((f) => [f, f.champ, ROLE_NAME[f.role]]), [M.jg1, (Sim.JG_TYPES[M.jg1.type] || Sim.JG_TYPES.hunter).spr, '정글']]);
     for (const el of document.querySelectorAll('#ogLoad .ld-row')) el.style.setProperty('--ldn', 2 + M.al.length);
     $('ldTip').textContent = pickOne(TIPS);
     showScreen('ogLoad');
@@ -11362,7 +11835,7 @@ const Render = (() => {
   const hot = window.claude?.hot;
   if (hot?.ready) hot.ready(start); else start(hot?.data ?? {});
 })();
-// 메신저 안 브라우저 안내 (v0.99.89): 카카오톡 같은 앱 안에서 웹 주소로 열었을 때만 뜸. 그 안에서는 파일 저장·공유가 막히는 일이 있어 바깥 브라우저로 여는 길을 알려 줌
+// 메신저 안 브라우저 안내: 카카오톡 같은 앱 안에서 웹 주소로 열었을 때만 뜸. 그 안에서는 파일 저장·공유가 막히는 일이 있어 바깥 브라우저로 여는 길을 알려 줌
 (() => {
   try {
     if ((window.claude && window.claude.use) || !/^https?:$/.test(location.protocol)) return;
