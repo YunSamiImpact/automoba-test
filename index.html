@@ -915,7 +915,10 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
   .cs-grid { grid-template-columns: 74px minmax(0, 1fr) 74px; gap: 8px 6px; }
   .cs-grid > .cs-team.blue { grid-column: 1; grid-row: 1; } .cs-grid > .cs-team.red { grid-column: 3; grid-row: 1; }
   .cs-grid > .cs-mid { display: contents; }
-  .cs-mid > .cs-pick { grid-column: 2; grid-row: 1; align-self: start; }
+  /* 챔피언 칸 묶음: 양옆 팀 칸(5칸) 높이만큼 늘어남. 안의 격자는 띄워 놓아서(absolute) 줄 높이를 키우지 않고 그 안에서 스크롤 (v0.99.110 — 전엔 250px에서 끊겨 아래가 비었음) */
+  .cs-mid > .cs-pick { grid-column: 2; grid-row: 1; align-self: stretch; position: relative; min-height: 250px; max-width: none; }
+  .cs-pick > .cs-champs { position: absolute; left: 0; top: 0; bottom: 0; right: 14px; max-height: none; min-height: 0; }
+  .cs-pick > .cs-bar { position: absolute; right: 0; top: 0; bottom: 0; }
   .cs-mid > .og-play { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
   .cs-mid > .cs-info { grid-column: 1 / -1; grid-row: 3; }
   .cs-team { gap: 6px; }
@@ -1090,7 +1093,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 </style>
 
 <header class="top">
-  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.109</small></div>
+  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.110</small></div>
   <div class="clock num" id="clock" aria-label="게임 시간">00:00</div>
   <div class="seg" role="group" aria-label="게임 속도" id="speed">
     <button data-s="0" aria-pressed="false" title="일시정지 (Space)">II</button>
