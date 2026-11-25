@@ -1090,7 +1090,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 </style>
 
 <header class="top">
-  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.106</small></div>
+  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.108</small></div>
   <div class="clock num" id="clock" aria-label="게임 시간">00:00</div>
   <div class="seg" role="group" aria-label="게임 속도" id="speed">
     <button data-s="0" aria-pressed="false" title="일시정지 (Space)">II</button>
@@ -1587,7 +1587,7 @@ const GAME_TEXT = {
       r: { name: '사슬 포박', desc: '붙어 있는 적을 2초간 사슬로 묶어 꼼짝 못 하게 함. 계속 피해를 주고 그만큼 회복. 내가 기절하면 풀림' },
     },
     gambler: {
-      name: '에이스', title: '운명의 도박사', role: '원거리 · 운빨',
+      name: '리암', title: '운명의 도박사', role: '원거리 · 운빨',
       desc: '주사위를 굴려 카드를 던지는 도박사. 6이 나오면 대박, 1이 나오면 꽝 — 오늘은 터질까?',
       persona: { name: '승부사', line: '"오늘은 터진다"를 입에 달고 사는 도박사', quirkText: '6 나오면 들이받음' },
       q: { name: '운명의 주사위', desc: '주사위 1~6: 1 꽝 · 2~3 보통 · 4~5 강타+둔화 · 6 잭팟(기절)' },
@@ -1895,6 +1895,9 @@ const SimMake = (MAP_IN) => {
   // Square map (LoL-like on the top-down minimap). In top-down coords u = x - y, v = x + y the map is the
   // square u∈[-Y-M, M], v∈[-M, Y+M]; in world x/y that's a diamond: wide at mid, narrow at the two bases.
   const SQ_M = 6;
+  // 우물 자리 (v0.99.107 사용자): 라인 시작점(y = Y)에서 back칸 뒤 — 맵 정사각형 꼭짓점 쪽. 둘레 r칸은 둥근 발판, 정사각형 밖으로 나온 부분은 wall칸 두께의 벽으로 두름.
+  //   건물(포탑·억제기·쌍둥이·넥서스) 자리는 그대로. 라인 위치를 재는 기준점은 우물이 아니라 MAP.laneEnds(예전 우물 자리)를 씀 → 우물을 옮겨도 서는 자리가 안 바뀜
+  const WELL = { back: 3.2, r: 3.6, wall: 1.5, grid: 3 }; // grid = 발판이 들어가도록 타일 격자를 위아래로 더 넓히는 칸 수
   // ---- 맵 자료 (v0.99.78~): 정글 안쪽의 벽·부쉬와 캠프·둥지는 맵 에디터(tools/map-editor.html)에서 그린 것. tools/apply-map.js가 아래 블록에 써 넣음 ----
   // JG_GRID: 맵 전체 0.5칸 격자(칸 가운데 = x0 + i·res, y0 + j·res). walls·bushes = '.'(없음)·'#'(있음)을 줄여 쓴 글자열. 벽은 이중선형으로 이어 판정(값 ≥ 0.5), 부쉬는 가장 가까운 칸.
   //   본진 테두리 숲·둥지 둘레 벽도 이 격자에 들어 있음(예전엔 코드가 만들었음 — BASE_GAPS·pitBankWall 삭제). 옆 정글 부쉬 선분(SIDE_BUSH)도 격자로 대체.
@@ -1934,9 +1937,11 @@ const SimMake = (MAP_IN) => {
     wardSpots,
     xMin: -9, xMax: 9, yMin: 0, yMax: Y, mid: MID, laneHalf: 3.0, walkHalf: 5.9, riverHalf: 2.4,
     sq: { uMin: -Y - SQ_M, uMax: SQ_M, vMin: -SQ_M, vMax: Y + SQ_M },       // top-down square
-    grid: { xMin: -(Y / 2 + SQ_M), xMax: Y / 2 + SQ_M, yMin: -SQ_M, yMax: Y + SQ_M }, // tile grid covering the square
+    grid: { xMin: -(Y / 2 + SQ_M), xMax: Y / 2 + SQ_M, yMin: -SQ_M - WELL.grid, yMax: Y + SQ_M + WELL.grid }, // tile grid covering the square (+ 우물 발판이 나온 만큼)
     camps, campsAll: CAMPS_ALL, jpaths, pits: PITS, pitsAll: PITS_ALL, jgGrid: JGD, // 칠한 격자 원본(에디터가 그대로 다시 읽음)
-    fountains: [{ x: 0, y: Y - 1.4 }, { x: 0, y: 1.4 }],
+    fountains: [{ x: 0, y: Y + WELL.back }, { x: 0, y: -WELL.back }],
+    laneEnds: [{ x: 0, y: Y - 1.4 }, { x: 0, y: 1.4 }], // 라인 위치를 재는 기준점(각 팀 쪽 끝) — 예전 우물 자리 그대로
+    well: WELL,
     baseR: 19, fountainR: 3, // 본진 발판 = 맵 꼭짓점에서 19칸 (억제기까지), 우물 광선 = 스폰 둘레 3칸 (넥서스 치는 자리는 밖)
     bushPts: [],               // 렌더용 부쉬 칸 중심 (buildNav에서 채움)
     lanes: LANES,
@@ -1994,6 +1999,9 @@ const SimMake = (MAP_IN) => {
   }
   function terrainAt(x, y) {
     const M = MAP;
+    { const f = M.fountains[y > MID ? 0 : 1], d = Math.hypot(x - f.x, y - f.y); // 우물 발판 — 정사각형 밖으로 나온 곳도 바닥, 그 바깥 띠는 벽
+      if (d <= WELL.r) return y > MID ? 'baseB' : 'baseR';
+      if (d <= WELL.r + WELL.wall && !inSquare(x, y)) return 'forest'; }
     if (!inSquare(x, y) || cornerCut(x, y)) return 'void';
     const blue = y > MID, cy = blue ? Y + SQ_M : -SQ_M;
     const dm = Math.abs(x), dt = laneLineD(x, y, 'top'), db = laneLineD(x, y, 'bot');
@@ -3259,7 +3267,7 @@ const SimMake = (MAP_IN) => {
   function frontTower(S, team, lane = 'mid') { // 라인 안 주면 미드 (예전 미드 전제 코드 그대로 동작 — 라인별 AI는 lane을 넘길 것)
     let best = null;
     for (const s of S.towers) if (s.alive && s.team === team && s.range > 0 && (!lane || !s.lane || s.lane === lane) && (!best || s.order < best.order)) best = s;
-    return best || { ...DEAD_TW, team, y: MAP.fountains[team].y };
+    return best || { ...DEAD_TW, team, y: MAP.laneEnds[team].y };
   }
   // what to hit next when sieging this team down a lane (first exposed alive structure)
   function siegeFront(S, team, lane = 'mid') {
@@ -4312,7 +4320,7 @@ const SimMake = (MAP_IN) => {
       }
     }
     // 상대 라이너 위치: 0 = 상대 본진, 1 = 우리 본진 (라인 좌표로, 우리 쪽으로 얼마나 깊이 들어왔나)
-    const yOwn = LY(MAP.fountains[team]), yFoe = LY(MAP.fountains[1 - team]);
+    const yOwn = LY(MAP.laneEnds[team]), yFoe = LY(MAP.laneEnds[1 - team]);
     const eDeep = E.alive && seen(E) ? clamp((LY(E) - yFoe) / (yOwn - yFoe), 0, 1) : null;
     const enT = frontTower(S, 1 - team, lane);
     const eUnderTower = E.alive && seen(E) && enT.alive && dist(E, enT) < enT.range + 2;
@@ -5440,7 +5448,7 @@ const SimMake = (MAP_IN) => {
   }
   function safeSpot(S, c) {
     const tw = frontTower(S, c.team, c.lane);
-    const y = tw.alive ? laneY(c.lane, tw) + homeDir(c.team) * 2.2 : laneY(c.lane, MAP.fountains[c.team]);
+    const y = tw.alive ? laneY(c.lane, tw) + homeDir(c.team) * 2.2 : laneY(c.lane, MAP.laneEnds[c.team]);
     return lanePt(c.lane, y, c.laneX * 0.5);
   }
 
@@ -6820,7 +6828,7 @@ const SimMake = (MAP_IN) => {
   function ejSide(S, team) { const e = S.teamBrain[team].ejSeen; return e && S.t - e.t < 40 && Math.abs(e.x) > 2 ? Math.sign(e.x) : 0; }
   const wardedNear = (S, team, p, r = 4) => S.units.some((w) => w.alive && w.kind === 'ward' && w.team === team && dist(w, p) < r);
   // 0 = 우리 본진 쪽, 1 = 상대 본진 쪽 (라인에서 얼마나 밀고 들어갔나)
-  const laneDeep = (u) => { const a = MAP.fountains[u.team].y, b = MAP.fountains[1 - u.team].y; return clamp((u.y - a) / (b - a), 0, 1); };
+  const laneDeep = (u) => { const a = MAP.laneEnds[u.team].y, b = MAP.laneEnds[1 - u.team].y; return clamp((u.y - a) / (b - a), 0, 1); };
   // 갱 길 와드 자리: 밀고 있으면 상대 쪽 강 입구, 당겨져 있으면 우리 포탑 옆 입구, 보통이면 그쪽 라인 부쉬
   function gankWardSpot(S, team, side, u) {
     const d = laneDeep(u), myT = frontTower(S, team);
@@ -7016,7 +7024,7 @@ const SimMake = (MAP_IN) => {
   // 숨을 칸: 대기 자리보다 앞이고 라인 한가운데를 거의 안 넘는 칸 중 가장 앞(같으면 라인에 가까운 쪽). near가 있으면(같이 숨을 아군의 자리) 같은 부쉬에서 그 옆 칸
   function bushWaitSpot(S, c, waitY, near) {
     const lane = c.lane, hd = homeDir(c.team), enT = frontTower(S, 1 - c.team, lane);
-    const midLY = (laneY(lane, MAP.fountains[0]) + laneY(lane, MAP.fountains[1])) / 2;
+    const midLY = (laneY(lane, MAP.laneEnds[0]) + laneY(lane, MAP.laneEnds[1])) / 2;
     let best = null, bs = 1e9;
     for (const p of laneBushCells(lane)) {
       const fwd = (waitY - p.ly) * hd;
@@ -7039,7 +7047,7 @@ const SimMake = (MAP_IN) => {
     }
     const enemyFront = (() => { let f = null; for (const u of S.units) if (u.alive && u.kind === 'minion' && u.team !== team && canSee(S, team, u) && u.lane === lane) { const uy = LY(u); if (f === null || (hd > 0 ? uy > f : uy < f)) f = uy; } return f; })();
     let y, wait = false;
-    const waitY = myT.alive ? LY(myT) - hd * WAIT_FRONT : LY(MAP.fountains[team]) - hd * 6; // 미니언을 기다리는 자리: 맨 앞 우리 건물 앞
+    const waitY = myT.alive ? LY(myT) - hd * WAIT_FRONT : LY(MAP.laneEnds[team]) - hd * 6; // 미니언을 기다리는 자리: 맨 앞 우리 건물 앞
     if (front === null) { y = waitY; wait = true; }
     else {
       const base = c.def.melee ? 1.6 : clamp(c.range - RANGED.minion, 3.0, RANGED.maxBack); // 원거리는 사거리만큼 뒤에서 (예전: 사거리와 상관없이 3칸)
@@ -7172,7 +7180,7 @@ const SimMake = (MAP_IN) => {
     }
     for (const u of movers) {
       if (u.kind === 'minion') laneClamp(u.lane, u, 3.2);
-      u.y = clamp(u.y, 0.5, Y - 0.5);
+      u.y = clamp(u.y, -(WELL.back + WELL.r) + 0.3, Y + WELL.back + WELL.r - 0.3); // 우물 발판 끝까지 (그 안에서 어디를 밟을 수 있는지는 아래 walkable이 정함)
       // trees are solid: slide along the wall, or stay put
       if (!walkable(u.x, u.y)) {
         if (walkable(u.x, u.py)) u.y = u.py;
@@ -7182,7 +7190,7 @@ const SimMake = (MAP_IN) => {
     }
   }
 
-  // 운명의 주사위 (에이스 Q): 굴린 눈에 따라 카드 위력이 달라짐 (경기 난수)
+  // 운명의 주사위 (리암 Q — 예전 이름 에이스): 굴린 눈에 따라 카드 위력이 달라짐 (경기 난수)
   function throwDice(S, u, t, sk) {
     const n = 1 + Math.floor(S.r() * 6), mul = n === 1 ? 0.3 : n <= 3 ? 1 : n <= 5 ? 1.5 : 2.2;
     S.proj.push({ x: u.x, y: u.y, z: 0.8, id: t.id, src: u.id, team: u.team, dmg: skDmg(u, sk, 'q') * mul, speed: 20, kind: 'card', skill: true, dice: n,
@@ -7980,7 +7988,7 @@ const Render = (() => {
   let XMIN = -9, XMAX = 9, YMIN = 0, YMAX = 40, TX = 19, TY = 41, LANE_Y = 40;
   let SQ = { uMin: -49, uMax: 9, vMin: -9, vMax: 49 };
   function setGeom(M) {
-    const G = M.grid; SQ = M.sq; LANE_Y = M.yMax;
+    const G = M.grid; SQ = M.sq; LANE_Y = M.yMax; WELLG = M.well && M.fountains ? { r: M.well.r, wall: M.well.wall, pts: M.fountains } : null;
     XMIN = G.xMin; XMAX = G.xMax; YMIN = G.yMin; YMAX = G.yMax; TX = XMAX - XMIN + 1; TY = YMAX - YMIN + 1;
     W = (SQ.uMax - SQ.uMin) * 8 + BM.x * 2; OX = BM.x - SQ.uMin * 8;
     H = (SQ.vMax - SQ.vMin) * 4 + BM.t + BM.b; OY = BM.t - SQ.vMin * 4;
@@ -7988,14 +7996,19 @@ const Render = (() => {
   }
   // 디오라마 판 (v0.99.36): 맵 정사각형 둘레에 숲 액자(FRAME px, 바깥선은 노이즈로 구불구불) + 아래쪽 흙 단면(SIDE_H). 그 바깥은 투명(배경)
   const BM = { x: 60, t: 60, b: 80 }, BOARD = { l: 0, r: 0, t: 0, b: 0 }, FRAME = 26, SIDE_H = 14;
+  // 우물 발판 (v0.99.107): 맵 정사각형 밖으로 둥글게 나온 자리 — 판·안개·미니맵이 그 부분까지 맵으로 침
+  let WELLG = null;
+  const wellD = (x, y) => { let d = 1e9; if (WELLG) for (const f of WELLG.pts) d = Math.min(d, Math.hypot(x - f.x, y - f.y)); return d; };
+  const onPad = (x, y) => !!WELLG && wellD(x, y) <= WELLG.r;
   function boardAt(px, py) {
     const dx = Math.max(0, BOARD.l - px, px - BOARD.r), dy = Math.max(0, BOARD.t - py, py - BOARD.b);
     if (!dx && !dy) return true;
+    if (WELLG) { const [wx, wy] = unIso(px + 0.5, py + 0.5); if (wellD(wx, wy) <= WELLG.r + WELLG.wall + 0.9) return true; } // 발판 + 둘레 벽(+ 숲 가장자리 조금)
     const wob = (vn(px / 26, py / 26, 191) - 0.5) * 16 + (vn(px / 8, py / 8, 192) - 0.5) * 5; // 큰 굴곡 + 잔 굴곡
     return Math.hypot(dx, dy) <= FRAME + wob;
   }
   // inside the square map (a diamond in world x/y)
-  const inMap = (x, y) => { const u = x - y, v = x + y; return u >= SQ.uMin && u <= SQ.uMax && v >= SQ.vMin && v <= SQ.vMax; };
+  const inMap = (x, y) => { const u = x - y, v = x + y; return (u >= SQ.uMin && u <= SQ.uMax && v >= SQ.vMin && v <= SQ.vMax) || onPad(x, y); };
   const tIdx = (ix, iy) => (iy - YMIN) * TX + ix - XMIN;
   const inGrid = (ix, iy) => ix >= XMIN && ix <= XMAX && iy >= YMIN && iy <= YMAX;
   const iso = (x, y) => [OX + (x - y) * 8, OY + (x + y) * 4];
@@ -8084,9 +8097,11 @@ const Render = (() => {
     ]],
     // 2차 추가 챔피언 + 곰덫 (임시 도트)
     gambler: [[
-      '...kkkkk....', '...keeeek...', '.kkeeeeekk..', '.keeeyeeek..', '..kssssssk..', '..kskssksk.k', '...kssssk.kw', '..kkAAAAkkwR', '.kBkAyyAkBkk', '.kskAAAAksk.', '...kCCCCk...', '...kCk.kCk..', '...kek.kek..', '...kk..kk...'
+      '...ebbyk....', '.kbbebyyk...', '..eeensykYYY', '.kensksnkYRY', '..enssns.YYY', '..kensnk....', '.BMyAnyAB.sn',
+      'kBMAyACABns.', 'knAAyAAkBM..', '.nnAAACk....', '..kCACCA....', '..kCCkACk...', '..kCk.kCk...', '.kbek.kbek..',
     ], [
-      '...kkkkk....', '...keeeek...', '.kkeeeeekk..', '.keeeyeeek..', '..kssssssk..', '..kskssksk.k', '...kssssk.kw', '..kkAAAAkkwR', '.kBkAyyAkBkk', '.kskAAAAksk.', '...kCCCCk...', '...kCkkCk...', '..kek..kek..', '..kk....kk..'
+      '...ebbyk....', '.kbbebyyk...', '..eeensykYYY', '.kensksnkYRY', '..enssns.YYY', '..kensnk....', '.BMyAnyAB.sn',
+      'kBMAyACABns.', 'knAAyAAkBM..', '.nnAAACk....', '..kCACCA....', '...CAkCCk...', '...kCk.Cbe..', '..kbek.kk...',
     ]],
     trapper: [[
       '....kkkk....', '...kbbbbk...', '..kbbbbbbk..', '..kbssssbk..', '..kbsksskk..', '...kssssk...', '..kkGGGGkk..', '.kbkGAAGkbk.', '.kbkGGGGkbk.', '..kkbbbbkkM.', '...kCCCCkMkM', '...kCk.kCkM.', '...kbk.kbk..', '...kk..kk...'
@@ -8864,6 +8879,7 @@ const Render = (() => {
     for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
       const din = Math.min(px - BOARD.l, BOARD.r - px, (py - BOARD.t) * 2, (BOARD.b - py) * 2); if (din < 0 || din > 10) continue;
       const i = py * W + px, t = tArr[i]; if (t === 'forest' || t === 'void' || t === 'lane') continue;
+      if (WELLG) { const [wx, wy] = unIso(px + 0.5, py + 0.5); if (onPad(wx, wy)) continue; } // 우물 발판은 가장자리 숲으로 덮지 않음
       if (din < 2 + vn(px / 14, py / 14, 195) * 8) tArr[i] = 'void';
     }
     boardMask = new Uint8Array(W * H);
@@ -9158,7 +9174,7 @@ const Render = (() => {
   // top-down coords: u = x - y, v = x + y  (iso without the vertical squash)
   const TD = { n: 150, u0: -50, v0: -10, span: 60, bg: null, tile: null, img: null, ctx: null, canvas: null };
   function buildTopMini(Sim) {
-    TD.span = Math.max(SQ.uMax - SQ.uMin, SQ.vMax - SQ.vMin); TD.u0 = (SQ.uMin + SQ.uMax) / 2 - TD.span / 2; TD.v0 = (SQ.vMin + SQ.vMax) / 2 - TD.span / 2;
+    TD.span = Math.max(SQ.uMax - SQ.uMin, SQ.vMax - SQ.vMin) + (WELLG ? 6 : 0); TD.u0 = (SQ.uMin + SQ.uMax) / 2 - TD.span / 2; TD.v0 = (SQ.vMin + SQ.vMax) / 2 - TD.span / 2;
     const n = TD.n;
     TD.canvas = makeCanvas(n, n); TD.ctx = TD.canvas.getContext('2d'); TD.img = TD.ctx.createImageData(n, n);
     TD.bg = new Uint8ClampedArray(n * n * 4); TD.tile = new Int16Array(n * n).fill(-1);
@@ -10241,7 +10257,7 @@ const Render = (() => {
     $('mini').addEventListener('click', (e) => {
       const r = $('mini').getBoundingClientRect();
       const w = Render.miniToWorld((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
-      cam.fx = Math.max(Sim.MAP.grid.xMin, Math.min(Sim.MAP.grid.xMax, w.x)); cam.fy = Math.max(-4, Math.min(Sim.MAP.yMax + 4, w.y));
+      cam.fx = Math.max(Sim.MAP.grid.xMin, Math.min(Sim.MAP.grid.xMax, w.x)); cam.fy = Math.max(-7, Math.min(Sim.MAP.yMax + 7, w.y));
       cam.freeUntil = performance.now() + 3000;
     });
     view.addEventListener('mousemove', (e) => { if (wardMode) hoverWorld = toWorld(e); });
@@ -10508,7 +10524,7 @@ const Render = (() => {
     // art-px delta -> world delta (inverse iso)
     const a = ax / 8, b = ay / 4;
     cam.fx = Math.max(Sim.MAP.grid.xMin, Math.min(Sim.MAP.grid.xMax, cam.fx + (a + b) / 2));
-    cam.fy = Math.max(-4, Math.min(Sim.MAP.yMax + 4, cam.fy + (b - a) / 2));
+    cam.fy = Math.max(-7, Math.min(Sim.MAP.yMax + 7, cam.fy + (b - a) / 2));
   }
   // 한타 관전 (기획서 11.18): 내가 안 싸우는데 다른 곳에서 2v2 이상 교전 → 싸우는 아군을 따라감.
   // 그 아군 싸움이 끝나면(죽음·킬·중단) 같은 한타의 다른 아군으로, 다 끝나면 1.5초 머물다 나에게. 드래그 중·설정 끔·초상화 눌러 복귀 직후엔 안 함
@@ -10561,7 +10577,8 @@ const Render = (() => {
     const R = SLAB_R;
     const G = Sim.MAP.grid, L = Sim.MAP.yMax;
     const tx = Math.max(G.xMin, Math.min(G.xMax, p.x));
-    const ty = round ? Math.max(0, Math.min(L, p.y)) : Math.max(-0.5 + R, Math.min(L + 0.5 - R, p.y));
+    const ty = round ? Math.max(Sim.MAP.fountains[1].y, Math.min(Sim.MAP.fountains[0].y, p.y)) : // 우물(맵 끝보다 뒤)에 서 있을 때도 가운데로
+      Math.max(-0.5 + R, Math.min(L + 0.5 - R, p.y));
     if (cam.snap) { cam.fx = tx; cam.fy = ty; cam.snap = false; return; }
     const k = Math.min(1, dt * 4);
     cam.fx += (tx - cam.fx) * k; cam.fy += (ty - cam.fy) * k;
