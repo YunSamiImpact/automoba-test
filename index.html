@@ -940,6 +940,8 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 .cs-slot.me { box-shadow: inset 0 0 0 1px var(--gold); }
 .cs-slot.lock b::after { content: ' ✓'; color: var(--me); }
 .cs-mid { display: flex; flex-direction: column; gap: 12px; }
+.cs-head h2 { position: relative; }
+.cs-ver { position: absolute; left: 0; top: calc(100% + 1px); font-family: var(--f-pixel); font-size: 9px; line-height: 1; color: #6b7494; letter-spacing: .5px; white-space: nowrap; pointer-events: none; } /* 지금 보고 있는 버전 (v0.99.111) — 제목 밑에 띄워서 배치는 안 건드림 */
 .cs-info { background: #0b0d14aa; border: 2px solid var(--line); padding: 10px 12px; font-size: 13px; display: grid; gap: 6px; }
 .cs-info .r1 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; } .cs-info .r1 b { font-family: var(--f-display); font-weight: 400; font-size: 20px; }
 .cs-sk { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 2px 8px; align-items: center; }
@@ -1093,7 +1095,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 </style>
 
 <header class="top">
-  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.110</small></div>
+  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.111</small></div>
   <div class="clock num" id="clock" aria-label="게임 시간">00:00</div>
   <div class="seg" role="group" aria-label="게임 속도" id="speed">
     <button data-s="0" aria-pressed="false" title="일시정지 (Space)">II</button>
@@ -1499,7 +1501,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
     </div>
   </section>
   <section class="og-scr og-select" id="ogSelect" hidden>
-    <div class="cs-head"><h2>챔피언 선택</h2><span class="t" id="csTime">30</span><div class="cs-role" id="csRole" role="group" aria-label="내 라인"><button data-role="top">탑</button><button data-role="mid">미드</button><button data-role="adc">원딜</button><button data-role="support">서폿</button></div><p id="csPhase">미드 라이너를 고르세요. 상대 픽은 로딩 화면에서 공개돼요</p></div>
+    <div class="cs-head"><h2>챔피언 선택<small class="cs-ver" id="csVer"></small></h2><span class="t" id="csTime">30</span><div class="cs-role" id="csRole" role="group" aria-label="내 라인"><button data-role="top">탑</button><button data-role="mid">미드</button><button data-role="adc">원딜</button><button data-role="support">서폿</button></div><p id="csPhase">미드 라이너를 고르세요. 상대 픽은 로딩 화면에서 공개돼요</p></div>
     <div class="cs-grid">
       <div class="cs-team blue" id="csBlue"></div>
       <div class="cs-mid"><div class="cs-pick"><div class="cs-champs" id="csChamps"></div><div class="cs-bar" id="csBar" aria-hidden="true"><i id="csThumb"></i></div></div><button class="og-play" id="csLock">선택</button><div class="cs-info" id="csInfo"></div></div>
@@ -11682,6 +11684,7 @@ const Render = (() => {
     { const ks = Object.keys(Sim.TRAITS).sort(() => Math.random() - 0.5), n = foeSkill >= 7.5 ? 2 : Math.random() < 0.6 ? 1 : 0; og.match.mid1.traits = ks.filter((k) => !Sim.TRAITS[k].legend).slice(0, n).map((k) => `${k}:${Math.max(0, Math.min(3, Math.floor(foeSkill / 2.5) - 1 + (Math.random() < 0.3 ? 1 : 0)))}`); if (foeSkill >= 6 && n && Math.random() < 0.15) og.match.mid1.traits[0] = Sim.LEGEND_KEYS[Math.floor(Math.random() * Sim.LEGEND_KEYS.length)] + ':4'; } // 상대도 실력대에 맞게 특성 카드
     for (let i = 1; i < og.match.jgFate; i++) og.match.jg0.honorLv = Math.max(og.match.jg0.honorLv, rndHonorLv()); // 행운: 좋은 인연 (여러 번 굴려 높은 쪽)
     og.pick = settings.champ; og.locked = false;
+    { const v = (document.querySelector('.brand small') || {}).textContent || ''; $('csVer').textContent = v.replace('auto MOBA prototype', '오토MOBA'); } // 지금 보고 있는 버전
     showScreen('ogSelect');
     $('csLock').disabled = false; $('csLock').textContent = '선택';
     setRoleUI();
