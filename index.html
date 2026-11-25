@@ -1090,7 +1090,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
 </style>
 
 <header class="top">
-  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.108</small></div>
+  <div class="brand"><h1>오토MOBA</h1><small>auto MOBA prototype · v0.99.109</small></div>
   <div class="clock num" id="clock" aria-label="게임 시간">00:00</div>
   <div class="seg" role="group" aria-label="게임 속도" id="speed">
     <button data-s="0" aria-pressed="false" title="일시정지 (Space)">II</button>
@@ -1295,6 +1295,7 @@ body.skill-test .slot.passive.held { outline: 2px solid var(--gold); filter: bri
     <button data-c="teach">이번 판 배운 양 +6</button>
     <button data-c="ultFx">궁극기 연출 미리보기</button>
     <button data-c="tfFx">한타 연출 미리보기</button>
+    <button data-ui="tfFxToggle">교전 연출: 켜짐 <small>끄면 교전!·한타! 띠와 멈춤이 안 나옴 (궁극기 연출은 그대로)</small></button>
     <button data-ui="fxToggle">연출(슬로우·클로즈업) 켜기/끄기</button>
     <button data-ui="skUp">숙련도 전부 +1</button>
     <button data-ui="skReset">숙련도 초기화 <small>전부 3</small></button>
@@ -10034,7 +10035,7 @@ const Render = (() => {
     buildStatic();
     homes.wrap = document.createComment('wrap'); $('wrap').before(homes.wrap);
     homes.shop = document.createComment('shop'); $('shopPanel').before(homes.shop);
-    applyTalkFeed(); setSkipIntro(skipIntro());
+    applyTalkFeed(); setSkipIntro(skipIntro()); setTfFx(tfFxOn());
     if (skipIntro()) quickStart((() => { try { const k = localStorage.getItem('moba.quickChamp'); return k && Sim.CHAMPS[k] ? k : 'knight'; } catch (e) { return 'knight'; } })()); // moba.quickChamp: 화면 확인용 (tools/screenshot 류)
     else { newGame({ pregame: false }); champSelect(); } // starts at champion select for now (lobby: cheat menu / after a game)
     bind();
@@ -10423,6 +10424,7 @@ const Render = (() => {
       if (u && u.dataset.ui === 'quickKnight') { testLane = null; showCheat(false); quickStart('knight'); return; }
       if (u && u.dataset.ui === 'quickTop') { testLane = 'top'; showCheat(false); quickStart(settings.champ || 'knight'); return; }
       if (u && u.dataset.ui === 'skipIntro') { setSkipIntro(!skipIntro()); return; }
+      if (u && u.dataset.ui === 'tfFxToggle') { setTfFx(!tfFxOn()); return; }
       if (u && u.dataset.ui === 'toLobby') { showCheat(false); showLobby(); return; }
       if (u && u.dataset.ui === 'legAll') { for (const k of Sim.LEGEND_KEYS) addCard('T', k, 4); saveCareer(); return; }
       if (u && u.dataset.ui === 'trAll') { for (const k in Sim.TRAITS) addCard('T', k, Sim.TRAITS[k].legend ? 4 : Math.floor(Math.random() * 4)); for (const k in Sim.LUCK) addCard('L', k, Math.floor(Math.random() * 4)); saveCareer(); return; }
@@ -10660,7 +10662,7 @@ const Render = (() => {
       } else if (ev.type === 'item' && (ev.who.team === 0 || S.vis[0].has(ev.who.id))) {
         fxPop(`${ev.name}!`, '#ffe58a'); fxSlow(0.4, 500);
       } else if (ev.type === 'teamfight') {
-        teamfightFx(ev);
+        if (tfFxOn()) teamfightFx(ev); // 치트로 끌 수 있음 (v0.99.109)
       } else if (ev.type === 'toad') {
         toadFx(ev);
       } else if (ev.type === 'sickle' && (ev.kind === 'toad' || ev.kind === 'steal') && (ev.who.team === 0 || S.vis[0].has(ev.who.id))) {
@@ -11431,6 +11433,13 @@ const Render = (() => {
   function applyTalkFeed() {
     $('talk').hidden = !settings.talkFeed;
     const b = document.querySelector('[data-ui="talkToggle"]'); if (b) b.textContent = `팀 대화창(초상화) ${settings.talkFeed ? '켜짐' : '꺼짐'}`;
+  }
+  // 교전 연출(교전!·한타! 띠 + 2.65초 멈춤) 켜고 끄기 — 치트 메뉴, 기기에 기억 (v0.99.109 사용자). 궁극기 컷인·처치 연출은 따로
+  const TFFX_KEY = 'moba.tfFxOff';
+  const tfFxOn = () => { try { return localStorage.getItem(TFFX_KEY) !== '1'; } catch (e) { return true; } };
+  function setTfFx(on) {
+    try { localStorage.setItem(TFFX_KEY, on ? '0' : '1'); } catch (e) { /* storage off */ }
+    const b = document.querySelector('[data-ui="tfFxToggle"]'); if (b) b.innerHTML = `교전 연출: ${on ? '켜짐' : '꺼짐'} <small>끄면 교전!·한타! 띠와 멈춤이 안 나옴 (궁극기 연출은 그대로)</small>`;
   }
   const SKIP_KEY = 'moba.skipIntro';
   const skipIntro = () => { try { return localStorage.getItem(SKIP_KEY) === '1'; } catch (e) { return false; } };
